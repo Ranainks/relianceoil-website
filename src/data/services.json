@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "icon": "FaGasPump",
+    "title": "Petroleum Product Supply",
+    "description": "We provide high-quality petroleum products to meet the needs of individuals, businesses, and industries across Ghana. All products meet NPA and GSA quality standards.",
+    "features": [
+      "Premium Petrol grades available",
+      "High-quality Diesel supply",
+      "NPA-licensed and certified"
+    ]
+  },
+  {
+    "id": 2,
+    "icon": "FaMapMarkerAlt",
+    "title": "Retail Fuel Stations",
+    "description": "Our stations are strategically located across multiple regions and operate 24/7 in key areas to ensure maximum convenience and accessibility for all customers.",
+    "features": [
+      "24/7 service at key locations",
+      "Strategically positioned nationwide",
+      "Modern dispensing technology"
+    ]
+  },
+  {
+    "id": 3,
+    "icon": "FaFire",
+    "title": "LPG Services",
+    "description": "Safe and efficient LPG refilling services for households and businesses. Our stations follow strict NPA and Ghana National Fire Service safety standards for LPG handling.",
+    "features": [
+      "Domestic and commercial LPG",
+      "Safety-trained LPG attendants",
+      "GNFS-compliant storage and dispensing"
+    ]
+  },
+  {
+    "id": 4,
+    "icon": "FaOilCan",
+    "title": "Lubricants & Oils",
+    "description": "We stock a comprehensive range of engine oils, gear oils, and automotive lubricants suitable for all vehicle types and industrial applications.",
+    "features": [
+      "Wide range of viscosity grades",
+      "Automotive and industrial lubricants",
+      "Expert product guidance available"
+    ]
+  },
+  {
+    "id": 5,
+    "icon": "FaCar",
+    "title": "Car Wash",
+    "description": "Professional car wash services are available at select Reliance Oil stations, providing exterior and interior cleaning with quality equipment.",
+    "features": [
+      "Exterior wash and interior cleaning",
+      "Available at select stations",
+      "Quick and efficient service"
+    ]
+  },
+  {
+    "id": 6,
+    "icon": "FaChartLine",
+    "title": "Fleet Management",
+    "description": "Comprehensive fleet fueling solutions for businesses with fuel tracking, bulk supply contracts, and dedicated account management to optimize fleet costs.",
+    "features": [
+      "Smart fuel card system",
+      "Real-time consumption reporting",
+      "Dedicated corporate account management"
+    ]
+  }
+]

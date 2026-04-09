@@ -1,0 +1,76 @@
+{
+  "leadership": [
+    {
+      "id": 1,
+      "name": "Joseph Oppong Cudjoe",
+      "title": "Director",
+      "bio": "Joseph Oppong Cudjoe is a founding Director of Reliance Oil Limited, providing strategic direction and governance to ensure the company's growth and compliance with Ghana's petroleum regulations.",
+      "image": "/assets/team/placeholder.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Djamong Kwesi Atta",
+      "title": "Director",
+      "bio": "Djamong Kwesi Atta serves as a Director of Reliance Oil Limited, contributing to the company's strategic planning and corporate governance framework.",
+      "image": "/assets/team/placeholder.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Charles Blay Kodwo",
+      "title": "Deputy Director",
+      "bio": "Charles Blay Kodwo serves as Deputy Director, supporting the board in overseeing operations, compliance, and business development across all regions.",
+      "image": "/assets/team/placeholder.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Emmanuel Asare Blankson",
+      "title": "Secretary",
+      "bio": "Emmanuel Asare Blankson serves as Company Secretary, responsible for corporate compliance, board communications, and legal documentation.",
+      "image": "/assets/team/placeholder.jpg"
+    }
+  ],
+  "management": [
+    {
+      "id": 5,
+      "name": "Managing Director",
+      "title": "CEO / Managing Director",
+      "department": "Executive",
+      "image": "/assets/team/placeholder.jpg"
+    },
+    {
+      "id": 6,
+      "name": "General Manager",
+      "title": "General Manager",
+      "department": "Executive",
+      "image": "/assets/team/placeholder.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Operations Manager",
+      "title": "Operations & Technical Manager",
+      "department": "Operations",
+      "image": "/assets/team/placeholder.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Finance Manager",
+      "title": "Finance & Accounting",
+      "department": "Finance",
+      "image": "/assets/team/placeholder.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Marketing Manager",
+      "title": "Sales & Marketing",
+      "department": "Marketing",
+      "image": "/assets/team/placeholder.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Legal Officer",
+      "title": "Legal",
+      "department": "Legal",
+      "image": "/assets/team/placeholder.jpg"
+    }
+  ]
+}

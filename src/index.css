@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-red: #CC0000;
+  --color-brand-red-dark: #990000;
+  --color-brand-yellow: #FFD700;
+  --color-brand-white: #FFFFFF;
+  --color-brand-dark: #111111;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #111111;
+  background-color: #FFFFFF;
+  overflow-x: hidden;
+}
+
+/* ── Reliable container ── */
+.rc {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(16px, 4vw, 48px);
+  padding-right: clamp(16px, 4vw, 48px);
+  width: 100%;
+}
+
+/* ── Section vertical rhythm ── */
+.rs { padding-top: clamp(48px, 8vw, 96px); padding-bottom: clamp(48px, 8vw, 96px); }
+.rs-sm { padding-top: clamp(32px, 5vw, 64px); padding-bottom: clamp(32px, 5vw, 64px); }
+
+/* ── Responsive grids ── */
+.rg2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 4vw, 64px);
+}
+@media (min-width: 1024px) {
+  .rg2 { grid-template-columns: 1fr 1fr; }
+  .rg2.center { align-items: center; }
+}
+
+.rg3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(16px, 3vw, 32px);
+}
+@media (min-width: 640px)  { .rg3 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .rg3 { grid-template-columns: repeat(3, 1fr); } }
+
+.rg4 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(16px, 3vw, 24px);
+}
+@media (min-width: 640px)  { .rg4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .rg4 { grid-template-columns: repeat(4, 1fr); } }
+
+.rg6 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(16px, 3vw, 32px);
+}
+@media (min-width: 1024px) { .rg6 { grid-template-columns: repeat(6, 1fr); } }
+
+/* ── Hero 2-col: hide right on mobile ── */
+.hero-right { display: none; }
+@media (min-width: 1024px) { .hero-right { display: block; } }
+
+/* ── Flex helpers ── */
+.rf { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+.rf-center { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: center; }
+
+/* ── Sticky map layout ── */
+.station-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+@media (min-width: 1024px) {
+  .station-layout { flex-direction: row; align-items: flex-start; }
+  .station-map { flex: 1; }
+  .station-list { width: 380px; flex-shrink: 0; }
+}
+
+/* ── Text helpers ── */
+.text-center-mobile { text-align: left; }
+@media (max-width: 639px) { .text-center-mobile { text-align: center; } }
+
+/* ── Card hover ── */
+.card-hover { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #CC0000; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #990000; }
+
+/* ── AOS pointer fix ── */
+[data-aos] { pointer-events: none; }
+[data-aos].aos-animate { pointer-events: auto; }
+
+/* ── Footer grid ── */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+@media (min-width: 768px)  { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1.5fr; } }
+
+/* ── Masonry gallery ── */
+.masonry { columns: 2; column-gap: 16px; }
+@media (min-width: 768px)  { .masonry { columns: 3; } }
+@media (min-width: 1024px) { .masonry { columns: 4; } }
+.masonry-item { break-inside: avoid; margin-bottom: 16px; }

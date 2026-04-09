@@ -1,0 +1,128 @@
+{
+  "petrol": [
+    {
+      "id": 1,
+      "name": "Premium Petrol 91",
+      "description": "Reliance Oil Premium Petrol 91 is a standard-grade unleaded fuel suitable for everyday passenger vehicles and motorcycles. It delivers reliable engine performance and meets Ghana NPA quality standards.",
+      "specs": {
+        "Octane Rating (RON)": "91",
+        "Sulphur Content": "≤ 150 ppm",
+        "Vapour Pressure": "45–60 kPa",
+        "Lead Content": "Unleaded"
+      },
+      "image": "/assets/products/placeholder.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Premium Petrol 95",
+      "description": "Our 95 RON petrol is formulated for modern, high-compression engines requiring superior combustion efficiency and knock resistance. It helps maintain engine cleanliness and prolongs engine life.",
+      "specs": {
+        "Octane Rating (RON)": "95",
+        "Sulphur Content": "≤ 50 ppm",
+        "Vapour Pressure": "45–60 kPa",
+        "Lead Content": "Unleaded"
+      },
+      "image": "/assets/products/placeholder.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Premium Petrol 98",
+      "description": "Reliance Oil Premium Petrol 98 is our highest-grade unleaded fuel, engineered for performance vehicles and engines with advanced ignition systems. It maximises power output and reduces carbon deposits for a cleaner, smoother ride.",
+      "specs": {
+        "Octane Rating (RON)": "98",
+        "Sulphur Content": "≤ 10 ppm",
+        "Vapour Pressure": "45–60 kPa",
+        "Lead Content": "Unleaded"
+      },
+      "image": "/assets/products/placeholder.jpg"
+    }
+  ],
+  "diesel": [
+    {
+      "id": 4,
+      "name": "Standard Diesel",
+      "description": "Reliance Oil Standard Diesel is a dependable automotive gas oil suitable for trucks, buses, generators, and construction equipment. It provides consistent energy output and reliable cold-start performance across Ghana's climate conditions.",
+      "specs": {
+        "Cetane Number": "≥ 48",
+        "Flash Point": "≥ 55°C",
+        "Sulphur Content": "≤ 3000 ppm",
+        "Density at 15°C": "820–845 kg/m³"
+      },
+      "image": "/assets/products/placeholder.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Low Sulfur Diesel",
+      "description": "Our Low Sulfur Diesel significantly reduces exhaust emissions and is compatible with modern diesel particulate filter systems. It is the preferred choice for environmentally conscious fleet operators and complies with Euro IV emission standards.",
+      "specs": {
+        "Cetane Number": "≥ 51",
+        "Flash Point": "≥ 55°C",
+        "Sulphur Content": "≤ 50 ppm",
+        "Density at 15°C": "820–840 kg/m³"
+      },
+      "image": "/assets/products/placeholder.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Bio Diesel",
+      "description": "Reliance Oil Bio Diesel is a renewable, biodegradable fuel blended from plant-based fatty acid methyl esters and conventional diesel. It reduces net CO₂ emissions and supports Ghana's transition toward sustainable energy.",
+      "specs": {
+        "Blend Ratio": "B20 (20% bio-content)",
+        "Flash Point": "≥ 130°C",
+        "Sulphur Content": "≤ 10 ppm",
+        "Cetane Number": "≥ 50"
+      },
+      "image": "/assets/products/placeholder.jpg"
+    }
+  ],
+  "lubricants": [
+    {
+      "id": 7,
+      "name": "Engine Oil 10W-40",
+      "description": "Reliance Engine Oil 10W-40 is a semi-synthetic multi-grade oil suitable for petrol and light-duty diesel engines in passenger cars and light commercial vehicles. It provides excellent wear protection, thermal stability, and low-temperature fluidity.",
+      "specs": {
+        "Viscosity Grade": "SAE 10W-40",
+        "Base Oil": "Semi-Synthetic",
+        "API Classification": "SL/CF",
+        "Flash Point": "≥ 220°C"
+      },
+      "image": "/assets/products/placeholder.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Engine Oil 15W-50",
+      "description": "Formulated for high-performance and high-mileage engines, our 15W-50 engine oil offers superior protection under extreme operating temperatures. It is ideal for heavy-duty vehicles operating in Ghana's demanding tropical conditions.",
+      "specs": {
+        "Viscosity Grade": "SAE 15W-50",
+        "Base Oil": "Mineral",
+        "API Classification": "SM/CF",
+        "Flash Point": "≥ 230°C"
+      },
+      "image": "/assets/products/placeholder.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Gear Oil",
+      "description": "Reliance Gear Oil is specially formulated for manual transmissions, axles, and differentials requiring extreme-pressure protection. It reduces gear wear and ensures smooth power transmission across all load conditions.",
+      "specs": {
+        "Viscosity Grade": "SAE 80W-90",
+        "API Classification": "GL-5",
+        "Flash Point": "≥ 180°C",
+        "Base Oil": "Mineral"
+      },
+      "image": "/assets/products/placeholder.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Brake Fluid",
+      "description": "Our DOT 4 Brake Fluid is engineered for disc and drum brake systems in modern vehicles, offering a high boiling point to prevent vapour lock under intensive braking. It is compatible with ABS and ESP systems.",
+      "specs": {
+        "Specification": "DOT 4",
+        "Dry Boiling Point": "≥ 230°C",
+        "Wet Boiling Point": "≥ 155°C",
+        "Viscosity at -40°C": "≤ 1800 mm²/s"
+      },
+      "image": "/assets/products/placeholder.jpg"
+    }
+  ]
+}
