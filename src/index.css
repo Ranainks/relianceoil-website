@@ -82,9 +82,11 @@ body {
   gap: 24px;
 }
 @media (min-width: 1024px) {
-  .station-layout { flex-direction: row; align-items: flex-start; }
-  .station-map { flex: 1; }
-  .station-list { width: 380px; flex-shrink: 0; }
+  .station-layout { flex-direction: row; align-items: flex-start; gap: 28px; }
+  .station-map { flex: 1; position: sticky; top: 88px; }
+  .station-list { width: 400px; flex-shrink: 0; max-height: calc(100vh - 120px); overflow-y: auto; }
+  .station-list::-webkit-scrollbar { width: 4px; }
+  .station-list::-webkit-scrollbar-thumb { background: #CC0000; border-radius: 4px; }
 }
 
 /* ── Text helpers ── */

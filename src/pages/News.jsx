@@ -1,4 +1,4 @@
-import blogsData from '../data/blogs.json';
+import { supabase } from '../lib/supabase';
 import { useState, useEffect } from 'react';
 import PageHero from '../components/PageHero';
 import SectionLabel from '../components/SectionLabel';
@@ -19,9 +19,18 @@ const categoryColors = {
 export default function News() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [visibleCount, setVisibleCount] = useState(6);
+  const [blogsData, setblogsData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     AOS.init({ offset: 100, duration: 800, once: true });
+  }, []);
+
+  useEffect(() => {
+    supabase.from('posts').select('*').eq('published', true).order('date', { ascending: false }).then(({ data, error }) => {
+      if (!error && data) setblogsData(data);
+      setLoading(false);
+    });
   }, []);
 
   const featuredBlog = blogsData.find((b) => b.featured) || blogsData[0];
@@ -40,6 +49,10 @@ export default function News() {
         bgImage="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1600&q=85"
       />
 
+      {loading ? (
+        <div style={{ textAlign: 'center', padding: '60px 0', color: '#888' }}>Loading news...</div>
+      ) : (
+        <>
       <section className="rs" style={{ backgroundColor: '#ffffff' }}>
         <div className="rc">
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2.5rem' }}>
@@ -328,6 +341,8 @@ export default function News() {
           )}
         </div>
       </section>
+        </>
+      )}
     </div>
   );
 }

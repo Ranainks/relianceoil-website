@@ -1,4 +1,4 @@
-import outletsData from '../data/outlets.json';
+import { supabase } from '../lib/supabase';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import PageHero from '../components/PageHero';
 import AOS from 'aos';
@@ -47,7 +47,16 @@ export default function FindStation() {
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [directingTo, setDirectingTo] = useState(null);
   const [loadingDirections, setLoadingDirections] = useState(false);
+  const [outletsData, setOutletsData] = useState([]);
+  const [loadingData, setLoadingData] = useState(true);
   const mapRef = useRef(null);
+
+  useEffect(() => {
+    supabase.from('outlets').select('*').order('id').then(({ data, error }) => {
+      if (!error && data) setOutletsData(data);
+      setLoadingData(false);
+    });
+  }, []);
 
   useEffect(() => {
     AOS.init({ offset: 100, duration: 800, once: true });
@@ -342,7 +351,9 @@ export default function FindStation() {
               </p>
 
               <div style={{ maxHeight: '500px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {filteredOutlets.length === 0 ? (
+                {loadingData ? (
+                  <div style={{ textAlign: 'center', padding: '40px 0', color: '#888' }}>Loading stations...</div>
+                ) : filteredOutlets.length === 0 ? (
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '48px 0', textAlign: 'center' }}>
                     <FaSearch style={{ fontSize: '32px', color: '#ddd', marginBottom: '12px' }} />
                     <span style={{ fontSize: '0.875rem', color: '#9ca3af' }}>No stations found</span>

@@ -31,6 +31,5 @@
   {"id":30,"name":"Reliance Oil — Techiman Hansua","region":"Bono East","address":"Techiman Hansua, Bono East Region","phone":"+233 30 222 0030","hours":"Open 24 Hours","lat":7.5833,"lng":-1.9333,"services":["Petrol","Diesel","Lubricants","LPG"],"status":"open"},
   {"id":31,"name":"Reliance Oil — Techiman Kenten","region":"Bono East","address":"Techiman Kenten, Bono East Region","phone":"+233 30 222 0031","hours":"Coming Soon","lat":7.5900,"lng":-1.9400,"services":["Petrol","Diesel"],"status":"under_construction"},
   {"id":32,"name":"Reliance Oil — Techiman Kasapa","region":"Bono East","address":"Techiman Kasapa, Bono East Region","phone":"+233 30 222 0032","hours":"Coming Soon","lat":7.5700,"lng":-1.9200,"services":["Petrol","Diesel"],"status":"under_construction"},
-  {"id":33,"name":"Reliance Oil — Sunyani","region":"Bono East","address":"Sunyani, Bono East Region","phone":"+233 30 222 0033","hours":"Coming Soon","lat":7.3350,"lng":-2.3267,"services":["Petrol","Diesel"],"status":"under_construction"},
-  {"id":34,"name":"Reliance Oil — Tema Community 7","region":"Greater Accra","address":"Tema, Community 7, Greater Accra","phone":"+233 30 222 0000","hours":"Open 24 Hours","lat":5.6698,"lng":0.0166,"services":["Petrol","Diesel","Lubricants","Car Wash","LPG","Convenience Store"],"status":"open"}
+  {"id":33,"name":"Reliance Oil — Sunyani","region":"Bono East","address":"Sunyani, Bono East Region","phone":"+233 30 222 0033","hours":"Coming Soon","lat":7.3350,"lng":-2.3267,"services":["Petrol","Diesel"],"status":"under_construction"}
 ]

@@ -1,5 +1,5 @@
-import teamData from '../data/team.json';
-import { useEffect } from 'react';
+import { supabase } from '../lib/supabase';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -15,6 +15,20 @@ const getInitials = (name) => {
 };
 
 export default function OurTeam() {
+  const [leadership, setLeadership] = useState([]);
+  const [management, setManagement] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase.from('team').select('*').order('order_index').then(({ data, error }) => {
+      if (!error && data) {
+        setLeadership(data.filter(m => m.is_leadership));
+        setManagement(data.filter(m => !m.is_leadership));
+      }
+      setLoading(false);
+    });
+  }, []);
+
   useEffect(() => {
     AOS.init({ offset: 100, duration: 800, once: true });
   }, []);
@@ -26,6 +40,8 @@ export default function OurTeam() {
         subtitle="The dedicated professionals driving Reliance Oil's success across Ghana."
         breadcrumb={[{ label: 'Our Team', path: '/our-team' }]}
       />
+
+      {loading && <div style={{ textAlign: 'center', padding: '60px 0', color: '#888' }}>Loading team...</div>}
 
       <section className="rs" style={{ backgroundColor: '#ffffff' }}>
         <div className="rc">
@@ -44,7 +60,7 @@ export default function OurTeam() {
           </div>
 
           <div className="rg2" style={{ maxWidth: '64rem', margin: '0 auto' }}>
-            {teamData.leadership.map((member, index) => (
+            {leadership.map((member, index) => (
               <div
                 key={member.id}
                 data-aos="fade-up"
@@ -149,7 +165,7 @@ export default function OurTeam() {
                   <p
                     style={{ color: '#CC0000', fontWeight: 600, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '1rem' }}
                   >
-                    {member.title}
+                    {member.role}
                   </p>
                   <p style={{ fontSize: '0.875rem', color: '#888', lineHeight: 1.65 }}>
                     {member.bio}
@@ -178,7 +194,7 @@ export default function OurTeam() {
           </div>
 
           <div className="rg4">
-            {teamData.management.map((member, index) => (
+            {management.map((member, index) => (
               <div
                 key={member.id}
                 data-aos="zoom-in"
@@ -279,7 +295,7 @@ export default function OurTeam() {
                     {member.name}
                   </p>
                   <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#CC0000', fontWeight: 600, marginBottom: '0.25rem' }}>
-                    {member.title}
+                    {member.role}
                   </p>
                   <p style={{ fontSize: '0.75rem', color: '#bbb' }}>
                     {member.department}

@@ -1,5 +1,5 @@
-import servicesData from '../data/services.json';
-import { useEffect } from 'react';
+import { supabase } from '../lib/supabase';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageHero from '../components/PageHero';
 import SectionLabel from '../components/SectionLabel';
@@ -42,6 +42,16 @@ export default function Services() {
     AOS.init({ offset: 100, duration: 800, once: true });
   }, []);
 
+  const [servicesData, setServicesData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase.from('services').select('*').order('order_index').then(({ data, error }) => {
+      if (!error && data) setServicesData(data);
+      setLoading(false);
+    });
+  }, []);
+
   return (
     <div>
       <PageHero
@@ -61,6 +71,9 @@ export default function Services() {
               End-to-End Petroleum Solutions
             </h2>
           </div>
+          {loading ? (
+            <div style={{ textAlign: 'center', padding: '60px 0', color: '#888' }}>Loading services...</div>
+          ) : (
           <div className="rg3" style={{ marginTop: '48px' }}>
             {servicesData.map((service, index) => (
               <div
@@ -114,6 +127,7 @@ export default function Services() {
               </div>
             ))}
           </div>
+          )}
         </div>
       </section>
 
