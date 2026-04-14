@@ -1,5 +1,5 @@
-import productsData from '../data/products.json';
 import { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
 import { motion, AnimatePresence } from 'framer-motion';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -27,6 +27,19 @@ const qualityItems = [
 
 export default function Products() {
   const [activeTab, setActiveTab] = useState('petrol');
+  const [productsData, setProductsData] = useState({ petrol: [], diesel: [], lubricants: [] });
+
+  useEffect(() => {
+    supabase.from('products').select('*').order('order_index').then(({ data }) => {
+      if (data) {
+        setProductsData({
+          petrol: data.filter(p => p.category === 'petrol'),
+          diesel: data.filter(p => p.category === 'diesel'),
+          lubricants: data.filter(p => p.category === 'lubricants'),
+        });
+      }
+    });
+  }, []);
 
   useEffect(() => {
     AOS.init({ offset: 100, duration: 800, once: true });

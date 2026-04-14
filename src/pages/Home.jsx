@@ -23,6 +23,7 @@ import {
 } from 'react-icons/fa';
 import SectionLabel from '../components/SectionLabel';
 import blogsData from '../data/blogs.json';
+import { supabase } from '../lib/supabase';
 
 const whoWeAreStats = [
   { value: 34, suffix: '+', label: 'Stations Nationwide' },
@@ -55,31 +56,11 @@ const faqs = [
   { q: 'Which Reliance Oil stations are open 24 hours?', a: 'Many of our stations across Greater Accra, Ashanti, and Western regions operate 24/7. Check the Find a Station page for specific hours at each location.' },
 ];
 
-const heroSlides = [
+const fallbackSlides = [
   {
     img: 'https://images.unsplash.com/photo-1562757219-2ffc897f99e3?w=1600&q=85',
     headline: "Fuelling Ghana's Growth",
     sub: 'Delivering quality petroleum products and exceptional service across 34+ stations in 6 regions throughout Ghana.',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1700051351886-7c9f812563da?w=1600&q=85',
-    headline: 'Quality You Can Trust',
-    sub: 'NPA licensed and GSA certified fuel products at every Reliance Oil station, meeting the highest industry standards.',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1723021939081-31f4ab31456a?w=1600&q=85',
-    headline: '34+ Stations Nationwide',
-    sub: 'Strategically located across Greater Accra, Ashanti, Western, Central, Eastern and Bono East regions.',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1700165841919-8ca5cb874c98?w=1600&q=85',
-    headline: 'Serving You 24/7',
-    sub: 'Round-the-clock petroleum products and services at Reliance Oil stations across Ghana.',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1771575519808-53cdb4c36fa5?w=1600&q=85',
-    headline: 'Reliable Bulk Fuel Supply',
-    sub: 'Comprehensive fleet management and bulk fuel delivery solutions for businesses of all sizes across Ghana.',
   },
 ];
 
@@ -92,6 +73,13 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const [slideAutoPlay, setSlideAutoPlay] = useState(true);
+  const [heroSlides, setHeroSlides] = useState(fallbackSlides);
+
+  useEffect(() => {
+    supabase.from('hero_slides').select('*').eq('active', true).order('order_index').then(({ data }) => {
+      if (data && data.length > 0) setHeroSlides(data);
+    });
+  }, []);
 
   const statsRef = useRef(null);
   const countersRef = useRef([]);
