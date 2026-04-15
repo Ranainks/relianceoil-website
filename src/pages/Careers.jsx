@@ -51,7 +51,7 @@ export default function Careers() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, phone, position, coverLetter } = formData;
     if (!name || !email || !phone || !position || !coverLetter) {
@@ -60,10 +60,31 @@ export default function Careers() {
     }
     setIsSubmitting(true);
     setFormStatus('idle');
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      let cv_url = null;
+      const cvFile = fileInputRef.current?.files[0];
+      if (cvFile) {
+        const fileName = `${Date.now()}_${cvFile.name.replace(/\s+/g, '_')}`;
+        const { error: uploadError } = await supabase.storage.from('cvs').upload(fileName, cvFile);
+        if (!uploadError) cv_url = fileName;
+      }
+      const { error } = await supabase.from('applications').insert({
+        name,
+        email,
+        phone,
+        position,
+        cover_letter: coverLetter,
+        cv_url,
+      });
+      if (error) throw error;
       setFormStatus('success');
-    }, 1500);
+      setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });
+      setCvFileName('');
+    } catch {
+      setFormStatus('submiterror');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputStyle = {
@@ -478,6 +499,11 @@ export default function Careers() {
               {formStatus === 'error' && (
                 <div style={{ marginTop: '1.5rem', backgroundColor: '#fff1f2', border: '1px solid #fecaca', color: '#CC0000', padding: '1.25rem', borderRadius: '0.75rem', fontSize: '0.875rem' }}>
                   Please fill in all required fields before submitting.
+                </div>
+              )}
+              {formStatus === 'submiterror' && (
+                <div style={{ marginTop: '1.5rem', backgroundColor: '#fff1f2', border: '1px solid #fecaca', color: '#CC0000', padding: '1.25rem', borderRadius: '0.75rem', fontSize: '0.875rem' }}>
+                  Something went wrong. Please try again or contact us directly.
                 </div>
               )}
             </div>
