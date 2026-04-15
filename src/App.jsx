@@ -7,6 +7,7 @@ import 'aos/dist/aos.css'
 import LoadingScreen from './components/LoadingScreen'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import FuelPriceTicker from './components/FuelPriceTicker'
 import './index.css'
 
 const Home = lazy(() => import('./pages/Home'))
@@ -71,6 +72,7 @@ function App() {
       {!loading && (
         <>
           <Navbar />
+        <FuelPriceTicker />
           <main>
             <AnimatedRoutes />
           </main>
