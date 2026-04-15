@@ -14,6 +14,7 @@ import {
   FaUpload,
   FaArrowRight,
 } from 'react-icons/fa';
+import { supabase } from '../lib/supabase';
 
 const perks = [
   { icon: FaBriefcase, title: 'Continuous Learning', text: 'We invest in training and development programs to help our staff grow professionally.' },
@@ -22,18 +23,7 @@ const perks = [
   { icon: FaStar, title: 'Performance Driven', text: 'We recognise and reward excellence, creating a motivating environment for high performers.' },
 ];
 
-const jobs = [
-  { id: 1, title: 'Station Manager', department: 'Operations', location: 'Multiple Regions', type: 'Full-time', desc: 'Manage daily operations at a Reliance Oil filling station including staff supervision, inventory, and safety compliance.' },
-  { id: 2, title: 'Fuel Attendant', department: 'Operations', location: 'Multiple Regions', type: 'Full-time', desc: 'Provide excellent customer service while dispensing fuel safely and accurately across our station network.' },
-  { id: 3, title: 'Sales & Marketing Officer', department: 'Sales & Marketing', location: 'Head Office', type: 'Full-time', desc: 'Develop and execute marketing campaigns to promote Reliance Oil\'s brand, products, and services across Ghana.' },
-  { id: 4, title: 'Financial Accountant', department: 'Finance', location: 'Head Office', type: 'Full-time', desc: 'Manage financial records, prepare reports, and ensure compliance with Ghana\'s financial and tax regulations.' },
-  { id: 5, title: 'Technical Services Engineer', department: 'Technical Services', location: 'Multiple Regions', type: 'Full-time', desc: 'Oversee maintenance of equipment, fuel dispensers, and station infrastructure to ensure optimal operation.' },
-  { id: 6, title: 'HSE Officer', department: 'Operations', location: 'Multiple Regions', type: 'Full-time', desc: 'Ensure health, safety, and environmental compliance across all Reliance Oil stations and operations.' },
-  { id: 7, title: 'Administrative Officer', department: 'Administration', location: 'Head Office', type: 'Full-time', desc: 'Support administrative functions including records management, correspondence, and office coordination.' },
-  { id: 8, title: 'Fleet Coordinator', department: 'Operations', location: 'Head Office', type: 'Full-time', desc: 'Coordinate fuel delivery logistics and manage fleet operations to ensure timely and accurate product distribution.' },
-];
 
-const departmentFilters = ['All', 'Operations', 'Sales & Marketing', 'Finance', 'Technical Services', 'Administration'];
 
 export default function Careers() {
   const [expandedJob, setExpandedJob] = useState(null);
@@ -42,15 +32,19 @@ export default function Careers() {
   const [formStatus, setFormStatus] = useState('idle');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cvFileName, setCvFileName] = useState('');
+  const [jobs, setJobs] = useState([]);
   const formRef = useRef(null);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
     AOS.init({ offset: 100, duration: 800, once: true });
+    supabase.from('jobs').select('*').eq('status', 'open').order('order_index').then(({ data }) => {
+      if (data) setJobs(data);
+    });
   }, []);
 
-  const filteredJobs =
-    activeFilter === 'All' ? jobs : jobs.filter((j) => j.department === activeFilter);
+  const departments = ['All', ...Array.from(new Set(jobs.map(j => j.department)))];
+  const filteredJobs = activeFilter === 'All' ? jobs : jobs.filter(j => j.department === activeFilter);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -169,7 +163,7 @@ export default function Careers() {
           </div>
 
           <div className="rf-center" style={{ marginBottom: '2.5rem' }}>
-            {departmentFilters.map((dept) => (
+            {departments.map((dept) => (
               <button
                 key={dept}
                 onClick={() => setActiveFilter(dept)}
@@ -267,7 +261,7 @@ export default function Careers() {
                     >
                       <div style={{ padding: '1.25rem 1.5rem 1.5rem', borderTop: '1px solid #f3f4f6' }}>
                         <p style={{ fontSize: '0.875rem', color: '#888', lineHeight: 1.65, marginBottom: '1.25rem' }}>
-                          {job.desc}
+                          {job.description}
                         </p>
                         <button
                           style={{
