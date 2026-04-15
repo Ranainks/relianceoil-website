@@ -55,7 +55,7 @@ export default function Products() {
         title="Our Products"
         subtitle="Quality petroleum products meeting Ghana Standards Authority specifications."
         breadcrumb={[{ label: 'Products', path: '/products' }]}
-        bgImage="https://images.unsplash.com/photo-1700051351886-7c9f812563da?w=1600&q=85"
+        bgImage="https://muutovkfdnabmeueqfiz.supabase.co/storage/v1/object/public/hero_slides/products-hero.jpg.jpg"
       />
 
       <section className="rs" style={{ backgroundColor: '#ffffff' }}>
