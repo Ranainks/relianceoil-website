@@ -42,7 +42,7 @@ export default function Contact() {
   }, []);
 
   const contactInfo = [
-    { icon: FaLocationDot, title: 'Head Office', info: s.contact_address || 'Bortianor (Radiance), Winneba Road\nGS-0162-3129, Weija 162', sub: s.contact_address_hours || 'Mon–Sat, 8am–5pm' },
+    { icon: FaLocationDot, title: 'Head Office', info: (s.contact_address || 'Bortianor (Radiance), Winneba Road\nGS-0162-3129, Weija 162').replace(/\\n/g, '\n'), sub: s.contact_address_hours || 'Mon–Sat, 8am–5pm' },
     { icon: FaPhone, title: 'Call Us', info: s.contact_phone || '+233 30 222 0000', sub: s.contact_phone_sub || '24/7 for emergencies' },
     { icon: FaEnvelope, title: 'Email Us', info: s.contact_email || 'info@relianceoilgh.com', sub: s.contact_email_sub || 'Response within 24hrs' },
     { icon: FaClock, title: 'Business Hours', info: s.contact_hours || 'Mon–Fri: 8am–6pm\nSat: 9am–4pm', sub: s.contact_hours_sub || 'Closed Sundays & holidays' },
@@ -333,7 +333,7 @@ export default function Contact() {
                 />
                 <div>
                   <p style={{ fontSize: '0.875rem', fontWeight: 600, color: '#111' }}>
-                    Head Office: {s.contact_address ? s.contact_address.replace(/\n/g, ', ') : 'Bortianor (Radiance), Winneba Road, GS-0162-3129, Weija 162'}
+                    Head Office: {s.contact_address ? s.contact_address.replace(/\\n|\n/g, ', ') : 'Bortianor (Radiance), Winneba Road, GS-0162-3129, Weija 162'}
                   </p>
                   <p style={{ fontSize: '0.875rem', color: '#888', marginTop: '0.25rem' }}>
                     Contact Office: Tema, Community 7, Greater Accra
