@@ -59,7 +59,7 @@ export default function Services() {
         title="Our Services"
         subtitle="Comprehensive petroleum and energy solutions for individuals, businesses and fleets across Ghana."
         breadcrumb={[{ label: 'Services', path: '/services' }]}
-        bgImage="https://images.unsplash.com/photo-1562757219-2ffc897f99e3?w=1600&q=85"
+        bgImage="https://muutovkfdnabmeueqfiz.supabase.co/storage/v1/object/public/hero_slides/services-hero.jpg.JPG"
       />
 
       <section className="rs" style={{ backgroundColor: '#ffffff' }}>
