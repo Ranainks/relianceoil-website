@@ -86,26 +86,35 @@ export default function OurTeam() {
                     justifyContent: 'center',
                     position: 'relative',
                     background: 'linear-gradient(135deg,#0D0D0D,#1a0000 50%,#CC0000)',
+                    overflow: 'hidden',
                   }}
                 >
-                  <div
-                    style={{
-                      width: 72,
-                      height: 72,
-                      backgroundColor: '#FFD700',
-                      fontWeight: 900,
-                      fontSize: '1.3rem',
-                      color: '#111',
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      position: 'relative',
-                      zIndex: 10,
-                    }}
-                  >
-                    {getInitials(member.name)}
-                  </div>
+                  {member.photo_url ? (
+                    <img
+                      src={member.photo_url}
+                      alt={member.name}
+                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        width: 72,
+                        height: 72,
+                        backgroundColor: '#FFD700',
+                        fontWeight: 900,
+                        fontSize: '1.3rem',
+                        color: '#111',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        position: 'relative',
+                        zIndex: 10,
+                      }}
+                    >
+                      {getInitials(member.name)}
+                    </div>
+                  )}
                   <div
                     style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', paddingBottom: '1rem', gap: '0.75rem' }}
                   >
@@ -223,22 +232,30 @@ export default function OurTeam() {
                         : 'linear-gradient(135deg,#1a0000,#CC0000)',
                   }}
                 >
-                  <div
-                    style={{
-                      width: 64,
-                      height: 64,
-                      backgroundColor: '#FFD700',
-                      fontWeight: 900,
-                      color: '#111',
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '1.125rem',
-                    }}
-                  >
-                    {getInitials(member.name)}
-                  </div>
+                  {member.photo_url ? (
+                    <img
+                      src={member.photo_url}
+                      alt={member.name}
+                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        width: 64,
+                        height: 64,
+                        backgroundColor: '#FFD700',
+                        fontWeight: 900,
+                        color: '#111',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.125rem',
+                      }}
+                    >
+                      {getInitials(member.name)}
+                    </div>
+                  )}
                   <div
                     style={{ position: 'absolute', bottom: '0.75rem', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '0.5rem' }}
                   >
