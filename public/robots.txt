@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://relianceoilgh.com/sitemap.xml
+Sitemap: https://relianceoilltd.com/sitemap.xml

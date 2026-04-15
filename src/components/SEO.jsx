@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-const BASE_URL = 'https://relianceoilgh.com';
+const BASE_URL = 'https://relianceoilltd.com';
 const DEFAULT_IMAGE = `${BASE_URL}/android-chrome-512x512.png`;
 
 export default function SEO({ title, description, path = '', image }) {
