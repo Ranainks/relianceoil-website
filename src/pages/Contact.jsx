@@ -7,35 +7,7 @@ import SectionLabel from '../components/SectionLabel';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { FaPhone, FaEnvelope, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube, FaArrowRight } from 'react-icons/fa';
 import { FaLocationDot, FaClock } from 'react-icons/fa6';
-
-const contactInfo = [
-  {
-    icon: FaLocationDot,
-    title: 'Head Office',
-    info: 'Bortianor (Radiance), Winneba Road\nGS-0162-3129, Weija 162',
-    sub: 'Mon–Sat, 8am–5pm',
-  },
-  {
-    icon: FaPhone,
-    title: 'Call Us',
-    info: '+233 30 222 0000',
-    sub: '24/7 for emergencies',
-  },
-  {
-    icon: FaEnvelope,
-    title: 'Email Us',
-    info: 'info@relianceoilgh.com',
-    sub: 'Response within 24hrs',
-  },
-  {
-    icon: FaClock,
-    title: 'Business Hours',
-    info: 'Mon–Fri: 8am–6pm\nSat: 9am–4pm',
-    sub: 'Closed Sundays & holidays',
-  },
-];
-
-const hqCenter = { lat: 5.5502, lng: -0.3272 };
+import { supabase } from '../lib/supabase';
 
 const inputStyle = {
   border: '1px solid #e5e7eb',
@@ -53,10 +25,27 @@ export default function Contact() {
   const [formStatus, setFormStatus] = useState('idle');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
+  const [s, setS] = useState({});
 
   useEffect(() => {
     AOS.init({ offset: 100, duration: 800, once: true });
+    supabase.from('settings').select('key, value').then(({ data }) => {
+      if (data) {
+        const map = {};
+        data.forEach(row => { map[row.key] = row.value; });
+        setS(map);
+      }
+    });
   }, []);
+
+  const contactInfo = [
+    { icon: FaLocationDot, title: 'Head Office', info: s.contact_address || 'Bortianor (Radiance), Winneba Road\nGS-0162-3129, Weija 162', sub: s.contact_address_hours || 'Mon–Sat, 8am–5pm' },
+    { icon: FaPhone, title: 'Call Us', info: s.contact_phone || '+233 30 222 0000', sub: s.contact_phone_sub || '24/7 for emergencies' },
+    { icon: FaEnvelope, title: 'Email Us', info: s.contact_email || 'info@relianceoilgh.com', sub: s.contact_email_sub || 'Response within 24hrs' },
+    { icon: FaClock, title: 'Business Hours', info: s.contact_hours || 'Mon–Fri: 8am–6pm\nSat: 9am–4pm', sub: s.contact_hours_sub || 'Closed Sundays & holidays' },
+  ];
+
+  const hqCenter = { lat: parseFloat(s.hq_lat || '5.5502'), lng: parseFloat(s.hq_lng || '-0.3272') };
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
@@ -307,7 +296,7 @@ export default function Contact() {
                 />
                 <div>
                   <p style={{ fontSize: '0.875rem', fontWeight: 600, color: '#111' }}>
-                    Head Office: Bortianor (Radiance), Winneba Road, GS-0162-3129, Weija 162
+                    Head Office: {s.contact_address ? s.contact_address.replace(/\n/g, ', ') : 'Bortianor (Radiance), Winneba Road, GS-0162-3129, Weija 162'}
                   </p>
                   <p style={{ fontSize: '0.875rem', color: '#888', marginTop: '0.25rem' }}>
                     Contact Office: Tema, Community 7, Greater Accra
