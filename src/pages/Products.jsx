@@ -124,7 +124,17 @@ export default function Products() {
                   onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; }}
                 >
                   <div style={{ height: '176px', background: tabGradients[activeTab], display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
-                    {product.image_url ? (
+                    {product.video_url ? (
+                      <video
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }}
+                      >
+                        <source src={product.video_url} type="video/mp4" />
+                      </video>
+                    ) : product.image_url ? (
                       <img src={product.image_url} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
                     ) : (
                       <ActiveTabIcon style={{ fontSize: '3.75rem', color: 'rgba(255,255,255,0.7)' }} />
