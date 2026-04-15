@@ -2,6 +2,7 @@ import { useState, useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { HelmetProvider } from 'react-helmet-async'
+import { Analytics } from '@vercel/analytics/react'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import LoadingScreen from './components/LoadingScreen'
@@ -79,6 +80,7 @@ function App() {
           <Footer />
         </>
       )}
+      <Analytics />
     </BrowserRouter>
     </HelmetProvider>
   )
