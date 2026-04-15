@@ -121,8 +121,12 @@ export default function Products() {
                   onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 16px 32px rgba(0,0,0,0.1)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
                   onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; }}
                 >
-                  <div style={{ height: '176px', background: tabGradients[activeTab], display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <ActiveTabIcon style={{ fontSize: '3.75rem', color: 'rgba(255,255,255,0.7)' }} />
+                  <div style={{ height: '176px', background: tabGradients[activeTab], display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+                    {product.image_url ? (
+                      <img src={product.image_url} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
+                    ) : (
+                      <ActiveTabIcon style={{ fontSize: '3.75rem', color: 'rgba(255,255,255,0.7)' }} />
+                    )}
                   </div>
                   <div style={{ padding: '24px' }}>
                     <div style={{ fontWeight: 700, fontSize: '1.125rem', color: '#111', marginBottom: '8px' }}>{product.name}</div>
