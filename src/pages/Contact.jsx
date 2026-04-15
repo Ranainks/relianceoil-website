@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -9,6 +9,7 @@ import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { FaPhone, FaEnvelope, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube, FaArrowRight } from 'react-icons/fa';
 import { FaLocationDot, FaClock } from 'react-icons/fa6';
 import { supabase } from '../lib/supabase';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const inputStyle = {
   border: '1px solid #e5e7eb',
@@ -27,6 +28,7 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const [s, setS] = useState({});
+  const recaptchaRef = useRef(null);
 
   useEffect(() => {
     AOS.init({ offset: 100, duration: 800, once: true });
@@ -67,7 +69,7 @@ export default function Contact() {
     setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
@@ -75,12 +77,29 @@ export default function Contact() {
       setFormStatus('error');
       return;
     }
+    const captchaToken = recaptchaRef.current?.getValue();
+    if (!captchaToken) {
+      setFormStatus('captcha');
+      return;
+    }
     setIsSubmitting(true);
     setFormStatus('idle');
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const { error } = await supabase.from('messages').insert({
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      });
+      if (error) throw error;
       setFormStatus('success');
-    }, 1500);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      recaptchaRef.current?.reset();
+    } catch {
+      setFormStatus('submiterror');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -220,6 +239,12 @@ export default function Contact() {
                     />
                   </div>
 
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                    style={{ marginBottom: '16px' }}
+                  />
+
                   <button
                     type="submit"
                     disabled={isSubmitting}
@@ -265,6 +290,16 @@ export default function Contact() {
                 {formStatus === 'error' && (
                   <div style={{ backgroundColor: '#fff1f2', border: '1px solid #fecaca', color: '#CC0000', padding: '1.25rem', borderRadius: '0.75rem', fontSize: '0.875rem', marginTop: '1rem' }}>
                     Please fill in all required fields before submitting.
+                  </div>
+                )}
+                {formStatus === 'captcha' && (
+                  <div style={{ backgroundColor: '#fff1f2', border: '1px solid #fecaca', color: '#CC0000', padding: '1.25rem', borderRadius: '0.75rem', fontSize: '0.875rem', marginTop: '1rem' }}>
+                    Please complete the "I'm not a robot" check before submitting.
+                  </div>
+                )}
+                {formStatus === 'submiterror' && (
+                  <div style={{ backgroundColor: '#fff1f2', border: '1px solid #fecaca', color: '#CC0000', padding: '1.25rem', borderRadius: '0.75rem', fontSize: '0.875rem', marginTop: '1rem' }}>
+                    Something went wrong. Please try again or contact us directly.
                   </div>
                 )}
               </div>

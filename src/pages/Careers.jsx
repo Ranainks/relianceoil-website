@@ -16,6 +16,7 @@ import {
   FaArrowRight,
 } from 'react-icons/fa';
 import { supabase } from '../lib/supabase';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const perks = [
   { icon: FaBriefcase, title: 'Continuous Learning', text: 'We invest in training and development programs to help our staff grow professionally.' },
@@ -36,6 +37,7 @@ export default function Careers() {
   const [jobs, setJobs] = useState([]);
   const formRef = useRef(null);
   const fileInputRef = useRef(null);
+  const recaptchaRef = useRef(null);
 
   useEffect(() => {
     AOS.init({ offset: 100, duration: 800, once: true });
@@ -57,6 +59,11 @@ export default function Careers() {
     const { name, email, phone, position, coverLetter } = formData;
     if (!name || !email || !phone || !position || !coverLetter) {
       setFormStatus('error');
+      return;
+    }
+    const captchaToken = recaptchaRef.current?.getValue();
+    if (!captchaToken) {
+      setFormStatus('captcha');
       return;
     }
     setIsSubmitting(true);
@@ -81,6 +88,7 @@ export default function Careers() {
       setFormStatus('success');
       setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });
       setCvFileName('');
+      recaptchaRef.current?.reset();
     } catch {
       setFormStatus('submiterror');
     } finally {
@@ -448,6 +456,12 @@ export default function Careers() {
                   </div>
                 </div>
 
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                  style={{ marginBottom: '16px' }}
+                />
+
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -501,6 +515,11 @@ export default function Careers() {
               {formStatus === 'error' && (
                 <div style={{ marginTop: '1.5rem', backgroundColor: '#fff1f2', border: '1px solid #fecaca', color: '#CC0000', padding: '1.25rem', borderRadius: '0.75rem', fontSize: '0.875rem' }}>
                   Please fill in all required fields before submitting.
+                </div>
+              )}
+              {formStatus === 'captcha' && (
+                <div style={{ marginTop: '1.5rem', backgroundColor: '#fff1f2', border: '1px solid #fecaca', color: '#CC0000', padding: '1.25rem', borderRadius: '0.75rem', fontSize: '0.875rem' }}>
+                  Please complete the "I'm not a robot" check before submitting.
                 </div>
               )}
               {formStatus === 'submiterror' && (
