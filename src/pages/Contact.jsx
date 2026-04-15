@@ -309,7 +309,7 @@ export default function Contact() {
               <h3
                 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0D0D0D', marginBottom: '1.5rem' }}
               >
-                Our Headquarters
+                Our Headquarter
               </h3>
 
               <div style={{ backgroundColor: '#ffffff', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f3f4f6' }}>
@@ -333,10 +333,7 @@ export default function Contact() {
                 />
                 <div>
                   <p style={{ fontSize: '0.875rem', fontWeight: 600, color: '#111' }}>
-                    Head Office: {s.contact_address ? s.contact_address.replace(/\\n|\n/g, ', ') : 'Bortianor (Radiance), Winneba Road, GS-0162-3129, Weija 162'}
-                  </p>
-                  <p style={{ fontSize: '0.875rem', color: '#888', marginTop: '0.25rem' }}>
-                    Contact Office: Tema, Community 7, Greater Accra
+                    Head Office: Bortianor (Radiance), Winneba Road, Weija, Greater Accra
                   </p>
                   <p style={{ fontSize: '0.875rem', color: '#888', marginTop: '0.25rem' }}>
                     Postal: P.O. Box 164, Apam
