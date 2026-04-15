@@ -104,11 +104,11 @@ export default function Footer() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
             <FaPhone size={13} style={{ color: '#CC0000', flexShrink: 0 }} />
-            <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)' }}>+233 30 222 0000</span>
+            <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)' }}>+233 (0) 24747 0403 / +233 (0) 24183 4765</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <FaEnvelope size={13} style={{ color: '#CC0000', flexShrink: 0 }} />
-            <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)' }}>info@relianceoilgh.com</span>
+            <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)' }}>relianceoil2018@gmail.com</span>
           </div>
           <div style={{ marginTop: '24px' }}>
             <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '8px' }}>Stay Updated</p>
