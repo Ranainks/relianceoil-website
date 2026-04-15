@@ -121,7 +121,7 @@ export default function Services() {
                     onMouseEnter={(e) => { e.currentTarget.style.gap = '10px'; }}
                     onMouseLeave={(e) => { e.currentTarget.style.gap = '6px'; }}
                   >
-                    Learn More <FaArrowRight style={{ fontSize: '10px' }} />
+                    Enquire Now <FaArrowRight style={{ fontSize: '10px' }} />
                   </Link>
                 </div>
               </div>
