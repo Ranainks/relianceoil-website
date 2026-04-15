@@ -1,6 +1,7 @@
 import { supabase } from '../lib/supabase';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import PageHero from '../components/PageHero';
+import SEO from '../components/SEO';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow, DirectionsRenderer } from '@react-google-maps/api';
@@ -169,6 +170,7 @@ export default function FindStation() {
 
   return (
     <div>
+      <SEO title="Find a Station" description="Find your nearest Reliance Oil filling station across Ghana. Search by region or use your location to get directions to 33+ stations nationwide." path="/find-station" />
       <PageHero
         title="Find a Station"
         subtitle="Locate your nearest Reliance Oil filling station across all regions of Ghana."

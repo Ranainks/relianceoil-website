@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import PageHero from '../components/PageHero';
+import SEO from '../components/SEO';
 import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight, FaImages } from 'react-icons/fa';
 import { supabase } from '../lib/supabase';
 
@@ -43,6 +44,7 @@ export default function Gallery() {
 
   return (
     <div>
+      <SEO title="Gallery" description="Browse photos from Reliance Oil Limited's stations, events, community initiatives and team activities across Ghana." path="/gallery" />
       <PageHero
         title="Gallery"
         subtitle="A visual journey through Reliance Oil's stations, events, and community impact across Ghana."

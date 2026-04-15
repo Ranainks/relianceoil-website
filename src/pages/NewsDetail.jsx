@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import SEO from '../components/SEO';
 import { FaArrowLeft, FaCalendarAlt, FaUser, FaTag } from 'react-icons/fa';
 
 const categoryColors = {
@@ -47,6 +48,7 @@ export default function NewsDetail() {
 
   return (
     <div style={{ paddingTop: '80px', minHeight: '100vh', backgroundColor: '#ffffff' }}>
+      <SEO title={post?.title} description={post?.excerpt} path={'/news/' + slug} />
       <div style={{ background: categoryColors[post.category] || categoryColors['Company News'], padding: '60px 24px 80px' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <button

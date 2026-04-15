@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import PageHero from '../components/PageHero';
+import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { FaPhone, FaEnvelope, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube, FaArrowRight } from 'react-icons/fa';
@@ -84,6 +85,7 @@ export default function Contact() {
 
   return (
     <div>
+      <SEO title="Contact Us" description="Get in touch with Reliance Oil Limited. Visit our head office in Bortianor, call us, or send a message. We are here to help with all your petroleum needs." path="/contact" />
       <PageHero
         title="Contact Us"
         subtitle="We'd love to hear from you. Reach out to our team for any inquiries, bulk fuel orders, or support."

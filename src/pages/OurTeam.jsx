@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import PageHero from '../components/PageHero';
+import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { FaLinkedinIn, FaTwitter, FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -35,6 +36,7 @@ export default function OurTeam() {
 
   return (
     <div>
+      <SEO title="Our Team" description="Meet the leadership and management team behind Reliance Oil Limited — dedicated professionals driving Ghana's petroleum retail sector forward." path="/our-team" />
       <PageHero
         title="Our Team"
         subtitle="The dedicated professionals driving Reliance Oil's success across Ghana."

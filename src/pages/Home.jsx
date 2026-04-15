@@ -24,6 +24,7 @@ import {
 import SectionLabel from '../components/SectionLabel';
 import blogsData from '../data/blogs.json';
 import { supabase } from '../lib/supabase';
+import SEO from '../components/SEO';
 
 const whoWeAreStats = [
   { value: 34, suffix: '+', label: 'Stations Nationwide' },
@@ -135,7 +136,11 @@ export default function Home() {
 
   return (
     <div className="overflow-x-hidden">
-
+      <SEO
+        title="Quality Petroleum Products Across Ghana"
+        description="Reliance Oil Limited — NPA licensed petroleum company with 33+ filling stations across Ghana. Quality petrol, diesel, LPG, lubricants and fleet management services."
+        path="/"
+      />
       <section
         style={{ position: 'relative', overflow: 'hidden', minHeight: '100svh', paddingTop: '72px', display: 'flex', alignItems: 'center' }}
         onMouseEnter={() => setSlideAutoPlay(false)}

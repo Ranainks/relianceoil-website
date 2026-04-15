@@ -4,6 +4,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
 import PageHero from '../components/PageHero';
+import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import {
   FaBullseye,
@@ -50,6 +51,7 @@ export default function About() {
 
   return (
     <div>
+      <SEO title="About Us" description="Learn about Reliance Oil Limited — NPA licensed petroleum company founded in 2020, operating 33+ stations across 6 regions in Ghana." path="/about" />
       <PageHero
         title="About Us"
         subtitle="Powering Ghana's growth through quality petroleum products and exceptional service since 2020."

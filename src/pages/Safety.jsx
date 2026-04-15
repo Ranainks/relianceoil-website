@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import PageHero from '../components/PageHero';
+import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { FaShieldAlt, FaFire, FaBell, FaBolt, FaUsers, FaLeaf, FaCheckCircle, FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -27,6 +28,7 @@ export default function Safety() {
 
   return (
     <div>
+      <SEO title="Safety & HSE" description="Reliance Oil Limited's commitment to Health, Safety and Environment (HSE). Our safety standards protect customers, staff and communities across Ghana." path="/safety" />
       <PageHero
         title="Safety & Sustainability"
         subtitle="Safety is at the core of everything we do at Reliance Oil Limited."

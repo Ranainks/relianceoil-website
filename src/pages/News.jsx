@@ -1,6 +1,7 @@
 import { supabase } from '../lib/supabase';
 import { useState, useEffect } from 'react';
 import PageHero from '../components/PageHero';
+import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
@@ -42,6 +43,7 @@ export default function News() {
 
   return (
     <div>
+      <SEO title="News & Updates" description="Stay informed with the latest news, company updates, industry insights and community initiatives from Reliance Oil Limited." path="/news" />
       <PageHero
         title="News & Updates"
         subtitle="Stay informed about Reliance Oil's latest developments, industry insights, and community initiatives."

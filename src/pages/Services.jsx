@@ -2,6 +2,7 @@ import { supabase } from '../lib/supabase';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageHero from '../components/PageHero';
+import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import {
   FaGasPump,

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import PageHero from '../components/PageHero';
+import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { FaGasPump, FaTruck, FaOilCan, FaAward, FaShieldAlt, FaLeaf } from 'react-icons/fa';
 
@@ -49,6 +50,7 @@ export default function Products() {
 
   return (
     <div>
+      <SEO title="Our Products" description="Explore Reliance Oil's range of petroleum products including Premium Petrol (91, 95, 98 RON), Diesel, Bio Diesel, Engine Oils and Lubricants. GSA certified quality." path="/products" />
       <PageHero
         title="Our Products"
         subtitle="Quality petroleum products meeting Ghana Standards Authority specifications."
