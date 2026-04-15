@@ -108,7 +108,7 @@ export default function Footer() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <FaEnvelope size={13} style={{ color: '#CC0000', flexShrink: 0 }} />
-            <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)' }}>relianceoil2018@gmail.com</span>
+            <a href="mailto:relianceoil2018@gmail.com" style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }} onMouseEnter={(e) => e.currentTarget.style.color = '#FFD700'} onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.6)'}>relianceoil2018@gmail.com</a>
           </div>
           <div style={{ marginTop: '24px' }}>
             <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '8px' }}>Stay Updated</p>
