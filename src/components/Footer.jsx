@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube, FaPhone, FaEnvelope } from 'react-icons/fa';
 import { FaLocationDot, FaArrowRight } from 'react-icons/fa6';
 import Logo from './Logo';
+import { supabase } from '../lib/supabase';
 
 const quickLinks = [
   { label: 'Home', path: '/' },
@@ -28,6 +30,25 @@ const socialIcons = [
 ];
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [subStatus, setSubStatus] = useState('idle');
+
+  async function handleSubscribe() {
+    const trimmed = email.trim();
+    if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      setSubStatus('invalid');
+      return;
+    }
+    setSubStatus('loading');
+    const { error } = await supabase.from('newsletter').insert({ email: trimmed });
+    if (error) {
+      setSubStatus(error.code === '23505' ? 'duplicate' : 'error');
+    } else {
+      setSubStatus('success');
+      setEmail('');
+    }
+  }
+
   return (
     <footer style={{ backgroundColor: '#0D0D0D', color: '#ffffff' }}>
       <div className="rc footer-grid" style={{ padding: '64px 24px', gap: '40px' }}>
@@ -116,18 +137,28 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Your email"
+                value={email}
+                onChange={e => { setEmail(e.target.value); setSubStatus('idle'); }}
+                onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
+                disabled={subStatus === 'loading' || subStatus === 'success'}
                 style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRight: 'none', borderRadius: '9999px 0 0 9999px', padding: '10px 16px', fontSize: '0.875rem', color: '#ffffff', outline: 'none' }}
                 onFocus={(e) => e.currentTarget.style.borderColor = '#FFD700'}
                 onBlur={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
               />
               <button
-                style={{ backgroundColor: '#FFD700', color: '#000000', padding: '10px 20px', borderRadius: '0 9999px 9999px 0', fontWeight: '700', fontSize: '0.875rem', border: 'none', cursor: 'pointer', transition: 'background-color 0.2s' }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#FFE033'}
+                onClick={handleSubscribe}
+                disabled={subStatus === 'loading' || subStatus === 'success'}
+                style={{ backgroundColor: '#FFD700', color: '#000000', padding: '10px 20px', borderRadius: '0 9999px 9999px 0', fontWeight: '700', fontSize: '0.875rem', border: 'none', cursor: subStatus === 'loading' || subStatus === 'success' ? 'default' : 'pointer', transition: 'background-color 0.2s', opacity: subStatus === 'loading' ? 0.7 : 1 }}
+                onMouseEnter={(e) => { if (subStatus !== 'loading' && subStatus !== 'success') e.currentTarget.style.backgroundColor = '#FFE033'; }}
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FFD700'}
               >
-                →
+                {subStatus === 'loading' ? '...' : '→'}
               </button>
             </div>
+            {subStatus === 'success' && <p style={{ fontSize: '0.75rem', color: '#4ade80', marginTop: '8px' }}>Subscribed! Thank you.</p>}
+            {subStatus === 'duplicate' && <p style={{ fontSize: '0.75rem', color: '#FFD700', marginTop: '8px' }}>Already subscribed.</p>}
+            {subStatus === 'invalid' && <p style={{ fontSize: '0.75rem', color: '#f87171', marginTop: '8px' }}>Enter a valid email.</p>}
+            {subStatus === 'error' && <p style={{ fontSize: '0.75rem', color: '#f87171', marginTop: '8px' }}>Something went wrong. Try again.</p>}
           </div>
         </div>
       </div>
