@@ -42,11 +42,11 @@ const services = [
   { icon: FaStar, title: 'Fleet Management', desc: 'Comprehensive fleet fueling solutions with smart tracking and bulk supply contracts.', slug: 'fleet-management' },
 ];
 
-const testimonials = [
-  { name: 'Kwame Asante', role: 'Fleet Manager, Accra Logistics Ltd', text: 'Reliance Oil has been our go-to fuel supplier for 5 years. Their consistent quality and nationwide coverage makes fleet management seamless across all our routes.', stars: 5 },
-  { name: 'Abena Mensah', role: 'Small Business Owner, Kumasi', text: 'The fuel service at my local Reliance station is outstanding. The staff are always helpful and the prices are very competitive. Highly recommended!', stars: 5 },
-  { name: 'Kofi Darko', role: 'Operations Director, Western Cement Co.', text: 'We rely on Reliance Oil for all our bulk fuel needs. Their delivery is always on time and their quality checks give us complete confidence.', stars: 5 },
-  { name: 'Akosua Boateng', role: 'Transport Manager, GhanaLink Bus', text: 'Having Reliance Oil stations across Ghana means our buses are never stranded. Their 24/7 service is a game-changer for our operations.', stars: 5 },
+const fallbackReviews = [
+  { name: 'Kwame Asante', role: 'Fleet Manager, Accra Logistics Ltd', message: 'Reliance Oil has been our go-to fuel supplier for 5 years. Their consistent quality and nationwide coverage makes fleet management seamless across all our routes.', rating: 5 },
+  { name: 'Abena Mensah', role: 'Small Business Owner, Kumasi', message: 'The fuel service at my local Reliance station is outstanding. The staff are always helpful and the prices are very competitive. Highly recommended!', rating: 5 },
+  { name: 'Kofi Darko', role: 'Operations Director, Western Cement Co.', message: 'We rely on Reliance Oil for all our bulk fuel needs. Their delivery is always on time and their quality checks give us complete confidence.', rating: 5 },
+  { name: 'Akosua Boateng', role: 'Transport Manager, GhanaLink Bus', message: 'Having Reliance Oil stations across Ghana means our buses are never stranded. Their 24/7 service is a game-changer for our operations.', rating: 5 },
 ];
 
 const faqs = [
@@ -69,10 +69,14 @@ export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [slideAutoPlay, setSlideAutoPlay] = useState(true);
   const [heroSlides, setHeroSlides] = useState([]);
+  const [reviews, setReviews] = useState(fallbackReviews);
 
   useEffect(() => {
     supabase.from('hero_slides').select('*').eq('active', true).order('order_index').then(({ data }) => {
       if (data && data.length > 0) setHeroSlides(data);
+    });
+    supabase.from('reviews').select('*').eq('approved', true).order('created_at', { ascending: false }).then(({ data }) => {
+      if (data && data.length > 0) setReviews(data);
     });
   }, []);
 
@@ -86,7 +90,7 @@ export default function Home() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveTestimonial(prev => (prev + 1) % 4);
+      setActiveTestimonial(prev => (prev + 1) % reviews.length);
     }, 4000);
     return () => clearInterval(interval);
   }, []);
@@ -682,7 +686,7 @@ export default function Home() {
                   }}
                 />
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '4px', marginBottom: '24px' }}>
-                  {Array.from({ length: testimonials[activeTestimonial].stars }).map((_, i) => (
+                  {Array.from({ length: reviews[activeTestimonial]?.rating ?? 5 }).map((_, i) => (
                     <FaStar key={i} style={{ color: '#FFD700', fontSize: '0.9rem' }} />
                   ))}
                 </div>
@@ -695,7 +699,7 @@ export default function Home() {
                     marginBottom: '32px',
                   }}
                 >
-                  {testimonials[activeTestimonial].text}
+                  {reviews[activeTestimonial]?.message ?? ''}
                 </p>
                 <div
                   style={{
@@ -710,19 +714,19 @@ export default function Home() {
                   }}
                 >
                   <span style={{ fontWeight: 800, color: '#ffffff' }}>
-                    {getInitials(testimonials[activeTestimonial].name)}
+                    {getInitials(reviews[activeTestimonial]?.name ?? 'R O')}
                   </span>
                 </div>
                 <div style={{ color: '#ffffff', fontWeight: 700, fontSize: '1rem' }}>
-                  {testimonials[activeTestimonial].name}
+                  {reviews[activeTestimonial]?.name ?? ''}
                 </div>
                 <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.875rem' }}>
-                  {testimonials[activeTestimonial].role}
+                  {reviews[activeTestimonial]?.role ?? ''}
                 </div>
               </motion.div>
             </AnimatePresence>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '40px' }}>
-              {testimonials.map((_, i) => (
+              {reviews.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveTestimonial(i)}
@@ -736,9 +740,25 @@ export default function Home() {
                     transition: 'all 0.3s',
                     padding: 0,
                   }}
-                  aria-label={`Testimonial ${i + 1}`}
+                  aria-label={`Review ${i + 1}`}
                 />
               ))}
+            </div>
+            <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+              <Link
+                to="/reviews"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.2)', color: '#ffffff', padding: '12px 24px', borderRadius: '9999px', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none', transition: 'border-color 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)'}
+                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}
+              >
+                Read All Reviews <FaArrowRight size={11} />
+              </Link>
+              <Link
+                to="/reviews#write"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: '#CC0000', color: '#ffffff', padding: '12px 24px', borderRadius: '9999px', fontWeight: 700, fontSize: '0.875rem', textDecoration: 'none' }}
+              >
+                Write a Review <FaArrowRight size={11} />
+              </Link>
             </div>
           </div>
         </div>

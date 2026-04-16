@@ -25,6 +25,7 @@ const Contact = lazy(() => import('./pages/Contact'))
 const Safety = lazy(() => import('./pages/Safety'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 const Terms = lazy(() => import('./pages/Terms'))
+const Reviews = lazy(() => import('./pages/Reviews'))
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -47,6 +48,7 @@ function AnimatedRoutes() {
           <Route path="/safety" element={<Safety />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/reviews" element={<Reviews />} />
         </Routes>
       </Suspense>
     </AnimatePresence>
