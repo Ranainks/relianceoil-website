@@ -49,7 +49,7 @@ export default function Gallery() {
         title="Gallery"
         subtitle="A visual journey through Reliance Oil's stations, events, and community impact across Ghana."
         breadcrumb={[{ label: 'Gallery', path: '/gallery' }]}
-        bgImage="https://images.unsplash.com/photo-1562757219-2ffc897f99e3?w=1600&q=85"
+        bgImage="https://muutovkfdnabmeueqfiz.supabase.co/storage/v1/object/public/hero_slides/reliance_0041.JPG"
       />
 
       <div className="rs-sm" style={{ backgroundColor: '#ffffff', position: 'sticky', top: '72px', zIndex: 20, boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>

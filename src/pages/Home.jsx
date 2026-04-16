@@ -57,13 +57,7 @@ const faqs = [
   { q: 'Which Reliance Oil stations are open 24 hours?', a: 'Many of our stations across Greater Accra, Ashanti, and Western regions operate 24/7. Check the Find a Station page for specific hours at each location.' },
 ];
 
-const fallbackSlides = [
-  {
-    img: 'https://images.unsplash.com/photo-1562757219-2ffc897f99e3?w=1600&q=85',
-    headline: "Fuelling Ghana's Growth",
-    sub: 'Delivering quality petroleum products and exceptional service across 34+ stations in 6 regions throughout Ghana.',
-  },
-];
+
 
 function getInitials(name) {
   return name.split(' ').slice(0, 2).map(n => n[0]).join('');
@@ -74,7 +68,7 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const [slideAutoPlay, setSlideAutoPlay] = useState(true);
-  const [heroSlides, setHeroSlides] = useState(fallbackSlides);
+  const [heroSlides, setHeroSlides] = useState([]);
 
   useEffect(() => {
     supabase.from('hero_slides').select('*').eq('active', true).order('order_index').then(({ data }) => {
@@ -142,7 +136,7 @@ export default function Home() {
         path="/"
       />
       <section
-        style={{ position: 'relative', overflow: 'hidden', minHeight: '100svh', paddingTop: '72px', display: 'flex', alignItems: 'center' }}
+        style={{ position: 'relative', overflow: 'hidden', minHeight: '100svh', paddingTop: '72px', display: 'flex', alignItems: 'center', backgroundColor: '#0D0D0D' }}
         onMouseEnter={() => setSlideAutoPlay(false)}
         onMouseLeave={() => setSlideAutoPlay(true)}
       >
@@ -176,10 +170,10 @@ export default function Home() {
                 transition={{ duration: 0.5 }}
               >
                 <h1 style={{ fontWeight: 900, fontSize: 'clamp(2.6rem,6vw,4.5rem)', color: '#ffffff', lineHeight: 1.1, marginBottom: '20px' }}>
-                  {heroSlides[activeSlide].headline}
+                  {heroSlides[activeSlide]?.headline ?? ''}
                 </h1>
                 <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '520px', marginBottom: '36px' }}>
-                  {heroSlides[activeSlide].sub}
+                  {heroSlides[activeSlide]?.sub ?? ''}
                 </p>
               </motion.div>
             </AnimatePresence>
@@ -247,7 +241,7 @@ export default function Home() {
         </div>
 
         <div style={{ position: 'absolute', bottom: '40px', right: '40px', zIndex: 20, color: 'rgba(255,255,255,0.35)', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.1em' }}>
-          {String(activeSlide + 1).padStart(2, '0')} / {String(heroSlides.length).padStart(2, '0')}
+          {heroSlides.length > 0 && <>{String(activeSlide + 1).padStart(2, '0')} / {String(heroSlides.length).padStart(2, '0')}</>}
         </div>
       </section>
 
