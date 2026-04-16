@@ -62,8 +62,25 @@ export default function Services() {
         bgImage="https://muutovkfdnabmeueqfiz.supabase.co/storage/v1/object/public/hero_slides/services-hero.jpg.JPG"
       />
 
-      <section className="rs" style={{ backgroundColor: '#ffffff' }}>
-        <div className="rc">
+      <section className="rs" style={{ backgroundColor: '#ffffff', position: 'relative', overflow: 'hidden' }}>
+
+        <svg aria-hidden="true" style={{ position: 'absolute', top: '-80px', right: '-120px', width: '520px', height: '520px', opacity: 0.055, pointerEvents: 'none', zIndex: 0 }} viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#CC0000" d="M44,-65C56.5,-56.3,65.7,-42.8,70.8,-27.8C75.9,-12.8,76.9,3.8,72.4,19.1C67.9,34.4,57.9,48.5,44.6,58.2C31.3,67.9,14.7,73.2,-1.5,75C-17.7,76.8,-33.4,75.1,-46.4,67.3C-59.4,59.5,-69.7,45.6,-74.1,29.9C-78.5,14.2,-77,3.4,-71.9,-13.2C-66.8,-29.8,-58.1,-46.1,-45.3,-54.8C-32.5,-63.5,-15.4,-64.5,0.8,-65.6C17,-66.7,31.5,-73.7,44,-65Z" transform="translate(100 100)" />
+        </svg>
+
+        <svg aria-hidden="true" style={{ position: 'absolute', bottom: '-100px', left: '-100px', width: '480px', height: '480px', opacity: 0.07, pointerEvents: 'none', zIndex: 0 }} viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#FFD700" d="M39.5,-52.8C50.3,-44.8,57.5,-31.5,62.4,-16.7C67.3,-1.9,69.9,14.3,65.6,28.7C61.3,43.1,50.1,55.7,36.4,63.1C22.7,70.5,6.5,72.7,-9.4,71C-25.3,69.3,-40.9,63.7,-52.3,53.3C-63.7,42.9,-71,27.6,-72.6,11.6C-74.2,-4.4,-70.1,-21.1,-61.3,-34.2C-52.5,-47.3,-39,-56.8,-25,-61.1C-11,-65.4,3.5,-64.5,17.5,-60.5C31.5,-56.5,28.7,-60.8,39.5,-52.8Z" transform="translate(100 100)" />
+        </svg>
+
+        <svg aria-hidden="true" style={{ position: 'absolute', top: '40%', right: '-60px', width: '280px', height: '280px', opacity: 0.04, pointerEvents: 'none', zIndex: 0 }} viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#CC0000" d="M53.5,-63.1C67.7,-52.7,76.5,-34.8,78.1,-16.7C79.7,1.4,74.1,19.7,64.1,34.8C54.1,49.9,39.7,61.8,22.9,69.3C6.1,76.8,-13.1,79.9,-29.1,74.3C-45.1,68.7,-57.9,54.4,-66.2,38C-74.5,21.6,-78.3,3.1,-75,-14C-71.7,-31.1,-61.3,-46.8,-47.3,-57.3C-33.3,-67.8,-15.6,-73.1,2.4,-75.9C20.4,-78.7,39.3,-73.5,53.5,-63.1Z" transform="translate(100 100)" />
+        </svg>
+
+        <svg aria-hidden="true" style={{ position: 'absolute', top: '15%', left: '30%', width: '180px', height: '180px', opacity: 0.035, pointerEvents: 'none', zIndex: 0 }} viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#FFD700" d="M47.3,-58.2C59.1,-47.4,64.9,-30.4,67.8,-12.8C70.7,4.8,70.7,23,63,37.4C55.3,51.8,39.9,62.4,22.9,68.4C5.9,74.4,-12.7,75.8,-29.1,69.8C-45.5,63.8,-59.7,50.4,-67.8,33.7C-75.9,17,-77.9,-3,-72.9,-20.6C-67.9,-38.2,-55.9,-53.4,-41.5,-64.1C-27.1,-74.8,-10.3,-80.9,4.8,-86.8C19.9,-92.7,35.5,-69,47.3,-58.2Z" transform="translate(100 100)" />
+        </svg>
+
+        <div className="rc" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0' }}>
             <div style={{ width: 'fit-content' }}>
               <SectionLabel text="What We Offer" light={true} />
