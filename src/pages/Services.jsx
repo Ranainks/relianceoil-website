@@ -108,7 +108,7 @@ export default function Services() {
                 </div>
                 <div style={{ borderTop: '1px solid #f3f4f6', marginTop: '24px', paddingTop: '24px' }}>
                   <Link
-                    to="/contact"
+                    to={`/services/${service.slug}`}
                     style={{
                       display: 'flex',
                       alignItems: 'center',
@@ -122,7 +122,7 @@ export default function Services() {
                     onMouseEnter={(e) => { e.currentTarget.style.gap = '10px'; }}
                     onMouseLeave={(e) => { e.currentTarget.style.gap = '6px'; }}
                   >
-                    Enquire Now <FaArrowRight style={{ fontSize: '10px' }} />
+                    Read More <FaArrowRight style={{ fontSize: '10px' }} />
                   </Link>
                 </div>
               </div>
