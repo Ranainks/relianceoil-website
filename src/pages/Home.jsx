@@ -34,12 +34,12 @@ const whoWeAreStats = [
 ];
 
 const services = [
-  { icon: FaGasPump, title: 'Petroleum Products', desc: 'High-quality petrol and diesel supply meeting NPA and GSA quality standards nationwide.' },
-  { icon: FaMapMarkerAlt, title: 'Retail Fuel Stations', desc: 'Strategically located stations operating 24/7 in key areas for maximum convenience.' },
-  { icon: FaFire, title: 'LPG Services', desc: 'Safe and efficient LPG refilling for households and businesses following GNFS standards.' },
-  { icon: FaWrench, title: 'Lubricants & Oils', desc: 'Premium engine oils and lubricants for all vehicle types and industrial applications.' },
-  { icon: FaShieldAlt, title: 'Car Wash', desc: 'Professional car wash services available at select Reliance Oil stations.' },
-  { icon: FaStar, title: 'Fleet Management', desc: 'Comprehensive fleet fueling solutions with smart tracking and bulk supply contracts.' },
+  { icon: FaGasPump, title: 'Petroleum Products', desc: 'High-quality petrol and diesel supply meeting NPA and GSA quality standards nationwide.', slug: 'fuel-retail' },
+  { icon: FaMapMarkerAlt, title: 'Retail Fuel Stations', desc: 'Strategically located stations operating 24/7 in key areas for maximum convenience.', slug: 'bulk-fuel-supply' },
+  { icon: FaFire, title: 'LPG Services', desc: 'Safe and efficient LPG refilling for households and businesses following GNFS standards.', slug: 'lpg-supply' },
+  { icon: FaWrench, title: 'Lubricants & Oils', desc: 'Premium engine oils and lubricants for all vehicle types and industrial applications.', slug: 'lubricants-oils' },
+  { icon: FaShieldAlt, title: 'Car Wash', desc: 'Professional car wash services available at select Reliance Oil stations.', slug: 'car-wash' },
+  { icon: FaStar, title: 'Fleet Management', desc: 'Comprehensive fleet fueling solutions with smart tracking and bulk supply contracts.', slug: 'fleet-management' },
 ];
 
 const testimonials = [
@@ -611,7 +611,8 @@ export default function Home() {
                   <h4 style={{ fontWeight: 700, color: '#111', fontSize: '1.05rem', marginBottom: '12px' }}>{svc.title}</h4>
                   <p style={{ color: '#888', fontSize: '0.875rem', lineHeight: 1.65, marginBottom: '20px', flex: 1 }}>{svc.desc}</p>
                   <hr style={{ borderColor: '#F5F5F5', marginBottom: '20px' }} />
-                  <div
+                  <Link
+                    to={'/services/' + svc.slug}
                     style={{
                       color: '#CC0000',
                       fontSize: '0.8rem',
@@ -619,10 +620,11 @@ export default function Home() {
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '6px',
+                      textDecoration: 'none',
                     }}
                   >
                     Read More <FaArrowRight size={10} />
-                  </div>
+                  </Link>
                 </div>
               );
             })}
