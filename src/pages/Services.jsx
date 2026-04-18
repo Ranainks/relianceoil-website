@@ -47,7 +47,7 @@ export default function Services() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.from('services').select('*').order('order_index').then(({ data, error }) => {
+    supabase.from('services').select('*').not('slug', 'in', '("lpg-supply","lubricants-oils")').order('order_index').then(({ data, error }) => {
       if (!error && data) setServicesData(data);
       setLoading(false);
     });
