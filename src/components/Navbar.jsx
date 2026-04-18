@@ -14,7 +14,6 @@ const navLinks = [
     dropdown: [
       { label: 'Fuel Retail', path: '/services' },
       { label: 'Bulk Supply', path: '/services' },
-      { label: 'Lubricants', path: '/services' },
       { label: 'Car Wash', path: '/services' },
       { label: 'Fleet Management', path: '/services' },
     ],
@@ -25,8 +24,6 @@ const navLinks = [
     dropdown: [
       { label: 'Petrol', path: '/products' },
       { label: 'Diesel', path: '/products' },
-      { label: 'Lubricants', path: '/products' },
-      { label: 'LPG', path: '/products' },
     ],
   },
   { label: 'Find a Station', path: '/find-station' },

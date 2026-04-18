@@ -10,8 +10,6 @@ import {
   FaUsers,
   FaGasPump,
   FaTruck,
-  FaWrench,
-  FaFire,
   FaShieldAlt,
   FaClock,
   FaStar,
@@ -36,8 +34,6 @@ const whoWeAreStats = [
 const services = [
   { icon: FaGasPump, title: 'Petroleum Products', desc: 'High-quality petrol and diesel supply meeting NPA and GSA quality standards nationwide.', slug: 'fuel-retail' },
   { icon: FaMapMarkerAlt, title: 'Retail Fuel Stations', desc: 'Strategically located stations operating 24/7 in key areas for maximum convenience.', slug: 'bulk-fuel-supply' },
-  { icon: FaFire, title: 'LPG Services', desc: 'Safe and efficient LPG refilling for households and businesses following GNFS standards.', slug: 'lpg-supply' },
-  { icon: FaWrench, title: 'Lubricants & Oils', desc: 'Premium engine oils and lubricants for all vehicle types and industrial applications.', slug: 'lubricants-oils' },
   { icon: FaShieldAlt, title: 'Car Wash', desc: 'Professional car wash services available at select Reliance Oil stations.', slug: 'car-wash' },
   { icon: FaStar, title: 'Fleet Management', desc: 'Comprehensive fleet fueling solutions with smart tracking and bulk supply contracts.', slug: 'fleet-management' },
 ];
@@ -50,7 +46,7 @@ const fallbackReviews = [
 ];
 
 const faqs = [
-  { q: 'What types of fuel do Reliance Oil stations offer?', a: 'We offer Premium Petrol, Diesel, LPG, and a comprehensive range of automotive lubricants and oils at our stations across Ghana.' },
+  { q: 'What types of fuel do Reliance Oil stations offer?', a: 'We offer Premium Petrol and Diesel at our stations across Ghana, meeting NPA and GSA quality standards.' },
   { q: 'How do I find my nearest Reliance Oil station?', a: "Use our interactive station locator on the 'Find a Station' page. You can search by region, filter by available services, and get directions directly." },
   { q: 'Does Reliance Oil offer fleet fuel management solutions?', a: 'Yes! We provide comprehensive fleet management solutions including bulk supply contracts, fuel tracking, and dedicated account management for businesses.' },
   { q: 'Are Reliance Oil products GSA certified?', a: 'Absolutely. All our petroleum products are certified by the Ghana Standards Authority and undergo rigorous quality testing at every stage of supply.' },
@@ -136,7 +132,7 @@ export default function Home() {
     <div className="overflow-x-hidden">
       <SEO
         title="Quality Petroleum Products Across Ghana"
-        description="Reliance Oil Limited — NPA licensed petroleum company with 33+ filling stations across Ghana. Quality petrol, diesel, LPG, lubricants and fleet management services."
+        description="Reliance Oil Limited — NPA licensed petroleum company with 33+ filling stations across Ghana. Quality petrol, diesel and fleet management services."
         path="/"
       />
       <section

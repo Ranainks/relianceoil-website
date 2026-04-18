@@ -24,15 +24,13 @@ const FUEL_ICONS = {
   'Petrol 95': '⛽',
   'Petrol 98': '⛽',
   'Diesel': '🚛',
-  'LPG': '🔵',
-  'Kerosene': '🕯️',
 };
 
 export default function FuelPriceTicker() {
   const [prices, setPrices] = useState([]);
 
   useEffect(() => {
-    supabase.from('fuel_prices').select('*').order('order_index').then(({ data }) => {
+    supabase.from('fuel_prices').select('*').not('fuel_type', 'in', '("LPG","Kerosene")').order('order_index').then(({ data }) => {
       if (data && data.length > 0) setPrices(data);
     });
   }, []);

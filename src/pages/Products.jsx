@@ -6,18 +6,16 @@ import 'aos/dist/aos.css';
 import PageHero from '../components/PageHero';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
-import { FaGasPump, FaTruck, FaOilCan, FaAward, FaShieldAlt, FaLeaf } from 'react-icons/fa';
+import { FaGasPump, FaTruck, FaAward, FaShieldAlt, FaLeaf } from 'react-icons/fa';
 
 const tabs = [
   { id: 'petrol', label: 'Petrol', icon: FaGasPump },
   { id: 'diesel', label: 'Diesel', icon: FaTruck },
-  { id: 'lubricants', label: 'Lubricants', icon: FaOilCan },
 ];
 
 const tabGradients = {
   petrol: 'linear-gradient(135deg, #CC0000, #FF4444)',
   diesel: 'linear-gradient(135deg, #111, #333)',
-  lubricants: 'linear-gradient(135deg, #CC0000, #FF8C00)',
 };
 
 const qualityItems = [
@@ -28,7 +26,7 @@ const qualityItems = [
 
 export default function Products() {
   const [activeTab, setActiveTab] = useState('petrol');
-  const [productsData, setProductsData] = useState({ petrol: [], diesel: [], lubricants: [] });
+  const [productsData, setProductsData] = useState({ petrol: [], diesel: [] });
 
   useEffect(() => {
     supabase.from('products').select('*').order('order_index').then(({ data }) => {
@@ -36,7 +34,6 @@ export default function Products() {
         setProductsData({
           petrol: data.filter(p => p.category === 'petrol'),
           diesel: data.filter(p => p.category === 'diesel'),
-          lubricants: data.filter(p => p.category === 'lubricants'),
         });
       }
     });
@@ -50,7 +47,7 @@ export default function Products() {
 
   return (
     <div>
-      <SEO title="Our Products" description="Explore Reliance Oil's range of petroleum products including Premium Petrol (91, 95, 98 RON), Diesel, Bio Diesel, Engine Oils and Lubricants. GSA certified quality." path="/products" />
+      <SEO title="Our Products" description="Explore Reliance Oil's range of petroleum products including Premium Petrol (91, 95, 98 RON) and Diesel. GSA certified quality." path="/products" />
       <PageHero
         title="Our Products"
         subtitle="Quality petroleum products meeting Ghana Standards Authority specifications."
