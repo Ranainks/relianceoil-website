@@ -121,7 +121,7 @@ export default function Footer() {
           <h4 style={{ fontSize: '0.75rem', fontWeight: '700', color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '24px' }}>Contact Us</h4>
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '16px' }}>
             <FaLocationDot size={14} style={{ color: '#CC0000', flexShrink: 0, marginTop: '2px' }} />
-            <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>Bortianor (Radiance), Winneba Road, Weija 162, Ghana</span>
+            <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>Bortianor (Raliance), Winneba Road, Weija 162, Ghana</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
             <FaPhone size={13} style={{ color: '#CC0000', flexShrink: 0 }} />

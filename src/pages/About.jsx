@@ -326,7 +326,7 @@ export default function About() {
               <div style={{ marginBottom: '20px' }}>
                 <div style={{ fontWeight: 700, color: '#CC0000', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '6px' }}>Head Office</div>
                 <div style={{ color: '#0D0D0D', fontWeight: 600, fontSize: '0.95rem', lineHeight: 1.6 }}>
-                  Bortianor (Radiance), Winneba road,<br />
+                  Bortianor (Raliance), Winneba road,<br />
                   Tokusemitsigani/Weija 162
                 </div>
               </div>

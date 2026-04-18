@@ -26,7 +26,7 @@ const sections = [
     title: 'Data Controller',
     content: (
       <p style={{ color: '#555', lineHeight: 1.75 }}>
-        Reliance Oil Limited, licensed by the National Petroleum Authority (NPA) since January 2020, is the Data Controller responsible for your personal information. Our registered address is P.O. Box 164, Apam, with operational offices at Bortianor (Radiance), Winneba Road, Weija 162, and Tema, Community 7.
+        Reliance Oil Limited, licensed by the National Petroleum Authority (NPA) since January 2020, is the Data Controller responsible for your personal information. Our registered address is P.O. Box 164, Apam, with operational offices at Bortianor (Raliance), Winneba Road, Weija 162, and Tema, Community 7.
       </p>
     ),
   },
