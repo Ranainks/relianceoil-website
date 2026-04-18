@@ -30,8 +30,9 @@ export default function FuelPriceTicker() {
   const [prices, setPrices] = useState([]);
 
   useEffect(() => {
-    supabase.from('fuel_prices').select('*').not('fuel_type', 'in', '("LPG","Kerosene","Lubricant","Lubricants")').order('order_index').then(({ data }) => {
-      if (data && data.length > 0) setPrices(data);
+    const EXCLUDE = ['LPG', 'Kerosene', 'Lubricant', 'Lubricants'];
+    supabase.from('fuel_prices').select('*').order('order_index').then(({ data }) => {
+      if (data && data.length > 0) setPrices(data.filter(p => !EXCLUDE.includes(p.fuel_type)));
     });
   }, []);
 
