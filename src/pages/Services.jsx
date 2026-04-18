@@ -47,9 +47,18 @@ export default function Services() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const EXCLUDE = ['lpg-supply', 'lubricants-oils', 'kerosene', 'kerosene-supply', 'lpg', 'lubricants'];
+    const EXCLUDE_SLUGS = ['lpg-supply', 'lubricants-oils', 'kerosene', 'kerosene-supply', 'lpg', 'lubricants'];
+    const EXCLUDE_KEYWORDS = ['lpg', 'kerosene', 'lubricant'];
     supabase.from('services').select('*').order('order_index').then(({ data, error }) => {
-      if (!error && data) setServicesData(data.filter(s => !EXCLUDE.includes(s.slug)));
+      if (!error && data) {
+        setServicesData(data.filter(s => {
+          const slug = (s.slug || '').toLowerCase();
+          const title = (s.title || '').toLowerCase();
+          const matchesSlug = EXCLUDE_SLUGS.includes(slug);
+          const matchesTitle = EXCLUDE_KEYWORDS.some(k => title.includes(k));
+          return !matchesSlug && !matchesTitle;
+        }));
+      }
       setLoading(false);
     });
   }, []);
