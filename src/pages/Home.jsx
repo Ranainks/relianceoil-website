@@ -69,7 +69,7 @@ export default function Home() {
 
   useEffect(() => {
     supabase.from('hero_slides').select('*').eq('active', true).order('order_index').then(({ data }) => {
-      if (data && data.length > 0) setHeroSlides(data);
+      if (data && data.length > 0) { setHeroSlides(data); setActiveSlide(0); }
     });
     supabase.from('reviews').select('*').eq('approved', true).order('created_at', { ascending: false }).then(({ data }) => {
       if (data && data.length > 0) setReviews(data);
@@ -92,12 +92,12 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (!slideAutoPlay) return;
+    if (!slideAutoPlay || heroSlides.length === 0) return;
     const timer = setInterval(() => {
       setActiveSlide(s => (s + 1) % heroSlides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [slideAutoPlay]);
+  }, [slideAutoPlay, heroSlides.length]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -214,7 +214,7 @@ export default function Home() {
         </div>
 
         <button
-          onClick={() => setActiveSlide(s => (s - 1 + heroSlides.length) % heroSlides.length)}
+          onClick={() => heroSlides.length > 0 && setActiveSlide(s => (s - 1 + heroSlides.length) % heroSlides.length)}
           style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)', zIndex: 20, backgroundColor: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.2)', color: '#ffffff', width: '48px', height: '48px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'background-color 0.2s' }}
           onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.22)'}
           onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'}
@@ -222,7 +222,7 @@ export default function Home() {
           <FaChevronLeft size={16} />
         </button>
         <button
-          onClick={() => setActiveSlide(s => (s + 1) % heroSlides.length)}
+          onClick={() => heroSlides.length > 0 && setActiveSlide(s => (s + 1) % heroSlides.length)}
           style={{ position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%)', zIndex: 20, backgroundColor: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.2)', color: '#ffffff', width: '48px', height: '48px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'background-color 0.2s' }}
           onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.22)'}
           onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'}
