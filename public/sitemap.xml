@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://relianceoilltd.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority><lastmod>2026-04-15</lastmod></url>
-  <url><loc>https://relianceoilltd.com/about</loc><changefreq>monthly</changefreq><priority>0.8</priority><lastmod>2026-04-15</lastmod></url>
-  <url><loc>https://relianceoilltd.com/services</loc><changefreq>monthly</changefreq><priority>0.8</priority><lastmod>2026-04-15</lastmod></url>
-  <url><loc>https://relianceoilltd.com/products</loc><changefreq>monthly</changefreq><priority>0.8</priority><lastmod>2026-04-15</lastmod></url>
-  <url><loc>https://relianceoilltd.com/find-station</loc><changefreq>weekly</changefreq><priority>0.9</priority><lastmod>2026-04-15</lastmod></url>
-  <url><loc>https://relianceoilltd.com/our-team</loc><changefreq>monthly</changefreq><priority>0.6</priority><lastmod>2026-04-15</lastmod></url>
-  <url><loc>https://relianceoilltd.com/gallery</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2026-04-15</lastmod></url>
-  <url><loc>https://relianceoilltd.com/news</loc><changefreq>daily</changefreq><priority>0.9</priority><lastmod>2026-04-15</lastmod></url>
-  <url><loc>https://relianceoilltd.com/careers</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2026-04-15</lastmod></url>
-  <url><loc>https://relianceoilltd.com/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority><lastmod>2026-04-15</lastmod></url>
-  <url><loc>https://relianceoilltd.com/safety</loc><changefreq>monthly</changefreq><priority>0.6</priority><lastmod>2026-04-15</lastmod></url>
-  <url><loc>https://relianceoilltd.com/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority><lastmod>2026-04-15</lastmod></url>
-  <url><loc>https://relianceoilltd.com/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority><lastmod>2026-04-15</lastmod></url>
+  <url><loc>https://relianceoilltd.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/about</loc><changefreq>monthly</changefreq><priority>0.8</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/services</loc><changefreq>monthly</changefreq><priority>0.8</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/services/fuel-retail</loc><changefreq>monthly</changefreq><priority>0.7</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/services/bulk-fuel-supply</loc><changefreq>monthly</changefreq><priority>0.7</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/services/fleet-management</loc><changefreq>monthly</changefreq><priority>0.7</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/services/lpg-supply</loc><changefreq>monthly</changefreq><priority>0.7</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/services/car-wash</loc><changefreq>monthly</changefreq><priority>0.6</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/services/lubricants-oils</loc><changefreq>monthly</changefreq><priority>0.7</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/products</loc><changefreq>monthly</changefreq><priority>0.8</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/find-station</loc><changefreq>weekly</changefreq><priority>0.9</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/our-team</loc><changefreq>monthly</changefreq><priority>0.6</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/gallery</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/news</loc><changefreq>daily</changefreq><priority>0.9</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/careers</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/safety</loc><changefreq>monthly</changefreq><priority>0.6</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority><lastmod>2026-04-19</lastmod></url>
+  <url><loc>https://relianceoilltd.com/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority><lastmod>2026-04-19</lastmod></url>
 </urlset>
