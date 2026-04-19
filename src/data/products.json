@@ -74,55 +74,5 @@
       },
       "image": "/assets/products/placeholder.jpg"
     }
-  ],
-  "lubricants": [
-    {
-      "id": 7,
-      "name": "Engine Oil 10W-40",
-      "description": "Reliance Engine Oil 10W-40 is a semi-synthetic multi-grade oil suitable for petrol and light-duty diesel engines in passenger cars and light commercial vehicles. It provides excellent wear protection, thermal stability, and low-temperature fluidity.",
-      "specs": {
-        "Viscosity Grade": "SAE 10W-40",
-        "Base Oil": "Semi-Synthetic",
-        "API Classification": "SL/CF",
-        "Flash Point": "≥ 220°C"
-      },
-      "image": "/assets/products/placeholder.jpg"
-    },
-    {
-      "id": 8,
-      "name": "Engine Oil 15W-50",
-      "description": "Formulated for high-performance and high-mileage engines, our 15W-50 engine oil offers superior protection under extreme operating temperatures. It is ideal for heavy-duty vehicles operating in Ghana's demanding tropical conditions.",
-      "specs": {
-        "Viscosity Grade": "SAE 15W-50",
-        "Base Oil": "Mineral",
-        "API Classification": "SM/CF",
-        "Flash Point": "≥ 230°C"
-      },
-      "image": "/assets/products/placeholder.jpg"
-    },
-    {
-      "id": 9,
-      "name": "Gear Oil",
-      "description": "Reliance Gear Oil is specially formulated for manual transmissions, axles, and differentials requiring extreme-pressure protection. It reduces gear wear and ensures smooth power transmission across all load conditions.",
-      "specs": {
-        "Viscosity Grade": "SAE 80W-90",
-        "API Classification": "GL-5",
-        "Flash Point": "≥ 180°C",
-        "Base Oil": "Mineral"
-      },
-      "image": "/assets/products/placeholder.jpg"
-    },
-    {
-      "id": 10,
-      "name": "Brake Fluid",
-      "description": "Our DOT 4 Brake Fluid is engineered for disc and drum brake systems in modern vehicles, offering a high boiling point to prevent vapour lock under intensive braking. It is compatible with ABS and ESP systems.",
-      "specs": {
-        "Specification": "DOT 4",
-        "Dry Boiling Point": "≥ 230°C",
-        "Wet Boiling Point": "≥ 155°C",
-        "Viscosity at -40°C": "≤ 1800 mm²/s"
-      },
-      "image": "/assets/products/placeholder.jpg"
-    }
   ]
 }

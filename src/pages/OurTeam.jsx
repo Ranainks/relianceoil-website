@@ -41,6 +41,8 @@ export default function OurTeam() {
         title="Our Team"
         subtitle="The dedicated professionals driving Reliance Oil's success across Ghana."
         breadcrumb={[{ label: 'Our Team', path: '/our-team' }]}
+        bgImage="TEAM_PHOTO_URL"
+        bgOpacity={0.45}
       />
 
       {loading && <div style={{ textAlign: 'center', padding: '60px 0', color: '#888' }}>Loading team...</div>}

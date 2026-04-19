@@ -23,28 +23,6 @@
   },
   {
     "id": 3,
-    "icon": "FaFire",
-    "title": "LPG Services",
-    "description": "Safe and efficient LPG refilling services for households and businesses. Our stations follow strict NPA and Ghana National Fire Service safety standards for LPG handling.",
-    "features": [
-      "Domestic and commercial LPG",
-      "Safety-trained LPG attendants",
-      "GNFS-compliant storage and dispensing"
-    ]
-  },
-  {
-    "id": 4,
-    "icon": "FaOilCan",
-    "title": "Lubricants & Oils",
-    "description": "We stock a comprehensive range of engine oils, gear oils, and automotive lubricants suitable for all vehicle types and industrial applications.",
-    "features": [
-      "Wide range of viscosity grades",
-      "Automotive and industrial lubricants",
-      "Expert product guidance available"
-    ]
-  },
-  {
-    "id": 5,
     "icon": "FaCar",
     "title": "Car Wash",
     "description": "Professional car wash services are available at select Reliance Oil stations, providing exterior and interior cleaning with quality equipment.",
@@ -55,7 +33,7 @@
     ]
   },
   {
-    "id": 6,
+    "id": 4,
     "icon": "FaChartLine",
     "title": "Fleet Management",
     "description": "Comprehensive fleet fueling solutions for businesses with fuel tracking, bulk supply contracts, and dedicated account management to optimize fleet costs.",
