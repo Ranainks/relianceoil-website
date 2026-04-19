@@ -64,10 +64,10 @@ export default function Navbar() {
     <nav style={{ backgroundColor: '#0D0D0D', position: 'sticky', top: 0, zIndex: 50, height: '72px', display: 'flex', alignItems: 'center' }}>
       <div className="rc" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <Logo height={42} />
+          <Logo height={58} />
           <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
-            <span style={{ color: '#ffffff', fontWeight: '900', fontSize: '1rem' }}>Reliance Oil</span>
-            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Limited</span>
+            <span style={{ color: '#ffffff', fontWeight: '900', fontSize: '0.875rem' }}>Reliance Oil</span>
+            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.68rem', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Limited</span>
           </div>
         </Link>
 
@@ -132,7 +132,7 @@ export default function Navbar() {
           <Link
             to="/contact"
             className="cta-btn"
-            style={{ display: 'flex', alignItems: 'center', gap: '8px', backgroundColor: '#FFD700', color: '#111111', padding: '10px 20px', borderRadius: '9999px', fontWeight: '700', fontSize: '0.875rem', textDecoration: 'none', transition: 'background-color 0.2s, transform 0.2s' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: '#FFD700', color: '#111111', padding: '7px 14px', borderRadius: '9999px', fontWeight: '700', fontSize: '0.8rem', textDecoration: 'none', transition: 'background-color 0.2s, transform 0.2s' }}
             onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#FFE033'; e.currentTarget.style.transform = 'scale(1.05)'; }}
             onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#FFD700'; e.currentTarget.style.transform = 'scale(1)'; }}
           >

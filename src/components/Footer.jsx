@@ -54,10 +54,10 @@ export default function Footer() {
       <div className="rc footer-grid" style={{ padding: '64px 24px', gap: '40px' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Logo height={42} />
+            <Logo height={56} />
             <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
-              <span style={{ color: '#ffffff', fontWeight: '900', fontSize: '1rem' }}>Reliance Oil</span>
-              <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Limited</span>
+              <span style={{ color: '#ffffff', fontWeight: '900', fontSize: '0.875rem' }}>Reliance Oil</span>
+              <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.68rem', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Limited</span>
             </div>
           </div>
           <p style={{ marginTop: '16px', color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', maxWidth: '20rem', lineHeight: 1.65 }}>
