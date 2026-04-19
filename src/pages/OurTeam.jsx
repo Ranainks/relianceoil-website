@@ -43,6 +43,7 @@ export default function OurTeam() {
         breadcrumb={[{ label: 'Our Team', path: '/our-team' }]}
         bgImage="https://muutovkfdnabmeueqfiz.supabase.co/storage/v1/object/public/team/team-group.jpg.png"
         bgOpacity={0.45}
+        bgPosition="center 20%"
       />
 
       {loading && <div style={{ textAlign: 'center', padding: '60px 0', color: '#888' }}>Loading team...</div>}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaHome, FaChevronRight } from 'react-icons/fa';
 import SectionLabel from './SectionLabel';
 
-export default function PageHero({ title, subtitle, breadcrumb, bgImage, bgOpacity = 0.22 }) {
+export default function PageHero({ title, subtitle, breadcrumb, bgImage, bgOpacity = 0.22, bgPosition = 'center' }) {
   return (
     <div style={{ paddingTop: '80px', paddingBottom: '60px', position: 'relative', overflow: 'hidden', backgroundColor: '#0D0D0D' }}>
       {bgImage && (
@@ -13,7 +13,7 @@ export default function PageHero({ title, subtitle, breadcrumb, bgImage, bgOpaci
             inset: 0,
             backgroundImage: `url(${bgImage})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: bgPosition,
             opacity: bgOpacity,
             zIndex: 0,
           }}
