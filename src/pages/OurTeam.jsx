@@ -146,31 +146,37 @@ export default function OurTeam() {
                     >
                       <FaLinkedinIn size={12} />
                     </button>
-                    <button
-                      style={{
-                        width: 32,
-                        height: 32,
-                        backgroundColor: 'rgba(255,255,255,0.1)',
-                        border: '1px solid rgba(255,255,255,0.2)',
-                        color: 'white',
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        transition: 'all 0.2s',
-                        cursor: 'pointer',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = '#FFD700';
-                        e.currentTarget.style.color = '#111';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                        e.currentTarget.style.color = 'white';
-                      }}
-                    >
-                      <FaTwitter size={12} />
-                    </button>
+                    {member.twitter_url && (
+                      <a
+                        href={member.twitter_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          width: 32,
+                          height: 32,
+                          backgroundColor: 'rgba(255,255,255,0.1)',
+                          border: '1px solid rgba(255,255,255,0.2)',
+                          color: 'white',
+                          borderRadius: '50%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          transition: 'all 0.2s',
+                          cursor: 'pointer',
+                          textDecoration: 'none',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = '#FFD700';
+                          e.currentTarget.style.color = '#111';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                          e.currentTarget.style.color = 'white';
+                        }}
+                      >
+                        <FaTwitter size={12} />
+                      </a>
+                    )}
                   </div>
                 </div>
                 <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -287,31 +293,37 @@ export default function OurTeam() {
                     >
                       <FaLinkedinIn size={10} />
                     </button>
-                    <button
-                      style={{
-                        width: 28,
-                        height: 28,
-                        backgroundColor: 'rgba(255,255,255,0.1)',
-                        border: '1px solid rgba(255,255,255,0.2)',
-                        color: 'white',
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        transition: 'all 0.2s',
-                        cursor: 'pointer',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = '#FFD700';
-                        e.currentTarget.style.color = '#FFD700';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
-                        e.currentTarget.style.color = 'white';
-                      }}
-                    >
-                      <FaTwitter size={10} />
-                    </button>
+                    {member.twitter_url && (
+                      <a
+                        href={member.twitter_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          width: 28,
+                          height: 28,
+                          backgroundColor: 'rgba(255,255,255,0.1)',
+                          border: '1px solid rgba(255,255,255,0.2)',
+                          color: 'white',
+                          borderRadius: '50%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          transition: 'all 0.2s',
+                          cursor: 'pointer',
+                          textDecoration: 'none',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderColor = '#FFD700';
+                          e.currentTarget.style.color = '#FFD700';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                          e.currentTarget.style.color = 'white';
+                        }}
+                      >
+                        <FaTwitter size={10} />
+                      </a>
+                    )}
                   </div>
                 </div>
                 <div style={{ padding: '1.25rem' }}>
