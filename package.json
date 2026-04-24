@@ -13,6 +13,7 @@
     "@react-google-maps/api": "^2.20.8",
     "@supabase/supabase-js": "^2.103.0",
     "@tailwindcss/vite": "^4.2.2",
+    "@vercel/analytics": "^2.0.1",
     "aos": "^2.3.4",
     "framer-motion": "^12.38.0",
     "gsap": "^3.14.2",
