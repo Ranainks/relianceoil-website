@@ -54,6 +54,8 @@ export default function Careers() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const [submitErrorMsg, setSubmitErrorMsg] = useState('');
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, phone, position, coverLetter } = formData;
@@ -68,6 +70,7 @@ export default function Careers() {
     }
     setIsSubmitting(true);
     setFormStatus('idle');
+    setSubmitErrorMsg('');
     try {
       let cv_url = null;
       const cvFile = fileInputRef.current?.files[0];
@@ -83,6 +86,7 @@ export default function Careers() {
         position,
         cover_letter: coverLetter,
         cv_url,
+        applied_at: new Date().toISOString(),
       });
       if (error) throw error;
 
@@ -109,7 +113,8 @@ export default function Careers() {
       setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });
       setCvFileName('');
       recaptchaRef.current?.reset();
-    } catch {
+    } catch (err) {
+      setSubmitErrorMsg(err?.message || 'Unknown error');
       setFormStatus('submiterror');
     } finally {
       setIsSubmitting(false);
@@ -544,7 +549,7 @@ export default function Careers() {
               )}
               {formStatus === 'submiterror' && (
                 <div style={{ marginTop: '1.5rem', backgroundColor: '#fff1f2', border: '1px solid #fecaca', color: '#CC0000', padding: '1.25rem', borderRadius: '0.75rem', fontSize: '0.875rem' }}>
-                  Something went wrong. Please try again or contact us directly.
+                  Submission failed: {submitErrorMsg || 'Please try again or contact us directly.'}
                 </div>
               )}
             </div>
