@@ -548,7 +548,7 @@ export default function Home() {
                 marginBottom: '64px',
               }}
             >
-              From bulk diesel contracts to LPG refills and fleet management — everything your business needs, under one roof.
+              From bulk diesel contracts to fleet management — everything your business needs, under one roof.
             </p>
           </div>
           <div className="rg3" style={{ marginTop: '48px' }}>

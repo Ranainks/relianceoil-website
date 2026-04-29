@@ -6,7 +6,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import { trackEvent, GA_EVENTS } from '../utils/analytics';
 import { FaArrowRight, FaCheckCircle, FaGasPump, FaTruck, FaFire, FaOilCan } from 'react-icons/fa';
 
-const fuelTypes = ['Premium Petrol', 'Diesel', 'LPG', 'Lubricants & Engine Oils', 'Multiple Products'];
+const fuelTypes = ['Premium Petrol', 'Diesel', 'Multiple Products'];
 const quantities = ['Under 1,000 litres', '1,000 – 5,000 litres', '5,000 – 20,000 litres', '20,000 – 50,000 litres', 'Over 50,000 litres'];
 const deliveryTypes = ['Station Pick-up', 'Delivery to Site', 'Both'];
 
@@ -42,7 +42,7 @@ export default function RequestQuote() {
 
   return (
     <div style={{ paddingTop: '80px', minHeight: '100vh', backgroundColor: '#fff' }}>
-      <SEO title="Request a Quote" description="Get a competitive bulk fuel supply quote from Reliance Oil Limited. Petrol, Diesel, LPG and lubricants delivered nationwide across Ghana." path="/quote" />
+      <SEO title="Request a Quote" description="Get a competitive bulk fuel supply quote from Reliance Oil Limited. Petrol and Diesel delivered nationwide across Ghana." path="/quote" />
 
       {/* Hero */}
       <div style={{ background: 'linear-gradient(135deg,#0D0D0D,#1a1a1a)', padding: '64px 24px' }}>

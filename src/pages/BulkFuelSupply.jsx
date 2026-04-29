@@ -40,8 +40,6 @@ const benefits = [
 const products = [
   { name: 'Premium Petrol', desc: 'High-octane petrol for fleets requiring performance and efficiency.', color: '#CC0000' },
   { name: 'Standard Diesel', desc: 'High-volume diesel for trucks, generators, heavy machinery, and buses.', color: '#1d4ed8' },
-  { name: 'LPG', desc: 'Bulk LPG for industrial kitchens, factories, and commercial users.', color: '#d97706' },
-  { name: 'Lubricants & Oils', desc: 'Premium engine oils and industrial lubricants for all equipment types.', color: '#16a34a' },
 ];
 
 const faqs = [
@@ -62,7 +60,7 @@ export default function BulkFuelSupply() {
     <div style={{ paddingTop: '80px', backgroundColor: '#fff' }}>
       <SEO
         title="Bulk Fuel Supply Ghana"
-        description="Reliable bulk petrol, diesel and LPG supply for businesses, fleets and industries across Ghana. NPA-licensed. Competitive rates. Nationwide delivery."
+        description="Reliable bulk petrol and diesel supply for businesses, fleets and industries across Ghana. NPA-licensed. Competitive rates. Nationwide delivery."
         path="/bulk-fuel-supply"
       />
 
@@ -81,7 +79,7 @@ export default function BulkFuelSupply() {
                 <span style={{ color: '#CC0000' }}>For Your Business</span>
               </h1>
               <p style={{ color: 'rgba(255,255,255,0.62)', fontSize: '1.1rem', lineHeight: 1.75, marginBottom: '36px', maxWidth: '520px' }}>
-                From SMEs to large enterprises — we deliver quality petrol, diesel, LPG and lubricants at competitive bulk rates, on your schedule, anywhere in Ghana.
+                From SMEs to large enterprises — we deliver quality petrol and diesel at competitive bulk rates, on your schedule, anywhere in Ghana.
               </p>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 <Link to="/quote" style={{ backgroundColor: '#CC0000', color: '#fff', padding: '15px 32px', borderRadius: '8px', fontWeight: 800, fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
