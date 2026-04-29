@@ -17,6 +17,7 @@ import {
 } from 'react-icons/fa';
 import { supabase } from '../lib/supabase';
 import ReCAPTCHA from 'react-google-recaptcha';
+import emailjs from '@emailjs/browser';
 
 const perks = [
   { icon: FaBriefcase, title: 'Continuous Learning', text: 'We invest in training and development programs to help our staff grow professionally.' },
@@ -85,6 +86,22 @@ export default function Careers() {
         cv_url,
       });
       if (error) throw error;
+
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          applicant_name: name,
+          applicant_email: email,
+          applicant_phone: phone,
+          position,
+          cover_letter: coverLetter,
+          cv_info: cv_url ? `CV uploaded: ${cv_url}` : 'No CV attached',
+          to_email: 'relianceoil2018@gmail.com',
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+
       setFormStatus('success');
       setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });
       setCvFileName('');
