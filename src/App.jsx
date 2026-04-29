@@ -9,6 +9,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import FuelPriceTicker from './components/FuelPriceTicker'
 import MayDayPopup from './components/MayDayPopup'
+import WhatsAppButton from './components/WhatsAppButton'
 import './index.css'
 
 const Home = lazy(() => import('./pages/Home'))
@@ -85,6 +86,7 @@ function App() {
             <AnimatedRoutes />
           </main>
           <Footer />
+          <WhatsAppButton />
         </>
       )}
     </BrowserRouter>
