@@ -1,5 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { trackPageView } from './utils/analytics'
 import { AnimatePresence } from 'framer-motion'
 import { HelmetProvider } from 'react-helmet-async'
 import AOS from 'aos'
@@ -34,6 +35,7 @@ const Reviews = lazy(() => import('./pages/Reviews'))
 
 function AnimatedRoutes() {
   const location = useLocation()
+  useEffect(() => { trackPageView(location.pathname) }, [location.pathname])
   return (
     <AnimatePresence mode="wait">
       <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-12 h-12 border-4 rounded-full animate-spin" style={{borderColor:'#CC0000',borderTopColor:'transparent'}}></div></div>}>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { trackEvent, GA_EVENTS } from '../utils/analytics';
 
 const WA_NUMBER = '233209890002';
 const WA_MESSAGE = 'Hello Reliance Oil, I would like to enquire about your services.';
@@ -31,6 +32,7 @@ export default function WhatsAppButton() {
           rel="noopener noreferrer"
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
+          onClick={() => trackEvent(GA_EVENTS.WHATSAPP_CLICK)}
           style={{
             width: '56px',
             height: '56px',

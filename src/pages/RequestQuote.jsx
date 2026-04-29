@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import SEO from '../components/SEO';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { trackEvent, GA_EVENTS } from '../utils/analytics';
 import { FaArrowRight, FaCheckCircle, FaGasPump, FaTruck, FaFire, FaOilCan } from 'react-icons/fa';
 
 const fuelTypes = ['Premium Petrol', 'Diesel', 'LPG', 'Lubricants & Engine Oils', 'Multiple Products'];
@@ -30,6 +31,7 @@ export default function RequestQuote() {
     setStatus('loading');
     const { error } = await supabase.from('quotes').insert([{ ...form, submitted_at: new Date().toISOString() }]);
     if (error) { setStatus('error'); return; }
+    trackEvent(GA_EVENTS.QUOTE_SUBMITTED, { fuel_type: form.fuel_type, quantity: form.quantity });
     setStatus('success');
     setForm({ company: '', name: '', email: '', phone: '', fuel_type: '', quantity: '', delivery_type: '', location: '', message: '' });
     recaptchaRef.current?.reset();
