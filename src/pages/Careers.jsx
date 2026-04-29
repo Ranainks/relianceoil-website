@@ -79,7 +79,6 @@ export default function Careers() {
         cover_letter: coverLetter,
         cv_url,
         applied_at: new Date().toISOString(),
-        status: 'pending',
       });
       if (error) throw error;
 
