@@ -87,20 +87,23 @@ export default function Careers() {
       });
       if (error) throw error;
 
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
-          applicant_name: name,
-          applicant_email: email,
-          applicant_phone: phone,
-          position,
-          cover_letter: coverLetter,
-          cv_info: cv_url ? `CV uploaded: ${cv_url}` : 'No CV attached',
-          to_email: 'relianceoil2018@gmail.com',
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );
+      try {
+        await emailjs.send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          {
+            applicant_name: name,
+            applicant_email: email,
+            applicant_phone: phone,
+            position,
+            cover_letter: coverLetter,
+            cv_info: cv_url ? `CV uploaded: ${cv_url}` : 'No CV attached',
+            to_email: 'relianceoil2018@gmail.com',
+          },
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        );
+      } catch (_) {
+      }
 
       setFormStatus('success');
       setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });
