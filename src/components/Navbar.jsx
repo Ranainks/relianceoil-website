@@ -130,13 +130,13 @@ export default function Navbar() {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <Link
-            to="/contact"
+            to="/quote"
             className="cta-btn"
-            style={{ display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: '#FFD700', color: '#111111', padding: '7px 14px', borderRadius: '9999px', fontWeight: '700', fontSize: '0.8rem', textDecoration: 'none', transition: 'background-color 0.2s, transform 0.2s' }}
-            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#FFE033'; e.currentTarget.style.transform = 'scale(1.05)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#FFD700'; e.currentTarget.style.transform = 'scale(1)'; }}
+            style={{ display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: '#CC0000', color: '#ffffff', padding: '7px 14px', borderRadius: '9999px', fontWeight: '700', fontSize: '0.8rem', textDecoration: 'none', transition: 'background-color 0.2s, transform 0.2s' }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#aa0000'; e.currentTarget.style.transform = 'scale(1.05)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#CC0000'; e.currentTarget.style.transform = 'scale(1)'; }}
           >
-            Get In Touch
+            Request Quote
             <FaArrowRight size={12} />
           </Link>
 
@@ -222,11 +222,11 @@ export default function Navbar() {
                 </div>
               ))}
               <Link
-                to="/contact"
+                to="/quote"
                 onClick={() => setMobileOpen(false)}
-                style={{ display: 'block', width: '100%', textAlign: 'center', backgroundColor: '#FFD700', color: '#000000', borderRadius: '9999px', padding: '12px 0', fontWeight: '700', fontSize: '0.875rem', textDecoration: 'none', marginTop: '16px' }}
+                style={{ display: 'block', width: '100%', textAlign: 'center', backgroundColor: '#CC0000', color: '#ffffff', borderRadius: '9999px', padding: '12px 0', fontWeight: '700', fontSize: '0.875rem', textDecoration: 'none', marginTop: '16px' }}
               >
-                Get In Touch
+                Request Quote
               </Link>
             </div>
           </motion.div>
