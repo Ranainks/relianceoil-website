@@ -17,6 +17,7 @@ import {
 } from 'react-icons/fa';
 import { supabase } from '../lib/supabase';
 import ReCAPTCHA from 'react-google-recaptcha';
+import emailjs from '@emailjs/browser';
 
 const perks = [
   { icon: FaBriefcase, title: 'Continuous Learning', text: 'We invest in training and development programs to help our staff grow professionally.' },
@@ -59,15 +60,9 @@ export default function Careers() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, phone, position, coverLetter } = formData;
-    if (!name || !email || !phone || !position || !coverLetter) {
-      setFormStatus('error');
-      return;
-    }
+    if (!name || !email || !phone || !position || !coverLetter) { setFormStatus('error'); return; }
     const captchaToken = recaptchaRef.current?.getValue();
-    if (!captchaToken) {
-      setFormStatus('captcha');
-      return;
-    }
+    if (!captchaToken) { setFormStatus('captcha'); return; }
     setIsSubmitting(true);
     setFormStatus('idle');
     setSubmitErrorMsg('');
@@ -80,33 +75,44 @@ export default function Careers() {
         if (!uploadError) cv_url = fileName;
       }
       const { error } = await supabase.from('applications').insert({
-        name,
-        email,
-        phone,
-        position,
+        name, email, phone, position,
         cover_letter: coverLetter,
         cv_url,
         applied_at: new Date().toISOString(),
+        status: 'pending',
       });
       if (error) throw error;
 
-      try {
-        await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({
-            access_key: import.meta.env.VITE_WEB3FORMS_KEY,
-            subject: `New Job Application — ${position} — ${name}`,
-            from_name: 'Reliance Oil Careers',
-            replyto: email,
-            name,
-            phone,
-            position,
-            cover_letter: coverLetter,
-            cv: cv_url ? `Uploaded: ${cv_url}` : 'Not attached',
-          }),
-        });
-      } catch (_) {
+      const svcId  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const pubKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (svcId && pubKey) {
+        const notifyTpl  = import.meta.env.VITE_EMAILJS_NOTIFY_TEMPLATE;
+        const confirmTpl = import.meta.env.VITE_EMAILJS_CONFIRM_TEMPLATE;
+        const cvInfo = cv_url ? `CV uploaded (filename: ${cv_url})` : 'No CV attached';
+
+        if (notifyTpl) {
+          try {
+            await emailjs.send(svcId, notifyTpl, {
+              applicant_name:  name,
+              applicant_email: email,
+              applicant_phone: phone,
+              position,
+              cover_letter: coverLetter,
+              cv_info: cvInfo,
+            }, pubKey);
+          } catch (_) {}
+        }
+
+        if (confirmTpl) {
+          try {
+            await emailjs.send(svcId, confirmTpl, {
+              applicant_name:  name,
+              applicant_email: email,
+              position,
+            }, pubKey);
+          } catch (_) {}
+        }
       }
 
       setFormStatus('success');

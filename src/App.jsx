@@ -21,6 +21,7 @@ const Gallery = lazy(() => import('./pages/Gallery'))
 const News = lazy(() => import('./pages/News'))
 const NewsDetail = lazy(() => import('./pages/NewsDetail'))
 const ServiceDetail = lazy(() => import('./pages/ServiceDetail'))
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'))
 const Careers = lazy(() => import('./pages/Careers'))
 const Contact = lazy(() => import('./pages/Contact'))
 const Safety = lazy(() => import('./pages/Safety'))
@@ -50,6 +51,7 @@ function AnimatedRoutes() {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/reviews" element={<Reviews />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </Suspense>
     </AnimatePresence>
