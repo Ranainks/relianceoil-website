@@ -164,7 +164,7 @@ export default function RequestQuote() {
 
           <div style={{ marginTop: '32px', textAlign: 'center', color: '#888', fontSize: '0.875rem' }}>
             Prefer to call? Reach us on{' '}
-            <a href="tel:+233209890002" style={{ color: '#CC0000', fontWeight: 600, textDecoration: 'none' }}>+233 20 989 0002</a>
+            <a href="tel:+233247470403" style={{ color: '#CC0000', fontWeight: 600, textDecoration: 'none' }}>+233 24 747 0403</a>
             {' '}or{' '}
             <Link to="/contact" style={{ color: '#CC0000', fontWeight: 600, textDecoration: 'none' }}>send a message</Link>
           </div>

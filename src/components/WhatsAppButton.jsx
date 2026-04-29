@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { trackEvent, GA_EVENTS } from '../utils/analytics';
 
-const WA_NUMBER = '233209890002';
+const WA_NUMBER = '233247470403';
 const WA_MESSAGE = 'Hello Reliance Oil, I would like to enquire about your services.';
 
 export default function WhatsAppButton() {

@@ -87,7 +87,7 @@ export default function BulkFuelSupply() {
                 <Link to="/quote" style={{ backgroundColor: '#CC0000', color: '#fff', padding: '15px 32px', borderRadius: '8px', fontWeight: 800, fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                   Get a Free Quote <FaArrowRight size={13} />
                 </Link>
-                <a href="tel:+233209890002" style={{ backgroundColor: 'rgba(255,255,255,0.07)', color: '#fff', padding: '15px 28px', borderRadius: '8px', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.12)' }}>
+                <a href="tel:+233247470403" style={{ backgroundColor: 'rgba(255,255,255,0.07)', color: '#fff', padding: '15px 28px', borderRadius: '8px', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.12)' }}>
                   <FaPhone size={13} /> Call Us Now
                 </a>
               </div>
@@ -230,8 +230,8 @@ export default function BulkFuelSupply() {
               <Link to="/quote" style={{ backgroundColor: '#FFD700', color: '#111', padding: '16px 36px', borderRadius: '8px', fontWeight: 800, fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                 Get a Free Quote <FaArrowRight size={13} />
               </Link>
-              <a href="tel:+233209890002" style={{ backgroundColor: 'transparent', color: '#fff', padding: '16px 28px', borderRadius: '8px', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', border: '2px solid rgba(255,255,255,0.45)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                <FaPhone size={13} /> +233 20 989 0002
+              <a href="tel:+233247470403" style={{ backgroundColor: 'transparent', color: '#fff', padding: '16px 28px', borderRadius: '8px', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', border: '2px solid rgba(255,255,255,0.45)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                <FaPhone size={13} /> +233 24 747 0403
               </a>
               <a href="mailto:relianceoil2018@gmail.com" style={{ backgroundColor: 'transparent', color: '#fff', padding: '16px 28px', borderRadius: '8px', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', border: '2px solid rgba(255,255,255,0.45)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                 <FaEnvelope size={13} /> Email Us
