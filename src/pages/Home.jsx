@@ -179,20 +179,20 @@ export default function Home() {
             </AnimatePresence>
             <div style={{ display: 'flex', flexDirection: 'row', gap: '16px', flexWrap: 'wrap' }}>
               <Link
-                to="/find-station"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: '#FFD700', color: '#111111', padding: '14px 28px', borderRadius: '9999px', fontWeight: 700, fontSize: '0.95rem', transition: 'all 0.2s', textDecoration: 'none' }}
-                onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#FFE033'; e.currentTarget.style.transform = 'scale(1.05)'; }}
-                onMouseLeave={e => { e.currentTarget.style.backgroundColor = '#FFD700'; e.currentTarget.style.transform = 'scale(1)'; }}
+                to="/quote"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: '#CC0000', color: '#ffffff', padding: '14px 28px', borderRadius: '9999px', fontWeight: 700, fontSize: '0.95rem', transition: 'all 0.2s', textDecoration: 'none' }}
+                onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#aa0000'; e.currentTarget.style.transform = 'scale(1.05)'; }}
+                onMouseLeave={e => { e.currentTarget.style.backgroundColor = '#CC0000'; e.currentTarget.style.transform = 'scale(1)'; }}
               >
-                Find a Station <FaArrowRight size={13} />
+                Request Bulk Quote <FaArrowRight size={13} />
               </Link>
               <Link
-                to="/about"
+                to="/find-station"
                 style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', border: '2px solid rgba(255,255,255,0.3)', color: '#ffffff', padding: '14px 28px', borderRadius: '9999px', fontWeight: 600, fontSize: '0.95rem', transition: 'all 0.2s', textDecoration: 'none' }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = '#ffffff'; e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; e.currentTarget.style.backgroundColor = 'transparent'; }}
               >
-                About Us
+                Find a Station
               </Link>
             </div>
             <div style={{ marginTop: '40px', display: 'flex', alignItems: 'center', gap: '16px' }}>
@@ -206,8 +206,8 @@ export default function Home() {
                 ))}
               </div>
               <div>
-                <div style={{ color: '#ffffff', fontWeight: 700, fontSize: '0.85rem' }}>34+ Stations Across Ghana</div>
-                <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.75rem' }}>Serving thousands daily</div>
+                <div style={{ color: '#ffffff', fontWeight: 700, fontSize: '0.85rem' }}>Trusted by Fleets & Businesses Across Ghana</div>
+                <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.75rem' }}>33+ stations · Bulk supply · 24/7 service</div>
               </div>
             </div>
           </div>
@@ -303,16 +303,16 @@ export default function Home() {
                   marginBottom: '12px',
                 }}
               >
-                Your Trusted Partner in Quality Fuel
+                Cut Fuel Costs. Keep Your Fleet Moving.
               </h2>
               <p style={{ color: '#666', fontSize: '1rem', lineHeight: 1.7, marginBottom: '32px' }}>
-                We deliver premium petroleum products and services that meet the highest standards, ensuring your vehicles and businesses always run smoothly.
+                Whether you run 5 trucks or 500, Reliance Oil delivers consistent, certified fuel at bulk rates — with the flexibility, nationwide reach, and dedicated support your operations demand.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
                 {[
-                  { icon: FaShieldAlt, title: 'Eco-Friendly & Certified', text: 'All our fuels meet Ghana Standards Authority specifications for quality and safety.' },
-                  { icon: FaUsers, title: 'Expert Team & Quality Service', text: 'Our trained staff across all 30+ stations ensure exceptional customer experience.' },
-                  { icon: FaStar, title: 'Smart & Efficient Fuel Solutions', text: 'We offer the best market prices, loyalty programs, and fleet management solutions.' },
+                  { icon: FaShieldAlt, title: 'GSA-Certified, NPA-Licensed', text: 'Every litre we supply meets Ghana Standards Authority quality specs. No compromise on fuel quality — ever.', link: '/about' },
+                  { icon: FaUsers, title: 'A Dedicated Account Manager', text: 'Large-volume clients get a named contact who handles scheduling, invoicing, and supply issues directly.', link: '/bulk-fuel-supply' },
+                  { icon: FaStar, title: 'Competitive Bulk Pricing', text: 'Volume-based pricing below pump rates, flexible credit terms, and contracts tailored to your usage cycle.', link: '/quote' },
                 ].map((feat, i) => {
                   const Icon = feat.icon;
                   return (
@@ -335,22 +335,12 @@ export default function Home() {
                         <h4 style={{ fontWeight: 700, color: '#111', fontSize: '0.95rem', marginBottom: '4px' }}>{feat.title}</h4>
                         <p style={{ color: '#888', fontSize: '0.875rem', lineHeight: 1.6 }}>{feat.text}</p>
                         <Link
-                          to="/services"
-                          style={{
-                            color: '#CC0000',
-                            fontSize: '0.8rem',
-                            fontWeight: 600,
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '4px',
-                            marginTop: '8px',
-                            textDecoration: 'none',
-                            transition: 'gap 0.2s',
-                          }}
+                          to={feat.link || '/services'}
+                          style={{ color: '#CC0000', fontSize: '0.8rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px', marginTop: '8px', textDecoration: 'none', transition: 'gap 0.2s' }}
                           onMouseEnter={e => { e.currentTarget.style.gap = '8px'; }}
                           onMouseLeave={e => { e.currentTarget.style.gap = '4px'; }}
                         >
-                          Read More <FaArrowRight size={10} />
+                          Learn More <FaArrowRight size={10} />
                         </Link>
                       </div>
                     </div>
@@ -376,10 +366,10 @@ export default function Home() {
                   marginBottom: '20px',
                 }}
               >
-                Leading Ghana's Petroleum Retail Industry
+                Ghana's Growing Petroleum Network — Built for Business
               </h2>
               <p style={{ color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, marginBottom: '32px' }}>
-                Established in January 2020 and licensed by the National Petroleum Authority (NPA), Reliance Oil Limited operates in Ghana's downstream petroleum sector. We supply fuel products through a rapidly expanding network of stations, driven by excellence, safety, and a strong commitment to national development.
+                Licensed by the National Petroleum Authority (NPA) since 2020, Reliance Oil Limited has rapidly expanded to 33+ stations across 6 regions. We don't just sell fuel — we power logistics companies, construction firms, manufacturers, and fleets that keep Ghana's economy moving.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {[
@@ -547,7 +537,7 @@ export default function Home() {
                 marginBottom: '16px',
               }}
             >
-              Comprehensive Energy Solutions for Ghana
+              Six Services. One Reliable Partner.
             </h2>
             <p
               style={{
@@ -558,7 +548,7 @@ export default function Home() {
                 marginBottom: '64px',
               }}
             >
-              From fuel retail to fleet management, we provide end-to-end petroleum solutions.
+              From bulk diesel contracts to LPG refills and fleet management — everything your business needs, under one roof.
             </p>
           </div>
           <div className="rg3" style={{ marginTop: '48px' }}>
