@@ -13,7 +13,7 @@ const navLinks = [
     path: '/services',
     dropdown: [
       { label: 'Fuel Retail', path: '/services' },
-      { label: 'Bulk Supply', path: '/services' },
+      { label: 'Bulk Supply', path: '/bulk-fuel-supply' },
       { label: 'Car Wash', path: '/services' },
       { label: 'Fleet Management', path: '/services' },
     ],
