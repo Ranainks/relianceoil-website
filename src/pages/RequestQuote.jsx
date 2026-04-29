@@ -31,6 +31,9 @@ export default function RequestQuote() {
     setStatus('loading');
     const { error } = await supabase.from('quotes').insert([{ ...form, submitted_at: new Date().toISOString() }]);
     if (error) { setStatus('error'); return; }
+
+    await supabase.functions.invoke('send-quote-email', { body: form });
+
     trackEvent(GA_EVENTS.QUOTE_SUBMITTED, { fuel_type: form.fuel_type, quantity: form.quantity });
     setStatus('success');
     setForm({ company: '', name: '', email: '', phone: '', fuel_type: '', quantity: '', delivery_type: '', location: '', message: '' });
