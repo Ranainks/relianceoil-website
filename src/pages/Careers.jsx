@@ -95,7 +95,7 @@ export default function Careers() {
           cv_info: cv_url ? `CV uploaded (file: ${cv_url})` : 'No CV attached',
           applied_at: new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' }),
         },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
       );
 
       setFormStatus('success');
