@@ -69,12 +69,7 @@ export default function Home() {
 
   useEffect(() => {
     supabase.from('hero_slides').select('*').eq('active', true).order('order_index').then(({ data }) => {
-      if (data && data.length > 0) {
-        const preload = new window.Image();
-        preload.src = data[0].img;
-        preload.onload = () => { setHeroSlides(data); setActiveSlide(0); };
-        preload.onerror = () => { setHeroSlides(data); setActiveSlide(0); };
-      }
+      if (data && data.length > 0) setHeroSlides(data);
     });
     supabase.from('reviews').select('*').eq('approved', true).order('created_at', { ascending: false }).then(({ data }) => {
       if (data && data.length > 0) setReviews(data);

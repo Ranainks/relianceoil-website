@@ -10,6 +10,7 @@ import { FaPhone, FaEnvelope, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn,
 import { FaLocationDot, FaClock } from 'react-icons/fa6';
 import { supabase } from '../lib/supabase';
 import ReCAPTCHA from 'react-google-recaptcha';
+import emailjs from '@emailjs/browser';
 
 const inputStyle = {
   border: '1px solid #e5e7eb',
@@ -85,25 +86,27 @@ export default function Contact() {
     setIsSubmitting(true);
     setFormStatus('idle');
     try {
-      const { error } = await supabase.from('messages').insert({
+      await supabase.from('messages').insert({
         name: formData.name,
         email: formData.email,
         subject: formData.subject,
         message: formData.message,
       });
-      if (error) throw error;
 
-      await fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'contact',
-          name: formData.name,
-          email: formData.email,
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          reply_to: formData.email,
+          to_name: 'Reliance Oil',
+          to_email: 'relianceoil2018@gmail.com',
           subject: formData.subject,
           message: formData.message,
-        }),
-      });
+        },
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
+      );
 
       setFormStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
