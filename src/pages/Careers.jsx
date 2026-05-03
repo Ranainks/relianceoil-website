@@ -17,7 +17,6 @@ import {
 } from 'react-icons/fa';
 import { supabase } from '../lib/supabase';
 import ReCAPTCHA from 'react-google-recaptcha';
-import emailjs from '@emailjs/browser';
 
 const perks = [
   { icon: FaBriefcase, title: 'Continuous Learning', text: 'We invest in training and development programs to help our staff grow professionally.' },
@@ -82,39 +81,16 @@ export default function Careers() {
       });
       if (error) throw error;
 
-      const svcId  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const pubKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-      if (svcId && pubKey) {
-        const notifyTpl  = import.meta.env.VITE_EMAILJS_NOTIFY_TEMPLATE;
-        const confirmTpl = import.meta.env.VITE_EMAILJS_CONFIRM_TEMPLATE;
-        const cvInfo = cv_url ? `CV uploaded (filename: ${cv_url})` : 'No CV attached';
-
-        if (notifyTpl) {
-          try {
-            await emailjs.send(svcId, notifyTpl, {
-              to_email:        'info@relianceoilltd.com',
-              applicant_name:  name,
-              applicant_email: email,
-              applicant_phone: phone,
-              position,
-              cover_letter: coverLetter,
-              cv_info: cvInfo,
-            }, pubKey);
-          } catch (_) {}
-        }
-
-        if (confirmTpl) {
-          try {
-            await emailjs.send(svcId, confirmTpl, {
-              to_email:        email,
-              applicant_name:  name,
-              applicant_email: email,
-              position,
-            }, pubKey);
-          } catch (_) {}
-        }
-      }
+      await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'application',
+          name, email, phone, position,
+          coverLetter,
+          cvInfo: cv_url ? `CV uploaded (filename: ${cv_url})` : 'No CV attached',
+        }),
+      });
 
       setFormStatus('success');
       setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });

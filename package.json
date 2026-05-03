@@ -25,6 +25,7 @@
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.14.0",
     "remark-gfm": "^4.0.1",
+    "resend": "^6.12.2",
     "tailwindcss": "^4.2.2",
     "yet-another-react-lightbox": "^3.30.1"
   },
