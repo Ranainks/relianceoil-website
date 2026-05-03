@@ -17,6 +17,7 @@ import {
 } from 'react-icons/fa';
 import { supabase } from '../lib/supabase';
 import ReCAPTCHA from 'react-google-recaptcha';
+import emailjs from '@emailjs/browser';
 
 
 const perks = [
@@ -82,20 +83,21 @@ export default function Careers() {
       });
       if (error) throw error;
 
-      const emailRes = await fetch('/api/send-application', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name, email, phone, position,
-          coverLetter,
-          cvInfo: cv_url ? `CV uploaded: ${cv_url}` : 'No CV attached',
-          appliedAt: new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' }),
-        }),
-      });
-      if (!emailRes.ok) {
-        const errData = await emailRes.json().catch(() => ({}));
-        throw new Error(errData.error || 'Email delivery failed');
-      }
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_APPLICATION_TEMPLATE_ID,
+        {
+          applicant_name: name,
+          applicant_email: email,
+          applicant_phone: phone,
+          applied_position: position,
+          cover_letter: coverLetter,
+          cv_info: cv_url ? `CV uploaded: ${cv_url}` : 'No CV attached',
+          applied_at: new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' }),
+          to_email: 'relianceoil2018@gmail.com',
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+      );
 
       setFormStatus('success');
       setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });
