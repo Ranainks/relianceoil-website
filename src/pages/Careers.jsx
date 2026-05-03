@@ -81,7 +81,11 @@ export default function Careers() {
         cv_url,
         applied_at: new Date().toISOString(),
       });
-      if (dbError) throw new Error(dbError.message || 'Failed to save application');
+      if (dbError) {
+        let msg = dbError.message || 'Failed to save application';
+        try { const p = JSON.parse(msg); msg = p.message || msg; } catch {}
+        throw new Error(msg);
+      }
 
       setFormStatus('success');
       setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });
