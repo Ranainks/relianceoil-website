@@ -79,20 +79,20 @@ export default function Careers() {
       const appliedAt = new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' });
       const fullMessage = `New Job Application\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nPosition: ${position}\nDate: ${appliedAt}\n\nCover Letter:\n${coverLetter}\n\nCV: ${cv_url ? cvFile?.name : 'Not attached'}`;
 
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
-          from_name: name,
-          from_email: email,
-          reply_to: email,
-          to_name: 'Reliance Oil HR',
-          to_email: 'relianceoil2018@gmail.com',
-          subject: `Job Application — ${position}`,
-          message: fullMessage,
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      );
+      const emailPayload = (toEmail) => ({
+        from_name: name,
+        from_email: email,
+        reply_to: email,
+        to_name: 'Reliance Oil HR',
+        to_email: toEmail,
+        subject: `Job Application — ${position}`,
+        message: fullMessage,
+      });
+
+      await Promise.all([
+        emailjs.send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, emailPayload('info@relianceoilltd.com'), import.meta.env.VITE_EMAILJS_PUBLIC_KEY),
+        emailjs.send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, emailPayload('relianceoil2018@gmail.com'), import.meta.env.VITE_EMAILJS_PUBLIC_KEY),
+      ]);
 
       supabase.from('applications').insert({
         name, email, phone, position,

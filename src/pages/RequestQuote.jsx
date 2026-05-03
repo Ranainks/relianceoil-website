@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import SEO from '../components/SEO';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { trackEvent, GA_EVENTS } from '../utils/analytics';
+import emailjs from '@emailjs/browser';
 import { FaArrowRight, FaCheckCircle, FaGasPump, FaTruck, FaFire, FaOilCan } from 'react-icons/fa';
 
 const fuelTypes = ['Premium Petrol', 'Diesel', 'Multiple Products'];
@@ -29,15 +29,37 @@ export default function RequestQuote() {
     const token = recaptchaRef.current?.getValue();
     if (!token) { setStatus('captcha'); return; }
     setStatus('loading');
-    const { error } = await supabase.from('quotes').insert([{ ...form, submitted_at: new Date().toISOString() }]);
-    if (error) { setStatus('error'); return; }
+    try {
+      const submittedAt = new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' });
+      const fullMessage = `New Quote Request\n\nCompany: ${form.company}\nContact: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nFuel Type: ${form.fuel_type}\nQuantity: ${form.quantity}\nDelivery: ${form.delivery_type}\nLocation: ${form.location}\nDate: ${submittedAt}\n\nAdditional Requirements:\n${form.message || 'None'}`;
 
-    await supabase.functions.invoke('send-quote-email', { body: form });
+      const emailPayload = (toEmail) => ({
+        from_name: form.name,
+        from_email: form.email,
+        reply_to: form.email,
+        to_name: 'Reliance Oil Sales Team',
+        to_email: toEmail,
+        subject: `Quote Request — ${form.fuel_type} | ${form.company}`,
+        message: fullMessage,
+      });
 
-    trackEvent(GA_EVENTS.QUOTE_SUBMITTED, { fuel_type: form.fuel_type, quantity: form.quantity });
-    setStatus('success');
-    setForm({ company: '', name: '', email: '', phone: '', fuel_type: '', quantity: '', delivery_type: '', location: '', message: '' });
-    recaptchaRef.current?.reset();
+      await Promise.all([
+        emailjs.send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, emailPayload('info@relianceoilltd.com'), import.meta.env.VITE_EMAILJS_PUBLIC_KEY),
+        emailjs.send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, emailPayload('relianceoil2018@gmail.com'), import.meta.env.VITE_EMAILJS_PUBLIC_KEY),
+      ]);
+
+      supabase.from('quotes').insert([{ ...form, submitted_at: new Date().toISOString() }]).catch(() => {});
+
+      setStatus('success');
+      setForm({ company: '', name: '', email: '', phone: '', fuel_type: '', quantity: '', delivery_type: '', location: '', message: '' });
+      recaptchaRef.current?.reset();
+    } catch (err) {
+      const raw = err?.text || err?.message || '';
+      let msg = raw;
+      try { msg = JSON.parse(raw)?.message || raw; } catch {}
+      setStatus('error');
+      console.error('Quote submission error:', msg);
+    }
   };
 
   const inputStyle = { width: '100%', padding: '12px 14px', border: '1px solid #E5E7EB', borderRadius: '8px', fontSize: '0.9rem', color: '#111', outline: 'none', backgroundColor: '#fff', fontFamily: 'inherit' };
