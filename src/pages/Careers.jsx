@@ -75,15 +75,20 @@ export default function Careers() {
         const { error: uploadError } = await supabase.storage.from('cvs').upload(fileName, cvFile);
         if (!uploadError) cv_url = fileName;
       }
-      const { error } = await supabase.from('applications').insert({
+      const { error: dbError } = await supabase.from('applications').insert({
         name, email, phone, position,
         cover_letter: coverLetter,
         cv_url,
         applied_at: new Date().toISOString(),
       });
-      if (error) throw error;
+      if (dbError) throw new Error(dbError.message || 'Failed to save application');
 
-      await emailjs.send(
+      setFormStatus('success');
+      setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });
+      setCvFileName('');
+      recaptchaRef.current?.reset();
+
+      emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_APPLICATION_TEMPLATE_ID,
         {
@@ -92,19 +97,15 @@ export default function Careers() {
           applicant_phone: phone,
           applied_position: position,
           cover_letter: coverLetter,
-          cv_info: cv_url ? `CV uploaded: ${cv_url}` : 'No CV attached',
+          cv_info: cv_url ? `CV file: ${cv_url}` : 'No CV attached',
           applied_at: new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' }),
           to_email: 'relianceoil2018@gmail.com',
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      );
+      ).catch(() => {});
 
-      setFormStatus('success');
-      setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });
-      setCvFileName('');
-      recaptchaRef.current?.reset();
     } catch (err) {
-      setSubmitErrorMsg(err?.message || 'Unknown error');
+      setSubmitErrorMsg(err?.message || 'Please try again or contact us directly.');
       setFormStatus('submiterror');
     } finally {
       setIsSubmitting(false);
