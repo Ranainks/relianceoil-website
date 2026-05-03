@@ -10,6 +10,7 @@ import { FaPhone, FaEnvelope, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn,
 import { FaLocationDot, FaClock } from 'react-icons/fa6';
 import { supabase } from '../lib/supabase';
 import ReCAPTCHA from 'react-google-recaptcha';
+import emailjs from '@emailjs/browser';
 
 const inputStyle = {
   border: '1px solid #e5e7eb',
@@ -44,7 +45,7 @@ export default function Contact() {
   const contactInfo = [
     { icon: FaLocationDot, title: 'Head Office', info: (s.contact_address || 'Bortianor (Raliance), Winneba Road\nGS-0162-3129, Weija 162').replace(/\\n/g, '\n'), sub: s.contact_address_hours || 'Mon–Sat, 8am–5pm' },
     { icon: FaPhone, title: 'Call Us', info: s.contact_phone || '+233 30 222 0000', sub: s.contact_phone_sub || '24/7 for emergencies' },
-    { icon: FaEnvelope, title: 'Email Us', info: s.contact_email || 'info@relianceoilgh.com', sub: s.contact_email_sub || 'Response within 24hrs' },
+    { icon: FaEnvelope, title: 'Email Us', info: s.contact_email || 'info@relianceoilltd.com', sub: s.contact_email_sub || 'Response within 24hrs' },
     { icon: FaClock, title: 'Business Hours', info: s.contact_hours || 'Mon–Fri: 8am–6pm\nSat: 9am–4pm', sub: s.contact_hours_sub || 'Closed Sundays & holidays' },
   ];
 
@@ -92,6 +93,22 @@ export default function Contact() {
         message: formData.message,
       });
       if (error) throw error;
+
+      const svcId  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const pubKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      const tplId  = import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE;
+      if (svcId && pubKey && tplId) {
+        try {
+          await emailjs.send(svcId, tplId, {
+            to_email:     'info@relianceoilltd.com',
+            sender_name:  formData.name,
+            sender_email: formData.email,
+            subject:      formData.subject,
+            message:      formData.message,
+          }, pubKey);
+        } catch (_) {}
+      }
+
       setFormStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
       recaptchaRef.current?.reset();

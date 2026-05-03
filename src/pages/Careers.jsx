@@ -93,6 +93,7 @@ export default function Careers() {
         if (notifyTpl) {
           try {
             await emailjs.send(svcId, notifyTpl, {
+              to_email:        'info@relianceoilltd.com',
               applicant_name:  name,
               applicant_email: email,
               applicant_phone: phone,
@@ -106,6 +107,7 @@ export default function Careers() {
         if (confirmTpl) {
           try {
             await emailjs.send(svcId, confirmTpl, {
+              to_email:        email,
               applicant_name:  name,
               applicant_email: email,
               position,
