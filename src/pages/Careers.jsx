@@ -86,7 +86,7 @@ export default function Careers() {
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
-          to_email: 'info@relianceoilltd.com',
+          to_email: 'relianceoil2018@gmail.com',
           applicant_name: name,
           applicant_email: email,
           applicant_phone: phone,
