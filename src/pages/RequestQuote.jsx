@@ -30,35 +30,32 @@ export default function RequestQuote() {
     if (!token) { setStatus('captcha'); return; }
     setStatus('loading');
     try {
-      const submittedAt = new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' });
-      const fullMessage = `New Quote Request\n\nCompany: ${form.company}\nContact: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nFuel Type: ${form.fuel_type}\nQuantity: ${form.quantity}\nDelivery: ${form.delivery_type}\nLocation: ${form.location}\nDate: ${submittedAt}\n\nAdditional Requirements:\n${form.message || 'None'}`;
-
-      const emailPayload = (toEmail) => ({
-        from_name: form.name,
-        from_email: form.email,
-        reply_to: form.email,
-        to_name: 'Reliance Oil Sales Team',
-        to_email: toEmail,
-        subject: `Quote Request — ${form.fuel_type} | ${form.company}`,
-        message: fullMessage,
-      });
-
-      await Promise.all([
-        emailjs.send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, emailPayload('info@relianceoilltd.com'), import.meta.env.VITE_EMAILJS_PUBLIC_KEY),
-        emailjs.send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, emailPayload('relianceoil2018@gmail.com'), import.meta.env.VITE_EMAILJS_PUBLIC_KEY),
-      ]);
-
-      supabase.from('quotes').insert([{ ...form, submitted_at: new Date().toISOString() }]).catch(() => {});
+      const { error: dbError } = await supabase.from('quotes').insert([{ ...form, submitted_at: new Date().toISOString() }]);
+      if (dbError) throw dbError;
 
       setStatus('success');
       setForm({ company: '', name: '', email: '', phone: '', fuel_type: '', quantity: '', delivery_type: '', location: '', message: '' });
       recaptchaRef.current?.reset();
-    } catch (err) {
-      const raw = err?.text || err?.message || '';
-      let msg = raw;
-      try { msg = JSON.parse(raw)?.message || raw; } catch {}
+
+      const submittedAt = new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' });
+      const fullMessage = `New Quote Request\n\nCompany: ${form.company}\nContact: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nFuel Type: ${form.fuel_type}\nQuantity: ${form.quantity}\nDelivery: ${form.delivery_type}\nLocation: ${form.location}\nDate: ${submittedAt}\n\nAdditional Requirements:\n${form.message || 'None'}`;
+      emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          reply_to: form.email,
+          to_name: 'Reliance Oil Sales Team',
+          to_email: 'relianceoil2018@gmail.com',
+          subject: `Quote Request — ${form.fuel_type} | ${form.company}`,
+          message: fullMessage,
+        },
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
+      ).catch(() => {});
+
+    } catch {
       setStatus('error');
-      console.error('Quote submission error:', msg);
     }
   };
 

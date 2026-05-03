@@ -76,9 +76,21 @@ export default function Careers() {
         if (data) cv_url = fileName;
       }
 
-      const appliedAt = new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' });
+      const { error: dbError } = await supabase.from('applications').insert({
+        name, email, phone, position,
+        cover_letter: coverLetter,
+        cv_url,
+        applied_at: new Date().toISOString(),
+      });
+      if (dbError) throw dbError;
 
-      await emailjs.send(
+      setFormStatus('success');
+      setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });
+      setCvFileName('');
+      recaptchaRef.current?.reset();
+
+      const appliedAt = new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' });
+      emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
@@ -95,24 +107,10 @@ export default function Careers() {
           cv_attached: cvFile ? cvFile.name : 'Not attached',
         },
         { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
-      );
+      ).catch(() => {});
 
-      supabase.from('applications').insert({
-        name, email, phone, position,
-        cover_letter: coverLetter,
-        cv_url,
-        applied_at: new Date().toISOString(),
-      }).catch(() => {});
-
-      setFormStatus('success');
-      setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });
-      setCvFileName('');
-      recaptchaRef.current?.reset();
-    } catch (err) {
-      const raw = err?.text || err?.message || '';
-      let msg = raw;
-      try { msg = JSON.parse(raw)?.message || raw; } catch {}
-      setSubmitErrorMsg(msg || 'Please try again or email us at relianceoil2018@gmail.com');
+    } catch {
+      setSubmitErrorMsg('Please try again or email us at relianceoil2018@gmail.com');
       setFormStatus('submiterror');
     } finally {
       setIsSubmitting(false);
