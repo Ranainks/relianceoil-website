@@ -17,7 +17,7 @@ import {
 } from 'react-icons/fa';
 import { supabase } from '../lib/supabase';
 import ReCAPTCHA from 'react-google-recaptcha';
-import emailjs from '@emailjs/browser';
+
 
 const perks = [
   { icon: FaBriefcase, title: 'Continuous Learning', text: 'We invest in training and development programs to help our staff grow professionally.' },
@@ -82,21 +82,20 @@ export default function Careers() {
       });
       if (error) throw error;
 
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
-          to_email: 'relianceoil2018@gmail.com',
-          applicant_name: name,
-          applicant_email: email,
-          applicant_phone: phone,
-          position,
-          cover_letter: coverLetter,
-          cv_info: cv_url ? `CV uploaded (file: ${cv_url})` : 'No CV attached',
-          applied_at: new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' }),
-        },
-        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
-      );
+      const emailRes = await fetch('/api/send-application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name, email, phone, position,
+          coverLetter,
+          cvInfo: cv_url ? `CV uploaded: ${cv_url}` : 'No CV attached',
+          appliedAt: new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' }),
+        }),
+      });
+      if (!emailRes.ok) {
+        const errData = await emailRes.json().catch(() => ({}));
+        throw new Error(errData.error || 'Email delivery failed');
+      }
 
       setFormStatus('success');
       setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });
