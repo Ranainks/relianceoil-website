@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import FuelPriceTicker from './components/FuelPriceTicker'
 import MayDayPopup from './components/MayDayPopup'
 import WhatsAppButton from './components/WhatsAppButton'
+import { PortalAuthProvider } from './contexts/PortalAuth'
 import './index.css'
 
 const Home = lazy(() => import('./pages/Home'))
@@ -33,6 +34,11 @@ const Safety = lazy(() => import('./pages/Safety'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 const Terms = lazy(() => import('./pages/Terms'))
 const Reviews = lazy(() => import('./pages/Reviews'))
+const PortalLogin = lazy(() => import('./pages/portal/PortalLogin'))
+const PortalDashboard = lazy(() => import('./pages/portal/PortalDashboard'))
+const PortalOrders = lazy(() => import('./pages/portal/PortalOrders'))
+const PortalInvoices = lazy(() => import('./pages/portal/PortalInvoices'))
+const PortalAccount = lazy(() => import('./pages/portal/PortalAccount'))
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -61,9 +67,30 @@ function AnimatedRoutes() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/portal" element={<PortalLogin />} />
+          <Route path="/portal/dashboard" element={<PortalDashboard />} />
+          <Route path="/portal/orders" element={<PortalOrders />} />
+          <Route path="/portal/invoices" element={<PortalInvoices />} />
+          <Route path="/portal/account" element={<PortalAccount />} />
         </Routes>
       </Suspense>
     </AnimatePresence>
+  )
+}
+
+function AppShell({ loading }) {
+  const location = useLocation()
+  const isPortal = location.pathname.startsWith('/portal')
+  if (loading) return null
+  return (
+    <>
+      {!isPortal && <Navbar />}
+      {!isPortal && <FuelPriceTicker />}
+      {!isPortal && <MayDayPopup />}
+      <main><AnimatedRoutes /></main>
+      {!isPortal && <Footer />}
+      {!isPortal && <WhatsAppButton />}
+    </>
   )
 }
 
@@ -82,21 +109,12 @@ function App() {
   return (
     <HelmetProvider>
     <BrowserRouter>
+      <PortalAuthProvider>
       <AnimatePresence>
         {loading && <LoadingScreen key="loader" />}
       </AnimatePresence>
-      {!loading && (
-        <>
-          <Navbar />
-        <FuelPriceTicker />
-        <MayDayPopup />
-          <main>
-            <AnimatedRoutes />
-          </main>
-          <Footer />
-          <WhatsAppButton />
-        </>
-      )}
+      <AppShell loading={loading} />
+      </PortalAuthProvider>
     </BrowserRouter>
     </HelmetProvider>
   )
