@@ -18,7 +18,7 @@ export default function WhatsAppButton() {
         }
       `}</style>
 
-      <div style={{ position: 'fixed', bottom: '96px', right: '24px', zIndex: 9000, display: 'flex', alignItems: 'center', gap: '10px', flexDirection: 'row-reverse' }}>
+      <div style={{ position: 'fixed', bottom: '28px', right: '24px', zIndex: 9000, display: 'flex', alignItems: 'center', gap: '10px', flexDirection: 'row-reverse' }}>
         {hovered && (
           <div style={{ backgroundColor: '#111', color: '#fff', fontSize: '0.8rem', fontWeight: 600, padding: '8px 14px', borderRadius: '8px', whiteSpace: 'nowrap', pointerEvents: 'none', boxShadow: '0 4px 16px rgba(0,0,0,0.2)' }}>
             Chat with us on WhatsApp
