@@ -90,6 +90,7 @@ export default function Careers() {
       recaptchaRef.current?.reset();
 
       const appliedAt = new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' });
+
       emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
@@ -108,6 +109,21 @@ export default function Careers() {
         },
         { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
       ).catch(() => {});
+
+      if (import.meta.env.VITE_EMAILJS_APPLICANT_TEMPLATE_ID) {
+        emailjs.send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_APPLICANT_TEMPLATE_ID,
+          {
+            to_email: email,
+            to_name: name,
+            applicant_name: name,
+            position: position,
+            date: appliedAt,
+          },
+          { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
+        ).catch(() => {});
+      }
 
     } catch {
       setSubmitErrorMsg('Please try again or email us at relianceoil2018@gmail.com');
