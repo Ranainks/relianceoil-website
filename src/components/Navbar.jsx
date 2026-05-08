@@ -27,6 +27,7 @@ const navLinks = [
     ],
   },
   { label: 'Find a Station', path: '/find-station' },
+  { label: 'Order Fuel', path: '/order-fuel' },
   { label: 'News', path: '/news' },
   {
     label: 'More',
@@ -130,6 +131,16 @@ export default function Navbar() {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <Link
+            to="/order-fuel"
+            className="cta-btn"
+            style={{ display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: '#FFD700', color: '#111', padding: '7px 14px', borderRadius: '9999px', fontWeight: '700', fontSize: '0.8rem', textDecoration: 'none', transition: 'background-color 0.2s, transform 0.2s' }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#e6c200'; e.currentTarget.style.transform = 'scale(1.05)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#FFD700'; e.currentTarget.style.transform = 'scale(1)'; }}
+          >
+            Order Fuel
+            <FaArrowRight size={12} />
+          </Link>
+          <Link
             to="/quote"
             className="cta-btn"
             style={{ display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: '#CC0000', color: '#ffffff', padding: '7px 14px', borderRadius: '9999px', fontWeight: '700', fontSize: '0.8rem', textDecoration: 'none', transition: 'background-color 0.2s, transform 0.2s' }}
@@ -222,9 +233,16 @@ export default function Navbar() {
                 </div>
               ))}
               <Link
+                to="/order-fuel"
+                onClick={() => setMobileOpen(false)}
+                style={{ display: 'block', width: '100%', textAlign: 'center', backgroundColor: '#FFD700', color: '#111', borderRadius: '9999px', padding: '12px 0', fontWeight: '700', fontSize: '0.875rem', textDecoration: 'none', marginTop: '16px' }}
+              >
+                Order Fuel
+              </Link>
+              <Link
                 to="/quote"
                 onClick={() => setMobileOpen(false)}
-                style={{ display: 'block', width: '100%', textAlign: 'center', backgroundColor: '#CC0000', color: '#ffffff', borderRadius: '9999px', padding: '12px 0', fontWeight: '700', fontSize: '0.875rem', textDecoration: 'none', marginTop: '16px' }}
+                style={{ display: 'block', width: '100%', textAlign: 'center', backgroundColor: '#CC0000', color: '#ffffff', borderRadius: '9999px', padding: '12px 0', fontWeight: '700', fontSize: '0.875rem', textDecoration: 'none', marginTop: '10px' }}
               >
                 Request Quote
               </Link>

@@ -24,6 +24,7 @@ const News = lazy(() => import('./pages/News'))
 const NewsDetail = lazy(() => import('./pages/NewsDetail'))
 const ServiceDetail = lazy(() => import('./pages/ServiceDetail'))
 const RequestQuote = lazy(() => import('./pages/RequestQuote'))
+const OrderFuel = lazy(() => import('./pages/OrderFuel'))
 const BulkFuelSupply = lazy(() => import('./pages/BulkFuelSupply'))
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'))
 const Careers = lazy(() => import('./pages/Careers'))
@@ -51,6 +52,7 @@ function AnimatedRoutes() {
           <Route path="/news/:slug" element={<NewsDetail />} />
           <Route path="/services/:slug" element={<ServiceDetail />} />
           <Route path="/quote" element={<RequestQuote />} />
+          <Route path="/order-fuel" element={<OrderFuel />} />
           <Route path="/bulk-fuel-supply" element={<BulkFuelSupply />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/contact" element={<Contact />} />
