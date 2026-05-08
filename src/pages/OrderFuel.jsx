@@ -170,7 +170,8 @@ export default function OrderFuel() {
 
       setOrderNumber(num);
       setStatus('success');
-    } catch {
+    } catch (err) {
+      console.error('Order error:', err);
       setStatus('error');
     } finally {
       setSubmitting(false);
