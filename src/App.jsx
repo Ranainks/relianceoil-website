@@ -12,6 +12,7 @@ import FuelPriceTicker from './components/FuelPriceTicker'
 import MayDayPopup from './components/MayDayPopup'
 import WhatsAppButton from './components/WhatsAppButton'
 import { PortalAuthProvider } from './contexts/PortalAuth'
+import { AdminAuthProvider } from './contexts/AdminAuth'
 import './index.css'
 
 const Home = lazy(() => import('./pages/Home'))
@@ -27,7 +28,6 @@ const ServiceDetail = lazy(() => import('./pages/ServiceDetail'))
 const RequestQuote = lazy(() => import('./pages/RequestQuote'))
 const OrderFuel = lazy(() => import('./pages/OrderFuel'))
 const BulkFuelSupply = lazy(() => import('./pages/BulkFuelSupply'))
-const AdminDashboard = lazy(() => import('./pages/AdminDashboard'))
 const Careers = lazy(() => import('./pages/Careers'))
 const Contact = lazy(() => import('./pages/Contact'))
 const Safety = lazy(() => import('./pages/Safety'))
@@ -39,6 +39,13 @@ const PortalDashboard = lazy(() => import('./pages/portal/PortalDashboard'))
 const PortalOrders = lazy(() => import('./pages/portal/PortalOrders'))
 const PortalInvoices = lazy(() => import('./pages/portal/PortalInvoices'))
 const PortalAccount = lazy(() => import('./pages/portal/PortalAccount'))
+const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'))
+const AdminOverview = lazy(() => import('./pages/admin/AdminOverview'))
+const AdminCMS = lazy(() => import('./pages/admin/AdminCMS'))
+const AdminCareers = lazy(() => import('./pages/admin/AdminCareers'))
+const AdminContacts = lazy(() => import('./pages/admin/AdminContacts'))
+const AdminOrders = lazy(() => import('./pages/admin/AdminOrders'))
+const AdminQuotes = lazy(() => import('./pages/admin/AdminQuotes'))
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -66,12 +73,18 @@ function AnimatedRoutes() {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/reviews" element={<Reviews />} />
-          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/portal" element={<PortalLogin />} />
           <Route path="/portal/dashboard" element={<PortalDashboard />} />
           <Route path="/portal/orders" element={<PortalOrders />} />
           <Route path="/portal/invoices" element={<PortalInvoices />} />
           <Route path="/portal/account" element={<PortalAccount />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/overview" element={<AdminOverview />} />
+          <Route path="/admin/cms" element={<AdminCMS />} />
+          <Route path="/admin/careers" element={<AdminCareers />} />
+          <Route path="/admin/contacts" element={<AdminContacts />} />
+          <Route path="/admin/orders" element={<AdminOrders />} />
+          <Route path="/admin/quotes" element={<AdminQuotes />} />
         </Routes>
       </Suspense>
     </AnimatePresence>
@@ -81,15 +94,17 @@ function AnimatedRoutes() {
 function AppShell({ loading }) {
   const location = useLocation()
   const isPortal = location.pathname.startsWith('/portal')
+  const isAdmin = location.pathname.startsWith('/admin')
+  const hideChrome = isPortal || isAdmin
   if (loading) return null
   return (
     <>
-      {!isPortal && <Navbar />}
-      {!isPortal && <FuelPriceTicker />}
-      {!isPortal && <MayDayPopup />}
+      {!hideChrome && <Navbar />}
+      {!hideChrome && <FuelPriceTicker />}
+      {!hideChrome && <MayDayPopup />}
       <main><AnimatedRoutes /></main>
-      {!isPortal && <Footer />}
-      {!isPortal && <WhatsAppButton />}
+      {!hideChrome && <Footer />}
+      {!hideChrome && <WhatsAppButton />}
     </>
   )
 }
@@ -110,10 +125,12 @@ function App() {
     <HelmetProvider>
     <BrowserRouter>
       <PortalAuthProvider>
+      <AdminAuthProvider>
       <AnimatePresence>
         {loading && <LoadingScreen key="loader" />}
       </AnimatePresence>
       <AppShell loading={loading} />
+      </AdminAuthProvider>
       </PortalAuthProvider>
     </BrowserRouter>
     </HelmetProvider>
