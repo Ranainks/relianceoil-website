@@ -3,16 +3,17 @@ import { Link, useLocation, useNavigate, Navigate } from 'react-router-dom'
 import { useAdminAuth } from '../contexts/AdminAuth'
 import {
   FaTachometerAlt, FaNewspaper, FaBriefcase, FaEnvelope,
-  FaGasPump, FaFileInvoiceDollar, FaBars, FaTimes, FaSignOutAlt,
+  FaGasPump, FaFileInvoiceDollar, FaBars, FaTimes, FaSignOutAlt, FaChartBar,
 } from 'react-icons/fa'
 
 const NAV = [
-  { to: '/admin/overview',  label: 'Overview',        Icon: FaTachometerAlt },
-  { to: '/admin/cms',       label: 'CMS',             Icon: FaNewspaper },
-  { to: '/admin/careers',   label: 'Careers',         Icon: FaBriefcase },
-  { to: '/admin/contacts',  label: 'Contacts',        Icon: FaEnvelope },
-  { to: '/admin/orders',    label: 'Fuel Orders',     Icon: FaGasPump },
-  { to: '/admin/quotes',    label: 'Quote Requests',  Icon: FaFileInvoiceDollar },
+  { to: '/admin/overview',   label: 'Overview',        Icon: FaTachometerAlt },
+  { to: '/admin/analytics',  label: 'Analytics',       Icon: FaChartBar },
+  { to: '/admin/cms',        label: 'CMS',             Icon: FaNewspaper },
+  { to: '/admin/careers',    label: 'Careers',         Icon: FaBriefcase },
+  { to: '/admin/contacts',   label: 'Contacts',        Icon: FaEnvelope },
+  { to: '/admin/orders',     label: 'Fuel Orders',     Icon: FaGasPump },
+  { to: '/admin/quotes',     label: 'Quote Requests',  Icon: FaFileInvoiceDollar },
 ]
 
 export default function AdminLayout({ children }) {

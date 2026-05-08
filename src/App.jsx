@@ -41,6 +41,7 @@ const PortalInvoices = lazy(() => import('./pages/portal/PortalInvoices'))
 const PortalAccount = lazy(() => import('./pages/portal/PortalAccount'))
 const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'))
 const AdminOverview = lazy(() => import('./pages/admin/AdminOverview'))
+const AdminAnalytics = lazy(() => import('./pages/admin/AdminAnalytics'))
 const AdminCMS = lazy(() => import('./pages/admin/AdminCMS'))
 const AdminCareers = lazy(() => import('./pages/admin/AdminCareers'))
 const AdminContacts = lazy(() => import('./pages/admin/AdminContacts'))
@@ -80,6 +81,7 @@ function AnimatedRoutes() {
           <Route path="/portal/account" element={<PortalAccount />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/overview" element={<AdminOverview />} />
+          <Route path="/admin/analytics" element={<AdminAnalytics />} />
           <Route path="/admin/cms" element={<AdminCMS />} />
           <Route path="/admin/careers" element={<AdminCareers />} />
           <Route path="/admin/contacts" element={<AdminContacts />} />

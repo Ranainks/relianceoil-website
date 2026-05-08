@@ -1,11 +1,15 @@
+import { supabase } from '../lib/supabase'
+
 export function trackPageView(path) {
-  if (typeof window.gtag !== 'function') return;
-  window.gtag('event', 'page_view', { page_path: path });
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', 'page_view', { page_path: path })
+  }
+  supabase.from('page_views').insert({ path, viewed_at: new Date().toISOString() }).then(() => {})
 }
 
 export function trackEvent(event_name, params = {}) {
-  if (typeof window.gtag !== 'function') return;
-  window.gtag('event', event_name, params);
+  if (typeof window.gtag !== 'function') return
+  window.gtag('event', event_name, params)
 }
 
 export const GA_EVENTS = {
@@ -15,4 +19,4 @@ export const GA_EVENTS = {
   WHATSAPP_CLICK: 'whatsapp_click',
   PHONE_CLICK: 'phone_click',
   FIND_STATION: 'find_station_click',
-};
+}
