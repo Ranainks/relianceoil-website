@@ -47,7 +47,7 @@ export default function Products() {
 
   return (
     <div>
-      <SEO title="Our Products" description="Explore Reliance Oil's range of petroleum products including Premium Petrol (91, 95, 98 RON) and Diesel. GSA certified quality." path="/products" />
+      <SEO title="Petroleum Products — Petrol & Diesel Supplier in Ghana" description="Reliance Oil Limited supplies GSA-certified premium petrol and diesel across Ghana. Quality petroleum products from a trusted NPA licensed fuel supplier." path="/products" keywords="diesel supplier Ghana, petrol supplier Ghana, GSA certified fuel Ghana, premium petrol Ghana, bulk diesel Ghana, petroleum products Ghana, fuel products Ghana" />
       <PageHero
         title="Our Products"
         subtitle="Quality petroleum products meeting Ghana Standards Authority specifications."

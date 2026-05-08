@@ -48,7 +48,7 @@ export default function News() {
 
   return (
     <div>
-      <SEO title="News & Updates" description="Stay informed with the latest news, company updates, industry insights and community initiatives from Reliance Oil Limited." path="/news" />
+      <SEO title="News & Updates — Reliance Oil Limited Ghana" description="Latest news, industry updates and company announcements from Reliance Oil Limited — Ghana's trusted fuel supplier and oil marketing company." path="/news" keywords="Reliance Oil news Ghana, petroleum industry news Ghana, fuel supplier Ghana news" />
       <PageHero
         title="News & Updates"
         subtitle="Stay informed about Reliance Oil's latest developments, industry insights, and community initiatives."

@@ -131,9 +131,19 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden">
       <SEO
-        title="Quality Petroleum Products Across Ghana"
-        description="Reliance Oil Limited — NPA licensed petroleum company with 33+ filling stations across Ghana. Quality petrol, diesel and fleet management services."
+        title="Fuel Supplier in Ghana — Quality Petrol, Diesel & Fleet Solutions"
+        description="Reliance Oil Limited — NPA licensed fuel supplier and oil marketing company in Ghana. 34+ stations across 6 regions. Diesel supply, bulk fuel, LPG and fleet management."
         path="/"
+        keywords="fuel supplier in Ghana, diesel supply Ghana, oil marketing company Ghana, bulk diesel supplier Ghana, petrol station Ghana, fuel company Ghana, petroleum supplier Ghana"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqs.map(faq => ({
+            '@type': 'Question',
+            name: faq.q,
+            acceptedAnswer: { '@type': 'Answer', text: faq.a },
+          })),
+        }}
       />
       <section
         style={{ position: 'relative', overflow: 'hidden', minHeight: '100svh', paddingTop: '72px', display: 'flex', alignItems: 'center', backgroundColor: '#0D0D0D' }}

@@ -65,6 +65,12 @@ export default function Services() {
 
   return (
     <div>
+      <SEO
+        title="Petroleum Services — Diesel Supply, Bulk Fuel & Fleet Management Ghana"
+        description="Reliance Oil Limited offers diesel supply, bulk fuel, fleet management, LPG and lubricants services across Ghana. NPA licensed oil marketing company."
+        path="/services"
+        keywords="diesel supply Ghana, bulk fuel supply Ghana, fleet management Ghana, LPG supply Ghana, petroleum services Ghana, oil marketing company Ghana, fuel supply company Ghana"
+      />
       <PageHero
         title="Our Services"
         subtitle="Comprehensive petroleum and energy solutions for individuals, businesses and fleets across Ghana."

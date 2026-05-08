@@ -122,7 +122,7 @@ export default function Contact() {
 
   return (
     <div>
-      <SEO title="Contact Us" description="Get in touch with Reliance Oil Limited. Visit our head office in Bortianor, call us, or send a message. We are here to help with all your petroleum needs." path="/contact" />
+      <SEO title="Contact Us — Fuel Supplier in Ghana" description="Contact Reliance Oil Limited for diesel supply, bulk fuel, fleet management and petroleum enquiries. Visit our head office in Accra or call us today." path="/contact" keywords="contact fuel supplier Ghana, Reliance Oil contact, petroleum company Ghana contact, diesel supply enquiry Ghana" />
       <PageHero
         title="Contact Us"
         subtitle="We'd love to hear from you. Reach out to our team for any inquiries, bulk fuel orders, or support."

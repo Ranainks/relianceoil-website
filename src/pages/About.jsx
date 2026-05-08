@@ -51,7 +51,7 @@ export default function About() {
 
   return (
     <div>
-      <SEO title="About Us" description="Learn about Reliance Oil Limited — NPA licensed petroleum company founded in 2020, operating 33+ stations across 6 regions in Ghana." path="/about" />
+      <SEO title="About Us — NPA Licensed Oil Marketing Company in Ghana" description="Reliance Oil Limited is an NPA licensed oil marketing company in Ghana with 34+ filling stations across 6 regions. Delivering quality petroleum products since 2020." path="/about" keywords="NPA licensed oil company Ghana, oil marketing company Ghana, petroleum company Ghana, fuel company Ghana, about Reliance Oil Limited" />
       <PageHero
         title="About Us"
         subtitle="Powering Ghana's growth through quality petroleum products and exceptional service since 2020."

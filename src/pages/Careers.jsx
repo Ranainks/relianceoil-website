@@ -129,7 +129,7 @@ export default function Careers() {
 
   return (
     <div>
-      <SEO title="Careers" description="Join the Reliance Oil Limited team. Browse open job vacancies across our stations and head office in Ghana and build a rewarding career in the petroleum industry." path="/careers" />
+      <SEO title="Careers — Join Ghana's Trusted Fuel Supplier" description="Build a career with Reliance Oil Limited, an NPA licensed oil marketing company in Ghana. Browse open vacancies across our stations and head office." path="/careers" keywords="jobs at oil company Ghana, petroleum careers Ghana, fuel company jobs Ghana, Reliance Oil careers" />
       <PageHero
         title="Careers"
         subtitle="At Reliance Oil Limited, we believe our people are our greatest asset. We are committed to training, developing, and retaining skilled professionals who share our values of excellence and safety."
