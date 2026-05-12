@@ -114,7 +114,7 @@ export default function Careers() {
             coverLetter,
           ].join('\n'),
         },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY },
       ).catch(() => {});
 
     } catch {
