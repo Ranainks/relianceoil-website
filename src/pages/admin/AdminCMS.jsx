@@ -55,11 +55,11 @@ function PostsTab() {
 
   async function save() {
     setBusy(true)
-    const payload = { ...editing }
+    const { id, ...payload } = editing
     if (!payload.slug) payload.slug = toSlug(payload.title)
     if (!payload.date) payload.date = new Date().toISOString().slice(0, 10)
-    if (payload.id) {
-      await supabase.from('posts').update(payload).eq('id', payload.id)
+    if (id) {
+      await supabase.from('posts').update(payload).eq('id', id)
     } else {
       await supabase.from('posts').insert(payload)
     }
@@ -176,8 +176,8 @@ function HeroSlidesTab() {
 
   async function save() {
     setBusy(true)
-    const payload = { ...editing }
-    if (payload.id) { await supabase.from('hero_slides').update(payload).eq('id', payload.id) }
+    const { id, ...payload } = editing
+    if (id) { await supabase.from('hero_slides').update(payload).eq('id', id) }
     else { await supabase.from('hero_slides').insert(payload) }
     setEditing(null)
     setBusy(false)
@@ -282,8 +282,8 @@ function FuelPricesTab() {
 
   async function save() {
     setBusy(true)
-    const payload = { ...editing }
-    if (payload.id) { await supabase.from('fuel_prices').update(payload).eq('id', payload.id) }
+    const { id, ...payload } = editing
+    if (id) { await supabase.from('fuel_prices').update(payload).eq('id', id) }
     else { await supabase.from('fuel_prices').insert(payload) }
     setEditing(null)
     setBusy(false)
