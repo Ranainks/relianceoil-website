@@ -87,8 +87,8 @@ export default function Careers() {
       const appliedAt = new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' });
 
       await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        'service_4re3v7o',
+        'template_29xgd8a',
         {
           to_email: 'relianceoil2018@gmail.com',
           subject: `New Job Application — ${position}`,
@@ -109,7 +109,7 @@ export default function Careers() {
             coverLetter,
           ].join('\n'),
         },
-        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY },
+        { publicKey: 'mT_fbh1pQ4gmtWYOA' },
       );
 
       setFormStatus('success');
