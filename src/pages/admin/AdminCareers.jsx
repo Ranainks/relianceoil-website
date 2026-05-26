@@ -1,27 +1,18 @@
 import { useEffect, useState } from 'react'
-import emailjs from '@emailjs/browser'
 import { supabase } from '../../lib/supabase'
 import AdminLayout from '../../components/AdminLayout'
 import { FaPlus, FaEdit, FaTrash, FaCheck, FaEye, FaEnvelope, FaPhone, FaDownload, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
 
-const EJS_SERVICE  = import.meta.env.VITE_EMAILJS_SERVICE_ID
-const EJS_TEMPLATE = import.meta.env.VITE_EMAILJS_STATUS_TEMPLATE_ID
-const EJS_KEY      = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-
 async function sendStatusEmail(app, status) {
-  const isAccepted = status === 'accepted'
-  const statusMessage = isAccepted
-    ? `We are pleased to inform you that your application has been reviewed and we would like to move forward with your candidacy. Our HR team will contact you shortly with further details regarding the next steps.`
-    : `After careful consideration, we regret to inform you that we will not be moving forward with your application at this time. We truly appreciate your interest and encourage you to apply for future opportunities.`
-
-  await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
-    to_name:        app.name,
-    to_email:       app.email,
-    position:       app.position,
-    status_word:    isAccepted ? 'Accepted' : 'Rejected',
-    status_message: statusMessage,
-    reply_to:       'relianceoil2018@gmail.com',
-  }, EJS_KEY)
+  const { error } = await supabase.functions.invoke('send-status-email', {
+    body: {
+      applicant_name:  app.name,
+      applicant_email: app.email,
+      position:        app.position,
+      status,
+    },
+  })
+  if (error) throw new Error(error.message)
 }
 
 const TABS = [
