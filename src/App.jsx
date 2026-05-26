@@ -6,11 +6,8 @@ import { HelmetProvider } from 'react-helmet-async'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import LoadingScreen from './components/LoadingScreen'
-import DunamisLoadingScreen from './components/DunamisLoadingScreen'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import DunamisNavbar from './components/DunamisNavbar'
-import DunamisFooter from './components/DunamisFooter'
 import FuelPriceTicker from './components/FuelPriceTicker'
 import MayDayPopup from './components/MayDayPopup'
 import WhatsAppButton from './components/WhatsAppButton'
@@ -52,20 +49,12 @@ const AdminContacts = lazy(() => import('./pages/admin/AdminContacts'))
 const AdminOrders = lazy(() => import('./pages/admin/AdminOrders'))
 const AdminQuotes = lazy(() => import('./pages/admin/AdminQuotes'))
 
-const DunamisHome = lazy(() => import('./pages/DunamisHome'))
-const DunamisProperties = lazy(() => import('./pages/DunamisProperties'))
-const DunamisPropertyDetail = lazy(() => import('./pages/DunamisPropertyDetail'))
-const DunamisAbout = lazy(() => import('./pages/DunamisAbout'))
-const DunamisServices = lazy(() => import('./pages/DunamisServices'))
-const DunamisContact = lazy(() => import('./pages/DunamisContact'))
-const DunamisAgentDashboard = lazy(() => import('./pages/DunamisAgentDashboard'))
-
 function AnimatedRoutes() {
   const location = useLocation()
   useEffect(() => { trackPageView(location.pathname) }, [location.pathname])
   return (
     <AnimatePresence mode="wait">
-      <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-12 h-12 border-4 rounded-full animate-spin" style={{borderColor:'#F97316',borderTopColor:'transparent'}}></div></div>}>
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-12 h-12 border-4 rounded-full animate-spin" style={{borderColor:'#CC0000',borderTopColor:'transparent'}}></div></div>}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -100,14 +89,6 @@ function AnimatedRoutes() {
           <Route path="/admin/contacts" element={<AdminContacts />} />
           <Route path="/admin/orders" element={<AdminOrders />} />
           <Route path="/admin/quotes" element={<AdminQuotes />} />
-          {/* ── DUNAMIS ESTATES ROUTES ── */}
-          <Route path="/dunamis" element={<DunamisHome />} />
-          <Route path="/dunamis/properties" element={<DunamisProperties />} />
-          <Route path="/dunamis/property/:slug" element={<DunamisPropertyDetail />} />
-          <Route path="/dunamis/about" element={<DunamisAbout />} />
-          <Route path="/dunamis/services" element={<DunamisServices />} />
-          <Route path="/dunamis/contact" element={<DunamisContact />} />
-          <Route path="/dunamis/agent" element={<DunamisAgentDashboard />} />
         </Routes>
       </Suspense>
     </AnimatePresence>
@@ -118,19 +99,8 @@ function AppShell({ loading }) {
   const location = useLocation()
   const isPortal = location.pathname.startsWith('/portal')
   const isAdmin = location.pathname.startsWith('/admin')
-  const isDunamis = location.pathname.startsWith('/dunamis')
-  const isDunamisAgent = location.pathname === '/dunamis/agent'
-  const hideChrome = isPortal || isAdmin || isDunamisAgent || location.pathname === '/reset-password'
+  const hideChrome = isPortal || isAdmin || location.pathname === '/reset-password'
   if (loading) return null
-  if (isDunamis && !isDunamisAgent) {
-    return (
-      <>
-        <DunamisNavbar />
-        <main><AnimatedRoutes /></main>
-        <DunamisFooter />
-      </>
-    )
-  }
   return (
     <>
       {!hideChrome && <Navbar />}
