@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { supabase } from '../../lib/supabase'
 import AdminLayout from '../../components/AdminLayout'
-import { FaPlus, FaEdit, FaTrash, FaTimes, FaCheck, FaImage, FaNewspaper, FaGasPump } from 'react-icons/fa'
+import { FaPlus, FaEdit, FaTrash, FaTimes, FaCheck, FaImage, FaNewspaper, FaGasPump, FaUpload } from 'react-icons/fa'
 
 const TABS = [
   { key: 'posts',       label: 'Blog Posts',    Icon: FaNewspaper },
@@ -169,8 +169,22 @@ function HeroSlidesTab() {
   const [editing, setEditing] = useState(null)
   const [busy, setBusy] = useState(false)
   const [saveError, setSaveError] = useState('')
+  const [uploading, setUploading] = useState(false)
+  const fileRef = useRef()
 
   const EMPTY = { img: '', headline: '', sub: '', order_index: 0, active: true }
+
+  async function uploadImage(file) {
+    if (!file) return
+    setUploading(true)
+    const ext = file.name.split('.').pop()
+    const name = `slide_${Date.now()}.${ext}`
+    const { error } = await supabase.storage.from('hero_slides').upload(name, file, { upsert: true })
+    if (error) { alert('Upload failed: ' + error.message); setUploading(false); return }
+    const { data } = supabase.storage.from('hero_slides').getPublicUrl(name)
+    setEditing(p => ({ ...p, img: data.publicUrl }))
+    setUploading(false)
+  }
 
   useEffect(() => { loadRows() }, [])
 
@@ -260,8 +274,19 @@ function HeroSlidesTab() {
           <Field label="Sub-heading">
             <input value={editing.sub || ''} onChange={e => setEditing(p => ({ ...p, sub: e.target.value }))} style={inp} />
           </Field>
-          <Field label="Image URL">
-            <input value={editing.img || ''} onChange={e => setEditing(p => ({ ...p, img: e.target.value }))} style={inp} placeholder="https://..." />
+          <Field label="Slide Image">
+            <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => uploadImage(e.target.files[0])} />
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+              <button type="button" onClick={() => fileRef.current.click()} disabled={uploading}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 6, backgroundColor: uploading ? '#e5e7eb' : '#CC0000', color: uploading ? '#aaa' : '#fff', border: 'none', borderRadius: 8, padding: '9px 16px', fontSize: '0.82rem', fontWeight: 700, cursor: uploading ? 'not-allowed' : 'pointer', whiteSpace: 'nowrap' }}>
+                <FaUpload size={11} /> {uploading ? 'Uploading…' : 'Upload Image'}
+              </button>
+              <span style={{ fontSize: '0.75rem', color: '#aaa' }}>or paste URL below</span>
+            </div>
+            <input value={editing.img || ''} onChange={e => setEditing(p => ({ ...p, img: e.target.value }))} style={{ ...inp, marginTop: 8 }} placeholder="https://..." />
+            {editing.img && (
+              <img src={editing.img} alt="preview" style={{ marginTop: 8, width: '100%', height: 140, objectFit: 'cover', borderRadius: 8, border: '1px solid #e5e7eb' }} />
+            )}
           </Field>
           <Field label="Order Index">
             <input type="number" value={editing.order_index || 0} onChange={e => setEditing(p => ({ ...p, order_index: parseInt(e.target.value) || 0 }))} style={{ ...inp, width: 100 }} />
