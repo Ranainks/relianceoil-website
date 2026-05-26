@@ -1,15 +1,24 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import AdminLayout from '../../components/AdminLayout'
-import { FaEnvelope, FaSearch, FaTrash } from 'react-icons/fa'
+import { FaEnvelope, FaSearch, FaTrash, FaPaperPlane } from 'react-icons/fa'
 
 export default function AdminContacts() {
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [selected, setSelected] = useState(null)
+  const [replyTo, setReplyTo] = useState(null)
+  const [replyBody, setReplyBody] = useState('')
+  const [replying, setReplying] = useState(false)
+  const [toast, setToast] = useState(null)
 
   useEffect(() => { fetchData() }, [])
+
+  function showToast(msg, ok = true) {
+    setToast({ msg, ok })
+    setTimeout(() => setToast(null), 3500)
+  }
 
   async function fetchData() {
     setLoading(true)
@@ -23,6 +32,37 @@ export default function AdminContacts() {
     await supabase.from('messages').delete().eq('id', id)
     setRows(prev => prev.filter(r => r.id !== id))
     if (selected?.id === id) setSelected(null)
+  }
+
+  function openReply(row) {
+    setReplyTo(row)
+    setReplyBody('')
+    setSelected(null)
+  }
+
+  async function sendReply() {
+    if (!replyBody.trim()) return
+    setReplying(true)
+    try {
+      const res = await fetch('https://muutovkfdnabmeueqfiz.supabase.co/functions/v1/send-reply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to_email: replyTo.email,
+          to_name: replyTo.name,
+          subject: `Re: ${replyTo.subject || 'Your Enquiry'}`,
+          body: replyBody.trim(),
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Failed')
+      showToast(`Reply sent to ${replyTo.email}`)
+      setReplyTo(null)
+      setReplyBody('')
+    } catch (err) {
+      showToast(err.message, false)
+    }
+    setReplying(false)
   }
 
   const visible = rows.filter(r =>
@@ -40,6 +80,13 @@ export default function AdminContacts() {
   return (
     <AdminLayout>
       <div style={{ maxWidth: 1000 }}>
+
+        {toast && (
+          <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 99999, backgroundColor: toast.ok ? '#dcfce7' : '#fee2e2', color: toast.ok ? '#15803d' : '#b91c1c', border: `1px solid ${toast.ok ? '#86efac' : '#fca5a5'}`, borderRadius: 10, padding: '12px 20px', fontWeight: 600, fontSize: '0.85rem', boxShadow: '0 4px 20px rgba(0,0,0,0.12)' }}>
+            {toast.msg}
+          </div>
+        )}
+
         <div style={{ marginBottom: 24 }}>
           <h1 style={{ fontWeight: 800, fontSize: '1.4rem', color: '#111', margin: '0 0 4px' }}>Contact Messages</h1>
           <p style={{ color: '#888', fontSize: '0.85rem', margin: 0 }}>{rows.length} message{rows.length !== 1 ? 's' : ''} received</p>
@@ -83,10 +130,10 @@ export default function AdminContacts() {
                       <td style={{ padding: '12px 16px', fontSize: '0.77rem', color: '#9ca3af', whiteSpace: 'nowrap' }} onClick={() => setSelected(row)}>{fmtDate(row.sent_at)}</td>
                       <td style={{ padding: '12px 16px' }}>
                         <div style={{ display: 'flex', gap: 6 }}>
-                          <a href={`mailto:${row.email}?subject=Re: ${row.subject || ''}`}
-                            style={{ background: '#f3f4f6', border: 'none', borderRadius: 6, padding: '6px 10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontSize: '0.76rem', fontWeight: 600, color: '#333', textDecoration: 'none' }}>
+                          <button onClick={() => openReply(row)}
+                            style={{ background: '#f3f4f6', border: 'none', borderRadius: 6, padding: '6px 10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontSize: '0.76rem', fontWeight: 600, color: '#333' }}>
                             <FaEnvelope size={10} /> Reply
-                          </a>
+                          </button>
                           <button onClick={() => del(row.id)}
                             style={{ background: '#fee2e2', border: 'none', borderRadius: 6, padding: '6px 10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontSize: '0.76rem', fontWeight: 600, color: '#dc2626' }}>
                             <FaTrash size={10} />
@@ -118,13 +165,54 @@ export default function AdminContacts() {
                 {selected.message || '(no message)'}
               </div>
               <div style={{ marginTop: 20, display: 'flex', gap: 10 }}>
-                <a href={`mailto:${selected.email}?subject=Re: ${selected.subject || ''}`}
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: 7, backgroundColor: '#CC0000', color: '#fff', padding: '9px 18px', borderRadius: 8, fontSize: '0.83rem', fontWeight: 700, textDecoration: 'none' }}>
+                <button onClick={() => openReply(selected)}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 7, backgroundColor: '#CC0000', color: '#fff', padding: '9px 18px', borderRadius: 8, fontSize: '0.83rem', fontWeight: 700, border: 'none', cursor: 'pointer' }}>
                   <FaEnvelope size={11} /> Reply by Email
-                </a>
+                </button>
                 <button onClick={() => del(selected.id)}
                   style={{ display: 'inline-flex', alignItems: 'center', gap: 7, backgroundColor: '#fee2e2', color: '#dc2626', border: 'none', padding: '9px 14px', borderRadius: 8, fontSize: '0.83rem', fontWeight: 700, cursor: 'pointer' }}>
                   <FaTrash size={11} /> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {replyTo && (
+        <div onClick={() => setReplyTo(null)} style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.55)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, zIndex: 9999 }}>
+          <div onClick={e => e.stopPropagation()} style={{ backgroundColor: '#fff', borderRadius: 16, width: '100%', maxWidth: 520, boxShadow: '0 24px 64px rgba(0,0,0,0.3)' }}>
+            <div style={{ padding: '18px 24px', borderBottom: '1px solid #f0f0f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <h2 style={{ fontWeight: 800, fontSize: '1rem', color: '#111', margin: 0 }}>Reply to {replyTo.name}</h2>
+              <button onClick={() => setReplyTo(null)} style={{ border: 'none', background: '#f3f4f6', borderRadius: 8, width: 30, height: 30, cursor: 'pointer', fontSize: '1.1rem', color: '#555', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
+            </div>
+            <div style={{ padding: '20px 24px' }}>
+              <div style={{ marginBottom: 14 }}>
+                <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 5 }}>To</div>
+                <div style={{ fontSize: '0.85rem', color: '#333', backgroundColor: '#f9fafb', padding: '8px 12px', borderRadius: 8, border: '1px solid #e5e7eb' }}>{replyTo.name} &lt;{replyTo.email}&gt;</div>
+              </div>
+              <div style={{ marginBottom: 14 }}>
+                <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 5 }}>Subject</div>
+                <div style={{ fontSize: '0.85rem', color: '#333', backgroundColor: '#f9fafb', padding: '8px 12px', borderRadius: 8, border: '1px solid #e5e7eb' }}>Re: {replyTo.subject || 'Your Enquiry'}</div>
+              </div>
+              <div style={{ marginBottom: 20 }}>
+                <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 5 }}>Message</div>
+                <textarea
+                  value={replyBody}
+                  onChange={e => setReplyBody(e.target.value)}
+                  placeholder="Type your reply here…"
+                  rows={7}
+                  style={{ width: '100%', border: '1px solid #e5e7eb', borderRadius: 8, padding: '10px 12px', fontSize: '0.85rem', color: '#333', resize: 'vertical', outline: 'none', fontFamily: 'inherit', lineHeight: 1.7, boxSizing: 'border-box' }}
+                />
+              </div>
+              <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+                <button onClick={() => setReplyTo(null)}
+                  style={{ padding: '9px 18px', borderRadius: 8, border: '1px solid #e5e7eb', background: '#fff', color: '#555', fontSize: '0.83rem', fontWeight: 600, cursor: 'pointer' }}>
+                  Cancel
+                </button>
+                <button onClick={sendReply} disabled={replying || !replyBody.trim()}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 7, backgroundColor: replying || !replyBody.trim() ? '#e5e7eb' : '#CC0000', color: replying || !replyBody.trim() ? '#aaa' : '#fff', border: 'none', padding: '9px 20px', borderRadius: 8, fontSize: '0.83rem', fontWeight: 700, cursor: replying || !replyBody.trim() ? 'not-allowed' : 'pointer', transition: 'background 0.2s' }}>
+                  <FaPaperPlane size={11} /> {replying ? 'Sending…' : 'Send Reply'}
                 </button>
               </div>
             </div>
