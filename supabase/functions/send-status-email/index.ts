@@ -1,83 +1,77 @@
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 
-const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
+const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')!;
+const FROM_EMAIL = 'careers@relianceoilltd.com';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
+};
+
+const statusConfig: Record<string, { label: string; color: string; message: string }> = {
+  accepted: {
+    label: 'Accepted',
+    color: '#16a34a',
+    message: `We are pleased to inform you that your application has been <strong>accepted</strong>. A member of our HR team will be in touch shortly with the next steps regarding your onboarding.`,
+  },
+  rejected: {
+    label: 'Unsuccessful',
+    color: '#CC0000',
+    message: `Thank you for taking the time to apply to Reliance Oil Limited. After careful consideration, we regret to inform you that on this occasion your application was <strong>unsuccessful</strong>. We encourage you to apply for future opportunities that match your profile.`,
+  },
+  reviewed: {
+    label: 'Under Review',
+    color: '#1d4ed8',
+    message: `We wanted to let you know that your application is currently <strong>under review</strong> by our hiring team. We will get back to you as soon as a decision has been made. Thank you for your patience.`,
+  },
+};
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
+    return new Response('ok', { headers: corsHeaders });
   }
 
   try {
-    const { applicant_name, applicant_email, position, status } = await req.json()
+    const { applicant_name, applicant_email, position, status } = await req.json();
 
-    if (!applicant_email || !status) {
-      return new Response(JSON.stringify({ error: 'Missing required fields' }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
-    }
-
-    const isAccepted = status === 'accepted'
-
-    const subject = isAccepted
-      ? `Congratulations! Your Application for ${position} has been Accepted`
-      : `Update on Your Application for ${position} — Reliance Oil Limited`
-
-    const statusMessage = isAccepted
-      ? `We are pleased to inform you that your application for the <strong>${position}</strong> position has been reviewed and we would like to move forward with your candidacy.<br><br>Our HR team will be in touch with you shortly with further details on the next steps of our recruitment process.`
-      : `After careful review of all applications, we regret to inform you that we will not be moving forward with your application for the <strong>${position}</strong> position at this time.<br><br>We truly appreciate the time and effort you put into your application and encourage you to apply for future opportunities that match your qualifications.`
-
-    const statusColor = isAccepted ? '#16a34a' : '#dc2626'
-    const statusLabel = isAccepted ? 'Application Accepted' : 'Application Unsuccessful'
+    const cfg = statusConfig[status];
+    if (!cfg) throw new Error(`Unknown status: ${status}`);
 
     const html = `
-      <!DOCTYPE html>
-      <html>
-        <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-        <body style="margin:0;padding:0;background:#f5f5f5;font-family:Arial,sans-serif;">
-          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f5;padding:32px 0;">
-            <tr><td align="center">
-              <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);max-width:600px;width:100%;">
-                <tr>
-                  <td style="background:#CC0000;padding:28px 32px;text-align:center;">
-                    <h1 style="color:#fff;margin:0;font-size:22px;font-weight:800;letter-spacing:1px;">RELIANCE OIL LIMITED</h1>
-                    <p style="color:rgba(255,255,255,0.8);margin:6px 0 0;font-size:13px;">HR Department</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding:32px;">
-                    <div style="display:inline-block;background:${statusColor}20;border:1px solid ${statusColor}40;border-radius:6px;padding:8px 16px;margin-bottom:24px;">
-                      <span style="color:${statusColor};font-weight:700;font-size:13px;">${statusLabel}</span>
-                    </div>
-                    <p style="font-size:16px;color:#111;margin:0 0 16px;">Dear <strong>${applicant_name}</strong>,</p>
-                    <p style="font-size:14px;color:#444;line-height:1.8;margin:0 0 20px;">
-                      Thank you for applying for the <strong>${position}</strong> position at Reliance Oil Limited.
-                    </p>
-                    <p style="font-size:14px;color:#444;line-height:1.8;margin:0 0 28px;">${statusMessage}</p>
-                    <div style="border-top:1px solid #f0f0f0;padding-top:24px;margin-top:8px;">
-                      <p style="font-size:13px;color:#888;margin:0 0 4px;">If you have any questions, please contact us:</p>
-                      <a href="mailto:relianceoil2018@gmail.com" style="color:#CC0000;font-size:13px;font-weight:600;">relianceoil2018@gmail.com</a>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="background:#f9f9f9;padding:20px 32px;border-top:1px solid #f0f0f0;">
-                    <p style="margin:0;font-size:13px;color:#666;">Best regards,</p>
-                    <p style="margin:4px 0 0;font-size:13px;font-weight:700;color:#111;">HR Department — Reliance Oil Limited</p>
-                    <p style="margin:4px 0 0;font-size:12px;color:#aaa;">This is an automated email. Please do not reply directly to this message.</p>
-                  </td>
-                </tr>
-              </table>
-            </td></tr>
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">
+        <div style="background:#CC0000;padding:24px 32px;">
+          <h2 style="color:#fff;margin:0;font-size:20px;">Reliance Oil Limited</h2>
+          <p style="color:rgba(255,255,255,0.8);margin:4px 0 0;font-size:13px;">Careers — Application Update</p>
+        </div>
+        <div style="padding:32px;">
+          <p style="font-size:15px;color:#111;margin:0 0 20px;">Dear <strong>${applicant_name}</strong>,</p>
+
+          <div style="border-left:4px solid ${cfg.color};padding:16px 20px;background:#f9fafb;border-radius:0 8px 8px 0;margin-bottom:24px;">
+            <p style="margin:0;font-size:14px;color:#333;line-height:1.75;">${cfg.message}</p>
+          </div>
+
+          <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px;">
+            <tr style="border-bottom:1px solid #f3f4f6;">
+              <td style="padding:9px 0;color:#888;width:130px;">Position</td>
+              <td style="padding:9px 0;font-weight:700;color:#111;">${position}</td>
+            </tr>
+            <tr>
+              <td style="padding:9px 0;color:#888;">Application Status</td>
+              <td style="padding:9px 0;">
+                <span style="background:${cfg.color}20;color:${cfg.color};font-weight:700;font-size:12px;padding:3px 10px;border-radius:9999px;">${cfg.label}</span>
+              </td>
+            </tr>
           </table>
-        </body>
-      </html>
-    `
+
+          <p style="font-size:13px;color:#555;line-height:1.7;margin:0 0 6px;">If you have any questions, please reply to this email or contact us at <a href="mailto:relianceoil2018@gmail.com" style="color:#CC0000;">relianceoil2018@gmail.com</a>.</p>
+          <p style="font-size:13px;color:#555;margin:0;">Thank you for your interest in joining the Reliance Oil team.</p>
+
+          <div style="margin-top:28px;padding-top:20px;border-top:1px solid #f3f4f6;font-size:12px;color:#aaa;">
+            Reliance Oil Limited &nbsp;•&nbsp; relianceoilltd.com &nbsp;•&nbsp; Ghana
+          </div>
+        </div>
+      </div>
+    `;
 
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -86,31 +80,27 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Reliance Oil Limited <onboarding@resend.dev>',
+        from: FROM_EMAIL,
         to: [applicant_email],
         reply_to: 'relianceoil2018@gmail.com',
-        subject,
+        subject: `Your Application Update — ${position} | Reliance Oil Limited`,
         html,
       }),
-    })
-
-    const data = await res.json()
+    });
 
     if (!res.ok) {
-      return new Response(JSON.stringify({ error: data.message || 'Resend error' }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      const err = await res.text();
+      throw new Error(err);
     }
 
-    return new Response(JSON.stringify({ success: true, id: data.id }), {
+    return new Response(JSON.stringify({ success: true }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    })
-
+      status: 200,
+    });
   } catch (err) {
     return new Response(JSON.stringify({ error: err.message }), {
-      status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    })
+      status: 500,
+    });
   }
-})
+});
