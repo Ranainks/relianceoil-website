@@ -1,7 +1,28 @@
 import { useEffect, useState } from 'react'
+import emailjs from '@emailjs/browser'
 import { supabase } from '../../lib/supabase'
 import AdminLayout from '../../components/AdminLayout'
-import { FaPlus, FaEdit, FaTrash, FaCheck, FaEye, FaEnvelope, FaPhone, FaDownload } from 'react-icons/fa'
+import { FaPlus, FaEdit, FaTrash, FaCheck, FaEye, FaEnvelope, FaPhone, FaDownload, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
+
+const EJS_SERVICE  = import.meta.env.VITE_EMAILJS_SERVICE_ID
+const EJS_TEMPLATE = import.meta.env.VITE_EMAILJS_STATUS_TEMPLATE_ID
+const EJS_KEY      = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+async function sendStatusEmail(app, status) {
+  const isAccepted = status === 'accepted'
+  const statusMessage = isAccepted
+    ? `We are pleased to inform you that your application has been reviewed and we would like to move forward with your candidacy. Our HR team will contact you shortly with further details regarding the next steps.`
+    : `After careful consideration, we regret to inform you that we will not be moving forward with your application at this time. We truly appreciate your interest and encourage you to apply for future opportunities.`
+
+  await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
+    to_name:        app.name,
+    to_email:       app.email,
+    position:       app.position,
+    status_word:    isAccepted ? 'Accepted' : 'Rejected',
+    status_message: statusMessage,
+    reply_to:       'relianceoil2018@gmail.com',
+  }, EJS_KEY)
+}
 
 const TABS = [
   { key: 'jobs',         label: 'Job Listings' },
@@ -167,10 +188,16 @@ function ApplicationsTab() {
   const [filter, setFilter] = useState('all')
   const [search, setSearch] = useState('')
   const [selected, setSelected] = useState(null)
+  const [toast, setToast] = useState(null)
 
-  useEffect(() => { fetch() }, [])
+  function showToast(msg, type = 'success') {
+    setToast({ msg, type })
+    setTimeout(() => setToast(null), 4000)
+  }
 
-  async function fetch() {
+  useEffect(() => { loadRows() }, [])
+
+  async function loadRows() {
     setLoading(true)
     const { data } = await supabase.from('applications').select('*').order('applied_at', { ascending: false })
     if (data) setRows(data)
@@ -178,9 +205,19 @@ function ApplicationsTab() {
   }
 
   async function updateStatus(id, status) {
-    await supabase.from('applications').update({ status }).eq('id', id)
+    const app = rows.find(a => a.id === id)
+    const { error } = await supabase.from('applications').update({ status }).eq('id', id)
+    if (error) { showToast('Status update failed: ' + error.message, 'error'); return }
     setRows(prev => prev.map(a => a.id === id ? { ...a, status } : a))
     if (selected?.id === id) setSelected(p => ({ ...p, status }))
+    if (status === 'accepted' || status === 'rejected') {
+      try {
+        await sendStatusEmail(app, status)
+        showToast(`Email sent to ${app.email}`, 'success')
+      } catch (e) {
+        showToast('Status saved but email failed — check EmailJS config', 'warning')
+      }
+    }
   }
 
   const visible = rows
@@ -194,6 +231,12 @@ function ApplicationsTab() {
 
   return (
     <>
+      {toast && (
+        <div style={{ position: 'fixed', top: 20, right: 20, zIndex: 99999, display: 'flex', alignItems: 'center', gap: 10, backgroundColor: toast.type === 'success' ? '#dcfce7' : toast.type === 'error' ? '#fee2e2' : '#fef9c3', border: `1px solid ${toast.type === 'success' ? '#86efac' : toast.type === 'error' ? '#fca5a5' : '#fde047'}`, borderRadius: 10, padding: '12px 18px', boxShadow: '0 4px 20px rgba(0,0,0,0.12)', fontSize: '0.84rem', fontWeight: 600, color: toast.type === 'success' ? '#15803d' : toast.type === 'error' ? '#b91c1c' : '#854d0e', maxWidth: 340 }}>
+          {toast.type === 'success' ? <FaCheckCircle size={14} /> : <FaTimesCircle size={14} />}
+          {toast.msg}
+        </div>
+      )}
       <div style={{ backgroundColor: '#fff', borderRadius: 12, padding: '12px 16px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', marginBottom: 14, display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
           {['all', 'pending', 'reviewed', 'accepted', 'rejected'].map(f => (
