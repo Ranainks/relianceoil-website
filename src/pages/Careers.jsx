@@ -83,19 +83,20 @@ export default function Careers() {
       });
       if (dbError) throw dbError;
 
-      const emailRes = await fetch(
-        'https://muutovkfdnabmeueqfiz.supabase.co/functions/v1/send-application-email',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name, email, phone, position,
-            coverLetter,
-            cvFileName: cvFile ? cvFile.name : null,
-          }),
-        }
-      );
-      if (!emailRes.ok) throw new Error('Email delivery failed');
+      await fetch('https://formsubmit.co/ajax/relianceoil2018@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: `New Job Application — ${position}`,
+          _template: 'table',
+          Name: name,
+          Email: email,
+          Phone: phone,
+          Position: position,
+          'Cover Letter': coverLetter,
+          'CV File': cvFile ? cvFile.name : 'Not attached',
+        }),
+      });
 
       setFormStatus('success');
       setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });
