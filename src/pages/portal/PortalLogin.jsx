@@ -29,9 +29,14 @@ export default function PortalLogin() {
   const [form, setForm] = useState({ name: '', company: '', phone: '', email: '', password: '', confirm: '' });
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
+  const [method, setMethod] = useState('email');
   const [fpEmail, setFpEmail] = useState('');
+  const [fpPhone, setFpPhone] = useState('');
+  const [otp, setOtp] = useState('');
+  const [newPw, setNewPw] = useState('');
+  const [confirmPw, setConfirmPw] = useState('');
 
-  function goStep(s) { setError(''); setSuccess(''); setStep(s); }
+  function goStep(s) { setError(''); setSuccess(''); setOtp(''); setNewPw(''); setConfirmPw(''); setStep(s); }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -71,6 +76,29 @@ export default function PortalLogin() {
     setLoading(false);
     if (err) { setError(err.message); return; }
     setStep('link-sent');
+  };
+
+  const sendSmsOtp = async (e) => {
+    e.preventDefault();
+    setError(''); setLoading(true);
+    const { error: err } = await supabase.auth.signInWithOtp({ phone: fpPhone });
+    setLoading(false);
+    if (err) { setError(err.message); return; }
+    setStep('phone-otp');
+  };
+
+  const verifyPhoneAndReset = async (e) => {
+    e.preventDefault();
+    if (newPw !== confirmPw) { setError('Passwords do not match.'); return; }
+    if (newPw.length < 6) { setError('Password must be at least 6 characters.'); return; }
+    setError(''); setLoading(true);
+    const { error: vErr } = await supabase.auth.verifyOtp({ phone: fpPhone, token: otp, type: 'sms' });
+    if (vErr) { setError(vErr.message); setLoading(false); return; }
+    const { error: uErr } = await supabase.auth.updateUser({ password: newPw });
+    if (uErr) { setError(uErr.message); setLoading(false); return; }
+    await supabase.auth.signOut();
+    setLoading(false);
+    setStep('pw-done');
   };
 
   return (
@@ -124,18 +152,48 @@ export default function PortalLogin() {
             )}
 
             {tab === 'login' && step === 'otp-email' && (
-              <form onSubmit={sendResetLink} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <div>
                   <h3 style={{ fontWeight: 700, fontSize: '1rem', color: '#111', margin: '0 0 4px' }}>Reset Password</h3>
-                  <p style={{ color: '#888', fontSize: '0.82rem', margin: '0 0 16px', lineHeight: 1.5 }}>Enter your email and we'll send a secure reset link.</p>
-                  <label style={lbl}>Email Address</label>
-                  <input type="email" required placeholder="your@email.com" value={fpEmail} onChange={e => setFpEmail(e.target.value)} style={inputStyle} />
+                  <p style={{ color: '#888', fontSize: '0.82rem', margin: '0 0 14px', lineHeight: 1.5 }}>Choose how you'd like to reset your password.</p>
+                  <div style={{ display: 'flex', gap: 6, backgroundColor: '#f5f5f5', borderRadius: 8, padding: 4, marginBottom: 16 }}>
+                    {['email', 'phone'].map(m => (
+                      <button key={m} type="button" onClick={() => { setMethod(m); setError(''); }}
+                        style={{ flex: 1, padding: '9px', border: 'none', borderRadius: 6, fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.2s',
+                          backgroundColor: method === m ? '#CC0000' : 'transparent',
+                          color: method === m ? '#fff' : '#888',
+                        }}>
+                        {m === 'email' ? '📧  Email' : '📱  Phone Number'}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <button type="submit" disabled={loading} style={submitBtn(loading)}>{loading ? 'Sending…' : 'Send Reset Link'}</button>
+
+                {method === 'email' && (
+                  <form onSubmit={sendResetLink} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div>
+                      <label style={lbl}>Email Address</label>
+                      <input type="email" required placeholder="your@email.com" value={fpEmail} onChange={e => setFpEmail(e.target.value)} style={inputStyle} />
+                    </div>
+                    <button type="submit" disabled={loading} style={submitBtn(loading)}>{loading ? 'Sending…' : 'Send Reset Link'}</button>
+                  </form>
+                )}
+
+                {method === 'phone' && (
+                  <form onSubmit={sendSmsOtp} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div>
+                      <label style={lbl}>Phone Number</label>
+                      <input type="tel" required placeholder="+233 XX XXX XXXX" value={fpPhone} onChange={e => setFpPhone(e.target.value)} style={inputStyle} />
+                      <p style={{ color: '#bbb', fontSize: '0.75rem', margin: '5px 0 0' }}>Include country code, e.g. +233244123456</p>
+                    </div>
+                    <button type="submit" disabled={loading} style={submitBtn(loading)}>{loading ? 'Sending…' : 'Send SMS Code'}</button>
+                  </form>
+                )}
+
                 <button type="button" onClick={() => goStep('login')} style={{ background: 'none', border: 'none', color: '#aaa', fontSize: '0.8rem', cursor: 'pointer', textAlign: 'center' }}>
                   ← Back to Sign In
                 </button>
-              </form>
+              </div>
             )}
 
             {tab === 'login' && step === 'link-sent' && (
@@ -148,6 +206,43 @@ export default function PortalLogin() {
                   Click the link in the email to set your new password.
                 </p>
                 <button onClick={() => goStep('login')} style={{ ...submitBtn(false), width: 'auto', padding: '11px 28px' }}>← Back to Sign In</button>
+              </div>
+            )}
+
+            {tab === 'login' && step === 'phone-otp' && (
+              <form onSubmit={verifyPhoneAndReset} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <div>
+                  <h3 style={{ fontWeight: 700, fontSize: '1rem', color: '#111', margin: '0 0 4px' }}>Enter Code & New Password</h3>
+                  <p style={{ color: '#888', fontSize: '0.82rem', margin: '0 0 14px', lineHeight: 1.5 }}>
+                    A 6-digit SMS code was sent to <strong style={{ color: '#111' }}>{fpPhone}</strong>.
+                  </p>
+                  <label style={lbl}>6-Digit SMS Code</label>
+                  <input type="text" required maxLength={6} placeholder="000000" value={otp}
+                    onChange={e => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                    style={{ ...inputStyle, letterSpacing: '0.4em', fontSize: '1.3rem', textAlign: 'center' }} />
+                </div>
+                <div>
+                  <label style={lbl}>New Password</label>
+                  <input type="password" required placeholder="Min 6 characters" value={newPw} onChange={e => setNewPw(e.target.value)} style={inputStyle} />
+                </div>
+                <div>
+                  <label style={lbl}>Confirm Password</label>
+                  <input type="password" required placeholder="Repeat new password" value={confirmPw} onChange={e => setConfirmPw(e.target.value)} style={inputStyle} />
+                </div>
+                <button type="submit" disabled={loading} style={submitBtn(loading)}>{loading ? 'Resetting…' : 'Set New Password'}</button>
+                <button type="button" onClick={() => { setOtp(''); setError(''); goStep('otp-email'); }}
+                  style={{ background: 'none', border: 'none', color: '#aaa', fontSize: '0.8rem', cursor: 'pointer', textAlign: 'center' }}>
+                  ← Resend code
+                </button>
+              </form>
+            )}
+
+            {tab === 'login' && step === 'pw-done' && (
+              <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', padding: '8px 0' }}>
+                <div style={{ width: 60, height: 60, borderRadius: '50%', backgroundColor: '#F0FFF4', border: '2px solid #BBF7D0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.6rem', color: '#16a34a' }}>✓</div>
+                <h3 style={{ fontWeight: 700, fontSize: '1rem', color: '#111', margin: 0 }}>Password Updated</h3>
+                <p style={{ color: '#888', fontSize: '0.85rem', margin: 0 }}>Your password has been changed successfully.</p>
+                <button onClick={() => goStep('login')} style={{ ...submitBtn(false), width: 'auto', padding: '11px 32px' }}>Sign In Now</button>
               </div>
             )}
 

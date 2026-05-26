@@ -1,7 +1,8 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+import { SmtpClient } from 'https://deno.land/x/denomailer@1.6.0/mod.ts';
 
-const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')!;
-const FROM_EMAIL = 'info@relianceoilltd.com';
+const GMAIL_USER = Deno.env.get('GMAIL_USER')!;
+const GMAIL_PASS = Deno.env.get('GMAIL_APP_PASS')!;
 
 const cors = {
   'Access-Control-Allow-Origin': '*',
@@ -24,22 +25,23 @@ serve(async (req) => {
           <p style="font-size:15px;color:#111;margin:0 0 18px;">Dear <strong>${to_name}</strong>,</p>
           <div style="font-size:14px;color:#333;line-height:1.8;white-space:pre-wrap;">${body}</div>
           <div style="margin-top:28px;padding-top:20px;border-top:1px solid #f3f4f6;font-size:12px;color:#aaa;">
-            Reliance Oil Limited &nbsp;•&nbsp; relianceoilltd.com &nbsp;•&nbsp; relianceoil2018@gmail.com
+            Reliance Oil Limited &nbsp;•&nbsp; relianceoilltd.com &nbsp;•&nbsp; ${GMAIL_USER}
           </div>
         </div>
       </div>
     `;
 
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from: FROM_EMAIL, to: [to_email], reply_to: 'relianceoil2018@gmail.com', subject, html }),
+    const client = new SmtpClient();
+    await client.connectTLS({ hostname: 'smtp.gmail.com', port: 465, username: GMAIL_USER, password: GMAIL_PASS });
+    await client.send({ from: `Reliance Oil Limited <${GMAIL_USER}>`, to: to_email, subject, html });
+    await client.close();
+
+    return new Response(JSON.stringify({ success: true }), {
+      headers: { ...cors, 'Content-Type': 'application/json' }, status: 200,
     });
-
-    if (!res.ok) throw new Error(await res.text());
-
-    return new Response(JSON.stringify({ success: true }), { headers: { ...cors, 'Content-Type': 'application/json' }, status: 200 });
   } catch (err) {
-    return new Response(JSON.stringify({ error: err.message }), { headers: { ...cors, 'Content-Type': 'application/json' }, status: 500 });
+    return new Response(JSON.stringify({ error: err.message }), {
+      headers: { ...cors, 'Content-Type': 'application/json' }, status: 500,
+    });
   }
 });

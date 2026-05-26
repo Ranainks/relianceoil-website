@@ -1,0 +1,140 @@
+[
+  {
+    "id": "prop-001",
+    "title": "Luxe Garden Villa, East Legon",
+    "slug": "luxe-garden-villa-east-legon",
+    "type": "Residential",
+    "intent": "Buy",
+    "price": 850000,
+    "currency": "USD",
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "sqft": 4200,
+    "status": "Turnkey Handover",
+    "location": "East Legon, Accra",
+    "lat": 5.6339,
+    "lng": -0.1611,
+    "images": [
+      "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80"
+    ],
+    "featured": true,
+    "description": "A spectacular 5-bedroom villa nestled in the prime East Legon corridor. Features a landscaped garden, private pool, smart home automation, and fully fitted kitchen. Ready for immediate handover.",
+    "amenities": ["Swimming Pool", "Smart Home", "Generator", "CCTV", "Fitted Kitchen", "Boys Quarters"]
+  },
+  {
+    "id": "prop-002",
+    "title": "Skyline Penthouse, Airport Hills",
+    "slug": "skyline-penthouse-airport-hills",
+    "type": "Luxury",
+    "intent": "Rent",
+    "price": 6500,
+    "currency": "USD",
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "sqft": 3100,
+    "status": "Turnkey Handover",
+    "location": "Airport Hills, Accra",
+    "lat": 5.6052,
+    "lng": -0.1718,
+    "images": [
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
+    ],
+    "featured": true,
+    "description": "Sky-high living at its finest. This penthouse unit offers panoramic city views, a wrap-around terrace, infinity pool access, and concierge services in the prestigious Airport Hills district.",
+    "amenities": ["Infinity Pool", "Concierge", "Terrace", "Parking", "24/7 Security", "Gym Access"]
+  },
+  {
+    "id": "prop-003",
+    "title": "Industrial Warehouse Complex, Tema",
+    "slug": "industrial-warehouse-tema",
+    "type": "Industrial",
+    "intent": "Lease",
+    "price": 12000,
+    "currency": "USD",
+    "bedrooms": 0,
+    "bathrooms": 2,
+    "sqft": 15000,
+    "status": "Structural Framing",
+    "location": "Tema Free Zone, Greater Accra",
+    "lat": 5.6698,
+    "lng": -0.0166,
+    "images": [
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80",
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80"
+    ],
+    "featured": false,
+    "description": "A 15,000 sq.ft industrial warehouse complex strategically located within the Tema Free Zone. Suitable for manufacturing, logistics hubs, and cold-chain operations.",
+    "amenities": ["Loading Bay", "3-Phase Power", "Cold Storage", "Office Block", "Security Post", "Parking Lot"]
+  },
+  {
+    "id": "prop-004",
+    "title": "Prime Land Plot, Adenta",
+    "slug": "prime-land-plot-adenta",
+    "type": "Land Plots",
+    "intent": "Buy",
+    "price": 120000,
+    "currency": "USD",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "sqft": 5000,
+    "status": "Planning",
+    "location": "Adenta, Accra",
+    "lat": 5.7068,
+    "lng": -0.1633,
+    "images": [
+      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80"
+    ],
+    "featured": false,
+    "description": "A 5,000 sq.ft serviced land plot in the fast-growing Adenta residential corridor. Fully titled, with water and electricity connections available at the boundary.",
+    "amenities": ["Title Deed", "Water Connection", "Electricity Access", "Road Frontage", "Survey Plans"]
+  },
+  {
+    "id": "prop-005",
+    "title": "Modern 3BR Apartment, Cantonments",
+    "slug": "modern-3br-apartment-cantonments",
+    "type": "Residential",
+    "intent": "Rent",
+    "price": 3200,
+    "currency": "USD",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "sqft": 1850,
+    "status": "Turnkey Handover",
+    "location": "Cantonments, Accra",
+    "lat": 5.5756,
+    "lng": -0.1857,
+    "images": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80"
+    ],
+    "featured": true,
+    "description": "Contemporary 3-bedroom apartment in the diplomatic enclave of Cantonments. Features high ceilings, marble finishes, estate gym, and 24-hour security with gated access.",
+    "amenities": ["Gym", "24/7 Security", "Generator", "Parking", "Intercom", "Water Tank"]
+  },
+  {
+    "id": "prop-006",
+    "title": "Commercial Office Tower, Ridge",
+    "slug": "commercial-office-tower-ridge",
+    "type": "Industrial",
+    "intent": "Lease",
+    "price": 22000,
+    "currency": "USD",
+    "bedrooms": 0,
+    "bathrooms": 6,
+    "sqft": 8500,
+    "status": "First-Fix",
+    "location": "Ridge, Accra",
+    "lat": 5.5666,
+    "lng": -0.2003,
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
+      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&q=80"
+    ],
+    "featured": false,
+    "description": "Grade-A commercial office floor in the heart of Ridge CBD. 8,500 sq.ft open-plan floor plate with raised flooring, structured cabling, and column-free layouts.",
+    "amenities": ["Raised Flooring", "Structured Cabling", "Conference Rooms", "Lift Access", "Backup Power", "Cafeteria"]
+  }
+]

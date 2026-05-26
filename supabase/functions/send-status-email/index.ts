@@ -1,7 +1,8 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+import { SmtpClient } from 'https://deno.land/x/denomailer@1.6.0/mod.ts';
 
-const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')!;
-const FROM_EMAIL = 'careers@relianceoilltd.com';
+const GMAIL_USER = Deno.env.get('GMAIL_USER')!;
+const GMAIL_PASS = Deno.env.get('GMAIL_APP_PASS')!;
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -73,25 +74,16 @@ serve(async (req) => {
       </div>
     `;
 
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: FROM_EMAIL,
-        to: [applicant_email],
-        reply_to: 'relianceoil2018@gmail.com',
-        subject: `Your Application Update — ${position} | Reliance Oil Limited`,
-        html,
-      }),
+    const client = new SmtpClient();
+    await client.connectTLS({ hostname: 'smtp.gmail.com', port: 465, username: GMAIL_USER, password: GMAIL_PASS });
+    await client.send({
+      from: `Reliance Oil Careers <${GMAIL_USER}>`,
+      to: applicant_email,
+      replyTo: GMAIL_USER,
+      subject: `Your Application Update — ${position} | Reliance Oil Limited`,
+      html,
     });
-
-    if (!res.ok) {
-      const err = await res.text();
-      throw new Error(err);
-    }
+    await client.close();
 
     return new Response(JSON.stringify({ success: true }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
