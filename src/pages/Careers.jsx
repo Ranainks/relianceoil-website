@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import emailjs from '@emailjs/browser';
 import PageHero from '../components/PageHero';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
@@ -84,33 +83,19 @@ export default function Careers() {
       });
       if (dbError) throw dbError;
 
-      const appliedAt = new Date().toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' });
-
-      await emailjs.send(
-        'service_4re3v7o',
-        'template_29xgd8a',
+      const emailRes = await fetch(
+        'https://muutovkfdnabmeueqfiz.supabase.co/functions/v1/send-application-email',
         {
-          to_email: 'relianceoil2018@gmail.com',
-          subject: `New Job Application — ${position}`,
-          from_name: name,
-          from_email: email,
-          reply_to: email,
-          message: [
-            `New job application received on relianceoilltd.com`,
-            ``,
-            `Position : ${position}`,
-            `Applicant: ${name}`,
-            `Email    : ${email}`,
-            `Phone    : ${phone}`,
-            `Date     : ${appliedAt}`,
-            `CV       : ${cvFile ? cvFile.name : 'Not attached'}`,
-            ``,
-            `--- Cover Letter ---`,
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name, email, phone, position,
             coverLetter,
-          ].join('\n'),
-        },
-        { publicKey: 'mT_fbh1pQ4gmtWYOA' },
+            cvFileName: cvFile ? cvFile.name : null,
+          }),
+        }
       );
+      if (!emailRes.ok) throw new Error('Email delivery failed');
 
       setFormStatus('success');
       setFormData({ name: '', email: '', phone: '', position: '', coverLetter: '' });
