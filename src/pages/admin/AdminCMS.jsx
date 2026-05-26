@@ -39,12 +39,13 @@ function PostsTab() {
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState(null)
   const [busy, setBusy] = useState(false)
+  const [saveError, setSaveError] = useState('')
 
   const EMPTY = { title: '', slug: '', category: '', excerpt: '', content: '', image_url: '', author: '', featured: false, published: false }
 
-  useEffect(() => { fetch() }, [])
+  useEffect(() => { loadRows() }, [])
 
-  async function fetch() {
+  async function loadRows() {
     setLoading(true)
     const { data } = await supabase.from('posts').select('*').order('date', { ascending: false })
     if (data) setRows(data)
@@ -54,29 +55,33 @@ function PostsTab() {
   function toSlug(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }
 
   async function save() {
+    setSaveError('')
     setBusy(true)
     const { id, ...payload } = editing
     if (!payload.slug) payload.slug = toSlug(payload.title)
     if (!payload.date) payload.date = new Date().toISOString().slice(0, 10)
+    let error
     if (id) {
-      await supabase.from('posts').update(payload).eq('id', id)
+      ({ error } = await supabase.from('posts').update(payload).eq('id', id))
     } else {
-      await supabase.from('posts').insert(payload)
+      ({ error } = await supabase.from('posts').insert(payload))
     }
-    setEditing(null)
     setBusy(false)
-    fetch()
+    if (error) { setSaveError(error.message); return }
+    setEditing(null)
+    loadRows()
   }
 
   async function del(id) {
     if (!confirm('Delete this post?')) return
-    await supabase.from('posts').delete().eq('id', id)
+    const { error } = await supabase.from('posts').delete().eq('id', id)
+    if (error) { alert('Delete failed: ' + error.message); return }
     setRows(prev => prev.filter(r => r.id !== id))
   }
 
   async function togglePublish(row) {
-    await supabase.from('posts').update({ published: !row.published }).eq('id', row.id)
-    setRows(prev => prev.map(r => r.id === row.id ? { ...r, published: !r.published } : r))
+    const { error } = await supabase.from('posts').update({ published: !row.published }).eq('id', row.id)
+    if (!error) setRows(prev => prev.map(r => r.id === row.id ? { ...r, published: !r.published } : r))
   }
 
   return (
@@ -122,7 +127,7 @@ function PostsTab() {
       </div>
 
       {editing && (
-        <Modal title={editing.id ? 'Edit Post' : 'New Post'} onClose={() => setEditing(null)}>
+        <Modal title={editing.id ? 'Edit Post' : 'New Post'} onClose={() => { setEditing(null); setSaveError('') }}>
           <Field label="Title">
             <input value={editing.title} onChange={e => setEditing(p => ({ ...p, title: e.target.value }))} style={inp} />
           </Field>
@@ -150,6 +155,7 @@ function PostsTab() {
             <CheckField label="Published" checked={editing.published} onChange={v => setEditing(p => ({ ...p, published: v }))} />
             <CheckField label="Featured" checked={editing.featured} onChange={v => setEditing(p => ({ ...p, featured: v }))} />
           </Row2>
+          {saveError && <ErrorMsg msg={saveError} />}
           <SaveBtn busy={busy} onSave={save} />
         </Modal>
       )}
@@ -162,12 +168,13 @@ function HeroSlidesTab() {
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState(null)
   const [busy, setBusy] = useState(false)
+  const [saveError, setSaveError] = useState('')
 
   const EMPTY = { img: '', headline: '', sub: '', order_index: 0, active: true }
 
-  useEffect(() => { fetch() }, [])
+  useEffect(() => { loadRows() }, [])
 
-  async function fetch() {
+  async function loadRows() {
     setLoading(true)
     const { data } = await supabase.from('hero_slides').select('*').order('order_index')
     if (data) setRows(data)
@@ -175,24 +182,28 @@ function HeroSlidesTab() {
   }
 
   async function save() {
+    setSaveError('')
     setBusy(true)
     const { id, ...payload } = editing
-    if (id) { await supabase.from('hero_slides').update(payload).eq('id', id) }
-    else { await supabase.from('hero_slides').insert(payload) }
-    setEditing(null)
+    let error
+    if (id) { ({ error } = await supabase.from('hero_slides').update(payload).eq('id', id)) }
+    else { ({ error } = await supabase.from('hero_slides').insert(payload)) }
     setBusy(false)
-    fetch()
+    if (error) { setSaveError(error.message); return }
+    setEditing(null)
+    loadRows()
   }
 
   async function del(id) {
     if (!confirm('Delete this slide?')) return
-    await supabase.from('hero_slides').delete().eq('id', id)
+    const { error } = await supabase.from('hero_slides').delete().eq('id', id)
+    if (error) { alert('Delete failed: ' + error.message); return }
     setRows(prev => prev.filter(r => r.id !== id))
   }
 
   async function toggleActive(row) {
-    await supabase.from('hero_slides').update({ active: !row.active }).eq('id', row.id)
-    setRows(prev => prev.map(r => r.id === row.id ? { ...r, active: !r.active } : r))
+    const { error } = await supabase.from('hero_slides').update({ active: !row.active }).eq('id', row.id)
+    if (!error) setRows(prev => prev.map(r => r.id === row.id ? { ...r, active: !r.active } : r))
   }
 
   return (
@@ -242,7 +253,7 @@ function HeroSlidesTab() {
       </div>
 
       {editing && (
-        <Modal title={editing.id ? 'Edit Slide' : 'New Slide'} onClose={() => setEditing(null)}>
+        <Modal title={editing.id ? 'Edit Slide' : 'New Slide'} onClose={() => { setEditing(null); setSaveError('') }}>
           <Field label="Headline">
             <input value={editing.headline || ''} onChange={e => setEditing(p => ({ ...p, headline: e.target.value }))} style={inp} />
           </Field>
@@ -256,6 +267,7 @@ function HeroSlidesTab() {
             <input type="number" value={editing.order_index || 0} onChange={e => setEditing(p => ({ ...p, order_index: parseInt(e.target.value) || 0 }))} style={{ ...inp, width: 100 }} />
           </Field>
           <CheckField label="Active" checked={editing.active} onChange={v => setEditing(p => ({ ...p, active: v }))} />
+          {saveError && <ErrorMsg msg={saveError} />}
           <SaveBtn busy={busy} onSave={save} />
         </Modal>
       )}
@@ -268,12 +280,13 @@ function FuelPricesTab() {
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState(null)
   const [busy, setBusy] = useState(false)
+  const [saveError, setSaveError] = useState('')
 
   const EMPTY = { fuel_type: '', price: '', unit: 'per litre', change_direction: 'stable', order_index: 0 }
 
-  useEffect(() => { fetch() }, [])
+  useEffect(() => { loadRows() }, [])
 
-  async function fetch() {
+  async function loadRows() {
     setLoading(true)
     const { data } = await supabase.from('fuel_prices').select('*').order('order_index')
     if (data) setRows(data)
@@ -281,18 +294,22 @@ function FuelPricesTab() {
   }
 
   async function save() {
+    setSaveError('')
     setBusy(true)
     const { id, ...payload } = editing
-    if (id) { await supabase.from('fuel_prices').update(payload).eq('id', id) }
-    else { await supabase.from('fuel_prices').insert(payload) }
-    setEditing(null)
+    let error
+    if (id) { ({ error } = await supabase.from('fuel_prices').update(payload).eq('id', id)) }
+    else { ({ error } = await supabase.from('fuel_prices').insert(payload)) }
     setBusy(false)
-    fetch()
+    if (error) { setSaveError(error.message); return }
+    setEditing(null)
+    loadRows()
   }
 
   async function del(id) {
     if (!confirm('Delete this fuel price?')) return
-    await supabase.from('fuel_prices').delete().eq('id', id)
+    const { error } = await supabase.from('fuel_prices').delete().eq('id', id)
+    if (error) { alert('Delete failed: ' + error.message); return }
     setRows(prev => prev.filter(r => r.id !== id))
   }
 
@@ -337,7 +354,7 @@ function FuelPricesTab() {
       </div>
 
       {editing && (
-        <Modal title={editing.id ? 'Edit Fuel Price' : 'New Fuel Price'} onClose={() => setEditing(null)}>
+        <Modal title={editing.id ? 'Edit Fuel Price' : 'New Fuel Price'} onClose={() => { setEditing(null); setSaveError('') }}>
           <Field label="Fuel Type">
             <input value={editing.fuel_type || ''} onChange={e => setEditing(p => ({ ...p, fuel_type: e.target.value }))} style={inp} placeholder="e.g. Petrol (RON 91)" />
           </Field>
@@ -359,6 +376,7 @@ function FuelPricesTab() {
           <Field label="Order Index">
             <input type="number" value={editing.order_index || 0} onChange={e => setEditing(p => ({ ...p, order_index: parseInt(e.target.value) || 0 }))} style={{ ...inp, width: 100 }} />
           </Field>
+          {saveError && <ErrorMsg msg={saveError} />}
           <SaveBtn busy={busy} onSave={save} />
         </Modal>
       )}
@@ -436,4 +454,12 @@ function LoadingRow() {
 
 function EmptyRow({ msg }) {
   return <div style={{ padding: 40, textAlign: 'center', color: '#bbb', fontSize: '0.85rem' }}>{msg}</div>
+}
+
+function ErrorMsg({ msg }) {
+  return (
+    <div style={{ backgroundColor: '#fee2e2', border: '1px solid #fca5a5', borderRadius: 8, padding: '10px 14px', fontSize: '0.82rem', color: '#b91c1c', fontWeight: 600 }}>
+      Save failed: {msg}
+    </div>
+  )
 }
