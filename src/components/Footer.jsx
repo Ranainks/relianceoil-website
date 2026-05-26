@@ -25,7 +25,7 @@ const socialIcons = [
   { Icon: FaFacebookF, url: 'https://www.facebook.com/reubeeni.annan', label: 'Facebook' },
   { Icon: FaTwitter, url: 'https://x.com/ranainks_brandi', label: 'X' },
   { Icon: FaInstagram, url: 'https://www.instagram.com/ranainks_brandi', label: 'Instagram' },
-  { Icon: FaLinkedinIn, url: 'https://www.linkedin.com/in/reuben-annang-aa5082191/', label: 'LinkedIn' },
+  { Icon: FaLinkedinIn, url: 'https://www.linkedin.com/company/123004025/', label: 'LinkedIn' },
   { Icon: FaYoutube, url: 'https://www.youtube.com/@claysavvy', label: 'YouTube' },
 ];
 
