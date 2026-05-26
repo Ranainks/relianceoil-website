@@ -154,15 +154,19 @@ function AdminLayoutInner({ children }) {
           <ThemeToggle />
         </header>
 
-        <div style={{ flex: 1, padding: '28px 20px', overflowY: 'auto', overflowX: 'auto', backgroundColor: t.contentBg, transition: 'background 0.25s' }}>
+        <div style={{ flex: 1, overflowY: 'auto', overflowX: 'auto', backgroundColor: t.contentBg, transition: 'background 0.25s' }}>
           <style>{`
-            .admin-main ::-webkit-scrollbar { height: 7px; width: 7px; }
+            .admin-main ::-webkit-scrollbar { height: 8px; width: 8px; }
             .admin-main ::-webkit-scrollbar-track { background: ${dark ? '#1e1e1e' : '#f1f1f1'}; border-radius: 9999px; }
-            .admin-main ::-webkit-scrollbar-thumb { background: ${dark ? '#3a3a3a' : '#cccccc'}; border-radius: 9999px; }
+            .admin-main ::-webkit-scrollbar-thumb { background: ${dark ? '#444' : '#c0c0c0'}; border-radius: 9999px; }
             .admin-main ::-webkit-scrollbar-thumb:hover { background: #CC0000; }
-            .admin-main { scrollbar-width: thin; scrollbar-color: ${dark ? '#3a3a3a #1e1e1e' : '#cccccc #f1f1f1'}; }
+            .admin-main ::-webkit-scrollbar-corner { background: transparent; }
+            .admin-main { scrollbar-width: thin; scrollbar-color: ${dark ? '#444 #1e1e1e' : '#c0c0c0 #f1f1f1'}; }
+            .admin-content-inner { min-width: 960px; padding: 28px 20px; }
           `}</style>
-          {children}
+          <div className="admin-content-inner">
+            {children}
+          </div>
         </div>
       </div>
     </div>
