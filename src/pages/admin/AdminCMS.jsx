@@ -40,8 +40,12 @@ function PostsTab() {
   const [editing, setEditing] = useState(null)
   const [busy, setBusy] = useState(false)
   const [saveError, setSaveError] = useState('')
+  const [uploadingImg, setUploadingImg] = useState(false)
+  const [uploadingVid, setUploadingVid] = useState(false)
+  const imgRef = useRef()
+  const vidRef = useRef()
 
-  const EMPTY = { title: '', slug: '', category: '', excerpt: '', content: '', image_url: '', author: '', featured: false, published: false }
+  const EMPTY = { title: '', slug: '', category: '', excerpt: '', content: '', image_url: '', video_url: '', author: '', featured: false, published: false }
 
   useEffect(() => { loadRows() }, [])
 
@@ -53,6 +57,23 @@ function PostsTab() {
   }
 
   function toSlug(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }
+
+  async function uploadFile(file, type) {
+    if (!file) return
+    const isVid = type === 'video'
+    if (isVid) setUploadingVid(true); else setUploadingImg(true)
+    const ext = file.name.split('.').pop()
+    const name = `${type}_${Date.now()}.${ext}`
+    const { error } = await supabase.storage.from('posts-media').upload(name, file, { upsert: true })
+    if (error) {
+      alert('Upload failed: ' + error.message)
+      if (isVid) setUploadingVid(false); else setUploadingImg(false)
+      return
+    }
+    const { data } = supabase.storage.from('posts-media').getPublicUrl(name)
+    if (isVid) { setEditing(p => ({ ...p, video_url: data.publicUrl })); setUploadingVid(false) }
+    else { setEditing(p => ({ ...p, image_url: data.publicUrl })); setUploadingImg(false) }
+  }
 
   async function save() {
     setSaveError('')
@@ -128,6 +149,9 @@ function PostsTab() {
 
       {editing && (
         <Modal title={editing.id ? 'Edit Post' : 'New Post'} onClose={() => { setEditing(null); setSaveError('') }}>
+          <input ref={imgRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => uploadFile(e.target.files[0], 'image')} />
+          <input ref={vidRef} type="file" accept="video/*" style={{ display: 'none' }} onChange={e => uploadFile(e.target.files[0], 'video')} />
+
           <Field label="Title">
             <input value={editing.title} onChange={e => setEditing(p => ({ ...p, title: e.target.value }))} style={inp} />
           </Field>
@@ -148,9 +172,35 @@ function PostsTab() {
           <Field label="Content (Markdown)">
             <textarea value={editing.content || ''} onChange={e => setEditing(p => ({ ...p, content: e.target.value }))} rows={8} style={{ ...inp, resize: 'vertical', fontFamily: 'monospace', fontSize: '0.8rem' }} />
           </Field>
-          <Field label="Image URL">
-            <input value={editing.image_url || ''} onChange={e => setEditing(p => ({ ...p, image_url: e.target.value }))} style={inp} placeholder="https://..." />
+
+          <Field label="Cover Image">
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+              <button type="button" onClick={() => imgRef.current.click()} disabled={uploadingImg}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 6, backgroundColor: uploadingImg ? '#e5e7eb' : '#CC0000', color: uploadingImg ? '#aaa' : '#fff', border: 'none', borderRadius: 8, padding: '9px 16px', fontSize: '0.82rem', fontWeight: 700, cursor: uploadingImg ? 'not-allowed' : 'pointer', whiteSpace: 'nowrap' }}>
+                <FaUpload size={11} /> {uploadingImg ? 'Uploading…' : 'Upload Image'}
+              </button>
+              <span style={{ fontSize: '0.75rem', color: '#aaa' }}>or paste URL below</span>
+            </div>
+            <input value={editing.image_url || ''} onChange={e => setEditing(p => ({ ...p, image_url: e.target.value }))} style={{ ...inp, marginTop: 8 }} placeholder="https://..." />
+            {editing.image_url && (
+              <img src={editing.image_url} alt="preview" style={{ marginTop: 8, width: '100%', height: 140, objectFit: 'cover', borderRadius: 8, border: '1px solid #e5e7eb' }} />
+            )}
           </Field>
+
+          <Field label="Video">
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+              <button type="button" onClick={() => vidRef.current.click()} disabled={uploadingVid}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 6, backgroundColor: uploadingVid ? '#e5e7eb' : '#333', color: uploadingVid ? '#aaa' : '#fff', border: 'none', borderRadius: 8, padding: '9px 16px', fontSize: '0.82rem', fontWeight: 700, cursor: uploadingVid ? 'not-allowed' : 'pointer', whiteSpace: 'nowrap' }}>
+                <FaUpload size={11} /> {uploadingVid ? 'Uploading…' : 'Upload Video'}
+              </button>
+              <span style={{ fontSize: '0.75rem', color: '#aaa' }}>or paste YouTube / video URL below</span>
+            </div>
+            <input value={editing.video_url || ''} onChange={e => setEditing(p => ({ ...p, video_url: e.target.value }))} style={{ ...inp, marginTop: 8 }} placeholder="https://youtube.com/... or video URL" />
+            {editing.video_url && !editing.video_url.includes('youtube') && (
+              <video src={editing.video_url} controls style={{ marginTop: 8, width: '100%', borderRadius: 8, maxHeight: 160 }} />
+            )}
+          </Field>
+
           <Row2>
             <CheckField label="Published" checked={editing.published} onChange={v => setEditing(p => ({ ...p, published: v }))} />
             <CheckField label="Featured" checked={editing.featured} onChange={v => setEditing(p => ({ ...p, featured: v }))} />
