@@ -162,7 +162,10 @@ function AdminLayoutInner({ children }) {
             .admin-main ::-webkit-scrollbar-thumb:hover { background: #CC0000; }
             .admin-main ::-webkit-scrollbar-corner { background: transparent; }
             .admin-main { scrollbar-width: thin; scrollbar-color: ${dark ? '#444 #1e1e1e' : '#c0c0c0 #f1f1f1'}; }
-            .admin-content-inner { min-width: 960px; padding: 28px 20px; }
+            .admin-content-inner { padding: 28px 20px; }
+            @media(max-width:767px){
+              .admin-content-inner { padding: 16px 12px; }
+            }
 
             /* ── DARK MODE OVERRIDES ── */
             /* TEXT */

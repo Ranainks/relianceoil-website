@@ -228,7 +228,7 @@ function ApplicationsTab() {
           {toast.msg}
         </div>
       )}
-      <div style={{ backgroundColor: '#fff', borderRadius: 12, padding: '12px 16px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', marginBottom: 14, display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center', justifyContent: 'space-between' }}>
+      <div style={{ backgroundColor: '#fff', borderRadius: 12, padding: '12px 16px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', marginBottom: 14, display: 'flex', flexDirection: 'column', gap: 10 }}>
         <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
           {['all', 'pending', 'reviewed', 'accepted', 'rejected'].map(f => (
             <button key={f} onClick={() => setFilter(f)}
@@ -238,8 +238,8 @@ function ApplicationsTab() {
             </button>
           ))}
         </div>
-        <input placeholder="Search…" value={search} onChange={e => setSearch(e.target.value)}
-          style={{ border: '1px solid #e5e7eb', borderRadius: 8, padding: '7px 12px', fontSize: '0.8rem', outline: 'none', width: 200 }} />
+        <input placeholder="Search by name, position or email…" value={search} onChange={e => setSearch(e.target.value)}
+          style={{ border: '1px solid #e5e7eb', borderRadius: 8, padding: '7px 12px', fontSize: '0.8rem', outline: 'none', width: '100%' }} />
       </div>
 
       <div style={{ backgroundColor: '#fff', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
@@ -298,7 +298,7 @@ function ApplicationsTab() {
               <button onClick={() => setSelected(null)} style={{ border: 'none', background: '#f3f4f6', borderRadius: 8, width: 30, height: 30, cursor: 'pointer', fontSize: '1.1rem', color: '#555', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>×</button>
             </div>
             <div style={{ padding: '22px 24px', display: 'flex', flexDirection: 'column', gap: 18 }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 16 }}>
                 <div>
                   <div style={{ fontSize: '0.66rem', fontWeight: 700, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 5 }}>Email</div>
                   <a href={`mailto:${selected.email}`} style={{ color: '#CC0000', fontSize: '0.83rem', fontWeight: 600, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 5 }}><FaEnvelope size={11} /> {selected.email}</a>
@@ -377,7 +377,7 @@ function Field({ label, children }) {
 }
 
 function Row2({ children }) {
-  return <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>{children}</div>
+  return <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>{children}</div>
 }
 
 function SaveBtn({ busy, onSave }) {
