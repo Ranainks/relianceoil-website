@@ -7,8 +7,8 @@ import 'aos/dist/aos.css';
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow, DirectionsRenderer } from '@react-google-maps/api';
 import { FaSearch, FaMapMarkerAlt, FaPhone, FaClock, FaLocationArrow, FaRoute, FaTimes, FaExternalLinkAlt } from 'react-icons/fa';
 
-const getMapHeight = () => window.innerWidth < 768 ? '350px' : '600px';
-const containerStyle = { width: '100%', height: typeof window !== 'undefined' ? getMapHeight() : '600px' };
+const getMapHeight = () => window.innerWidth < 768 ? 'clamp(220px, 40vw, 350px)' : 'clamp(220px, 40vw, 600px)';
+const containerStyle = { width: '100%', height: typeof window !== 'undefined' ? getMapHeight() : 'clamp(220px, 40vw, 600px)' };
 const ghanaCenter = { lat: 7.9465, lng: -1.0232 };
 
 const stationMarkerUrl = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40"><path d="M16 0C7.163 0 0 7.163 0 16c0 8.837 16 24 16 24s16-15.163 16-24C32 7.163 24.837 0 16 0z" fill="#CC0000"/><circle cx="16" cy="16" r="6" fill="white"/></svg>')}`;
@@ -184,7 +184,7 @@ export default function FindStation() {
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '12px', marginBottom: '28px' }}>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', flex: 1 }}>
               {[`${outletsData.length} Stations`, '6 Regions', '24/7 Service'].map((stat) => (
-                <div key={stat} style={{ backgroundColor: '#fff', borderRadius: '9999px', padding: '8px 18px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div key={stat} style={{ backgroundColor: '#fff', borderRadius: '9999px', padding: '8px 18px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px' }}>
                   <FaMapMarkerAlt style={{ color: '#CC0000', fontSize: '12px' }} />
                   <span style={{ fontWeight: 600, color: '#111', fontSize: '0.8125rem' }}>{stat}</span>
                 </div>
@@ -194,7 +194,7 @@ export default function FindStation() {
             <button
               onClick={handleFindMyLocation}
               disabled={locating}
-              style={{ display: 'flex', alignItems: 'center', gap: '8px', backgroundColor: locating ? '#e5e7eb' : '#4285F4', color: '#fff', border: 'none', borderRadius: '9999px', padding: '10px 20px', fontWeight: 700, fontSize: '0.875rem', cursor: locating ? 'not-allowed' : 'pointer', transition: 'background-color 0.2s, transform 0.2s', flexShrink: 0 }}
+              style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px', backgroundColor: locating ? '#e5e7eb' : '#4285F4', color: '#fff', border: 'none', borderRadius: '9999px', padding: '10px 20px', fontWeight: 700, fontSize: '0.875rem', cursor: locating ? 'not-allowed' : 'pointer', transition: 'background-color 0.2s, transform 0.2s', flexShrink: 0 }}
               onMouseEnter={(e) => { if (!locating) e.currentTarget.style.backgroundColor = '#3b77db'; }}
               onMouseLeave={(e) => { if (!locating) e.currentTarget.style.backgroundColor = '#4285F4'; }}
             >
@@ -204,29 +204,29 @@ export default function FindStation() {
           </div>
 
           {locationError && (
-            <div style={{ backgroundColor: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '10px', padding: '12px 16px', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ backgroundColor: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '10px', padding: '12px 16px', marginBottom: '20px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
               <FaTimes style={{ color: '#CC0000', flexShrink: 0 }} />
               <span style={{ fontSize: '0.875rem', color: '#991B1B' }}>{locationError}</span>
             </div>
           )}
 
           {userLocation && (
-            <div style={{ backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '10px', padding: '12px 16px', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '10px', padding: '12px 16px', marginBottom: '20px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
               <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#4285F4', flexShrink: 0 }} />
               <span style={{ fontSize: '0.875rem', color: '#1D4ED8', fontWeight: 600 }}>Your location is shown on the map. Click any station to get directions.</span>
             </div>
           )}
 
           {directionsResponse && (
-            <div style={{ backgroundColor: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: '10px', padding: '12px 16px', marginBottom: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ backgroundColor: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: '10px', padding: '12px 16px', marginBottom: '20px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px', minWidth: 0 }}>
                 <FaRoute style={{ color: '#16A34A', flexShrink: 0 }} />
-                <span style={{ fontSize: '0.875rem', color: '#15803D', fontWeight: 600 }}>
+                <span style={{ fontSize: '0.875rem', color: '#15803D', fontWeight: 600, minWidth: 0, overflowWrap: 'anywhere' }}>
                   Route displayed — {directionsResponse.routes[0]?.legs[0]?.distance?.text} away
                   {directionsResponse.routes[0]?.legs[0]?.duration?.text && ` · ${directionsResponse.routes[0].legs[0].duration.text}`}
                 </span>
               </div>
-              <button onClick={clearDirections} style={{ display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: 'transparent', border: '1px solid #16A34A', color: '#16A34A', borderRadius: '9999px', padding: '6px 14px', fontSize: '0.8125rem', fontWeight: 600, cursor: 'pointer' }}>
+              <button onClick={clearDirections} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px', backgroundColor: 'transparent', border: '1px solid #16A34A', color: '#16A34A', borderRadius: '9999px', padding: '6px 14px', fontSize: '0.8125rem', fontWeight: 600, cursor: 'pointer' }}>
                 <FaTimes size={10} /> Clear Route
               </button>
             </div>
@@ -292,18 +292,18 @@ export default function FindStation() {
                                   <span key={service} style={{ backgroundColor: '#FEF2F2', color: '#CC0000', fontSize: '10px', padding: '2px 7px', borderRadius: '9999px' }}>{service}</span>
                                 ))}
                               </div>
-                              <div style={{ display: 'flex', gap: '6px' }}>
+                              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                                 <button
                                   onClick={() => handleGetDirections(outlet)}
                                   disabled={loadingDirections}
-                                  style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', backgroundColor: '#CC0000', color: '#fff', border: 'none', borderRadius: '6px', padding: '7px 0', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer' }}
+                                  style={{ flex: 1, minWidth: 0, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '5px', backgroundColor: '#CC0000', color: '#fff', border: 'none', borderRadius: '6px', padding: '7px 0', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer' }}
                                 >
                                   <FaRoute size={10} />
                                   {loadingDirections ? 'Loading...' : 'Directions'}
                                 </button>
                                 <button
                                   onClick={() => openInGoogleMaps(outlet)}
-                                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', backgroundColor: '#f3f4f6', color: '#374151', border: 'none', borderRadius: '6px', padding: '7px 10px', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer' }}
+                                  style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '5px', backgroundColor: '#f3f4f6', color: '#374151', border: 'none', borderRadius: '6px', padding: '7px 10px', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer' }}
                                   title="Open in Google Maps"
                                 >
                                   <FaExternalLinkAlt size={10} />
@@ -316,7 +316,7 @@ export default function FindStation() {
                     ))}
                   </GoogleMap>
                 ) : (
-                  <div style={{ height: '600px', backgroundColor: '#f3f4f6', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ height: 'clamp(220px, 40vw, 600px)', backgroundColor: '#f3f4f6', borderRadius: '16px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
                     <span style={{ color: '#9ca3af', fontSize: '0.875rem' }}>Loading Map...</span>
                   </div>
                 )}
@@ -388,32 +388,32 @@ export default function FindStation() {
                             onMouseEnter={(e) => { if (!isSelected) { e.currentTarget.style.borderColor = '#CC0000'; e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)'; } }}
                             onMouseLeave={(e) => { if (!isSelected) { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; } }}
                           >
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '5px' }}>
-                              <span style={{ fontWeight: 700, fontSize: '0.875rem', color: '#111', flex: 1 }}>{outlet.name}</span>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0, marginLeft: '8px' }}>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '6px', marginBottom: '5px' }}>
+                              <span style={{ fontWeight: 700, fontSize: '0.875rem', color: '#111', flex: 1, minWidth: 0, overflowWrap: 'anywhere' }}>{outlet.name}</span>
+                              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px', flexShrink: 0, marginLeft: '8px' }}>
                                 {dist !== null && (
                                   <span style={{ backgroundColor: '#EFF6FF', color: '#1D4ED8', fontSize: '10px', fontWeight: 700, padding: '2px 7px', borderRadius: '9999px' }}>{formatDistance(dist)}</span>
                                 )}
                                 <span style={{ backgroundColor: '#FFF0F0', color: '#CC0000', fontSize: '10px', fontWeight: 700, padding: '2px 7px', borderRadius: '9999px' }}>{outlet.region}</span>
                               </div>
                             </div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
                               <FaMapMarkerAlt style={{ fontSize: '11px', color: '#999', flexShrink: 0 }} />
-                              <span style={{ fontSize: '0.75rem', color: '#888' }}>{outlet.address}</span>
+                              <span style={{ fontSize: '0.75rem', color: '#888', minWidth: 0, overflowWrap: 'anywhere' }}>{outlet.address}</span>
                             </div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
                               <FaClock style={{ fontSize: '11px', color: '#999', flexShrink: 0 }} />
-                              <span style={{ fontSize: '0.75rem', color: '#888' }}>{outlet.hours}</span>
+                              <span style={{ fontSize: '0.75rem', color: '#888', minWidth: 0, overflowWrap: 'anywhere' }}>{outlet.hours}</span>
                             </div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
                               <FaPhone style={{ fontSize: '11px', color: '#999', flexShrink: 0 }} />
-                              <span style={{ fontSize: '0.75rem', color: '#888' }}>{outlet.phone}</span>
+                              <span style={{ fontSize: '0.75rem', color: '#888', minWidth: 0, overflowWrap: 'anywhere' }}>{outlet.phone}</span>
                             </div>
-                            <div style={{ display: 'flex', gap: '6px' }}>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                               <button
                                 onClick={(e) => { e.stopPropagation(); handleGetDirections(outlet); }}
                                 disabled={loadingDirections}
-                                style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', backgroundColor: isDirecting ? '#4285F4' : '#CC0000', color: '#fff', border: 'none', borderRadius: '8px', padding: '8px 0', fontSize: '0.75rem', fontWeight: 700, cursor: loadingDirections ? 'not-allowed' : 'pointer', transition: 'background-color 0.2s' }}
+                                style={{ flex: 1, minWidth: 0, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '6px', backgroundColor: isDirecting ? '#4285F4' : '#CC0000', color: '#fff', border: 'none', borderRadius: '8px', padding: '8px 0', fontSize: '0.75rem', fontWeight: 700, cursor: loadingDirections ? 'not-allowed' : 'pointer', transition: 'background-color 0.2s' }}
                                 onMouseEnter={(e) => { if (!loadingDirections && !isDirecting) e.currentTarget.style.backgroundColor = '#b00000'; }}
                                 onMouseLeave={(e) => { if (!loadingDirections && !isDirecting) e.currentTarget.style.backgroundColor = '#CC0000'; }}
                               >
@@ -422,7 +422,7 @@ export default function FindStation() {
                               </button>
                               <button
                                 onClick={(e) => { e.stopPropagation(); openInGoogleMaps(outlet); }}
-                                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', backgroundColor: '#f3f4f6', color: '#374151', border: 'none', borderRadius: '8px', padding: '8px 12px', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', transition: 'background-color 0.2s' }}
+                                style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '6px', backgroundColor: '#f3f4f6', color: '#374151', border: 'none', borderRadius: '8px', padding: '8px 12px', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', transition: 'background-color 0.2s' }}
                                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#e5e7eb'}
                                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#f3f4f6'}
                                 title="Open in Google Maps"

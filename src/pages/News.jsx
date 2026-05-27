@@ -79,15 +79,15 @@ export default function News() {
 
                 <Link
                   to={`/news/${featuredBlog.slug}`}
-                  style={{ maxWidth: '64rem', margin: '0 auto', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 24px rgba(0,0,0,0.1)', display: 'grid', gridTemplateColumns: '1fr', textDecoration: 'none' }}
+                  style={{ maxWidth: '64rem', width: '100%', margin: '0 auto', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 24px rgba(0,0,0,0.1)', display: 'grid', gridTemplateColumns: '1fr', textDecoration: 'none' }}
                   className="featured-news-grid"
                 >
-                  <div style={{ position: 'relative', minHeight: '20rem', overflow: 'hidden' }}>
+                  <div style={{ position: 'relative', minHeight: 'clamp(180px, 35vw, 20rem)', overflow: 'hidden' }}>
                     {featuredBlog.image_url ? (
                       <img
                         src={featuredBlog.image_url}
                         alt={featuredBlog.title}
-                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+                        style={{ position: 'absolute', inset: 0, width: '100%', maxWidth: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
                       />
                     ) : (
                       <div style={{ position: 'absolute', inset: 0, background: categoryColors[featuredBlog.category] || categoryColors['Company News'] }} />
@@ -128,7 +128,7 @@ export default function News() {
           {/* ── ALL POSTS GRID ── */}
           <section className="rs" style={{ backgroundColor: '#F8F8F8' }}>
             <div className="rc">
-              <div className="rf-center" style={{ marginBottom: '48px' }}>
+              <div className="rf-center" style={{ marginBottom: '48px', flexWrap: 'wrap' }}>
                 {categories.map((cat) => (
                   <button
                     key={cat}
@@ -162,17 +162,17 @@ export default function News() {
                       to={`/news/${blog.slug}`}
                       data-aos="fade-up"
                       data-aos-delay={index * 60}
-                      style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#ffffff', borderRadius: '1rem', overflow: 'hidden', border: '1px solid #f3f4f6', textDecoration: 'none', transition: 'box-shadow 0.3s, transform 0.3s' }}
+                      style={{ display: 'flex', flexDirection: 'column', minWidth: 0, backgroundColor: '#ffffff', borderRadius: '1rem', overflow: 'hidden', border: '1px solid #f3f4f6', textDecoration: 'none', transition: 'box-shadow 0.3s, transform 0.3s' }}
                       onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.1)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
                       onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; }}
                     >
                       {/* Thumbnail */}
-                      <div style={{ height: '13rem', position: 'relative', overflow: 'hidden', flexShrink: 0 }}>
+                      <div style={{ height: 'clamp(180px, 35vw, 13rem)', position: 'relative', overflow: 'hidden', flexShrink: 0 }}>
                         {blog.image_url ? (
                           <img
                             src={blog.image_url}
                             alt={blog.title}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+                            style={{ width: '100%', maxWidth: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
                           />
                         ) : (
                           <div style={{ width: '100%', height: '100%', background: categoryColors[blog.category] || categoryColors['Company News'] }} />
@@ -199,7 +199,7 @@ export default function News() {
                         <p style={{ fontSize: '0.85rem', color: '#888', lineHeight: 1.65, marginBottom: '1.25rem', flex: 1 }}>
                           {blog.excerpt.length > 110 ? blog.excerpt.slice(0, 110) + '…' : blog.excerpt}
                         </p>
-                        <div style={{ borderTop: '1px solid #f3f4f6', paddingTop: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ borderTop: '1px solid #f3f4f6', paddingTop: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
                           <span style={{ fontSize: '0.75rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#CC0000' }}>
                             Read More <FaArrowRight size={9} />
                           </span>
@@ -212,7 +212,7 @@ export default function News() {
               )}
 
               {hasMore && (
-                <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'center' }}>
+                <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
                   <button
                     onClick={() => setVisibleCount((p) => p + 3)}
                     style={{ border: '1px solid #e5e7eb', backgroundColor: 'white', color: '#4b5563', padding: '0.875rem 2rem', borderRadius: '9999px', fontSize: '0.875rem', fontWeight: 500, transition: 'all 0.2s', cursor: 'pointer' }}

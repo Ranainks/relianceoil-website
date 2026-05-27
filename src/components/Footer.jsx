@@ -51,7 +51,7 @@ export default function Footer() {
 
   return (
     <footer style={{ backgroundColor: '#0D0D0D', color: '#ffffff' }}>
-      <div className="rc footer-grid" style={{ padding: '64px 24px', gap: '40px' }}>
+      <div className="rc footer-grid" style={{ padding: 'clamp(40px,6vw,64px) 0', gap: '40px' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Logo height={56} />
@@ -125,7 +125,7 @@ export default function Footer() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
             <FaPhone size={13} style={{ color: '#CC0000', flexShrink: 0 }} />
-            <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)' }}>+233 (0) 24747 0403 / +233 (0) 24183 4765</span>
+            <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6, wordBreak: 'break-word' }}>+233 (0) 24747 0403<br />+233 (0) 24183 4765</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <FaEnvelope size={13} style={{ color: '#CC0000', flexShrink: 0 }} />
@@ -133,7 +133,7 @@ export default function Footer() {
           </div>
           <div style={{ marginTop: '24px' }}>
             <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '8px' }}>Stay Updated</p>
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', gap: 0 }}>
               <input
                 type="email"
                 placeholder="Your email"
@@ -141,14 +141,14 @@ export default function Footer() {
                 onChange={e => { setEmail(e.target.value); setSubStatus('idle'); }}
                 onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
                 disabled={subStatus === 'loading' || subStatus === 'success'}
-                style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRight: 'none', borderRadius: '9999px 0 0 9999px', padding: '10px 16px', fontSize: '0.875rem', color: '#ffffff', outline: 'none' }}
+                style={{ flex: 1, minWidth: 0, backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRight: 'none', borderRadius: '9999px 0 0 9999px', padding: '10px 14px', fontSize: '0.875rem', color: '#ffffff', outline: 'none' }}
                 onFocus={(e) => e.currentTarget.style.borderColor = '#FFD700'}
                 onBlur={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
               />
               <button
                 onClick={handleSubscribe}
                 disabled={subStatus === 'loading' || subStatus === 'success'}
-                style={{ backgroundColor: '#FFD700', color: '#000000', padding: '10px 20px', borderRadius: '0 9999px 9999px 0', fontWeight: '700', fontSize: '0.875rem', border: 'none', cursor: subStatus === 'loading' || subStatus === 'success' ? 'default' : 'pointer', transition: 'background-color 0.2s', opacity: subStatus === 'loading' ? 0.7 : 1 }}
+                style={{ flexShrink: 0, backgroundColor: '#FFD700', color: '#000000', padding: '10px 18px', borderRadius: '0 9999px 9999px 0', fontWeight: '700', fontSize: '0.875rem', border: 'none', cursor: subStatus === 'loading' || subStatus === 'success' ? 'default' : 'pointer', transition: 'background-color 0.2s', opacity: subStatus === 'loading' ? 0.7 : 1, whiteSpace: 'nowrap' }}
                 onMouseEnter={(e) => { if (subStatus !== 'loading' && subStatus !== 'success') e.currentTarget.style.backgroundColor = '#FFE033'; }}
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FFD700'}
               >

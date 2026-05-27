@@ -113,6 +113,7 @@ export default function Careers() {
 
   const inputStyle = {
     width: '100%',
+    minWidth: 0,
     border: '1px solid #e5e7eb',
     borderRadius: '0.75rem',
     padding: '14px 16px',
@@ -246,6 +247,7 @@ export default function Careers() {
                   style={{
                     padding: '1.25rem 1.5rem',
                     display: 'flex',
+                    flexWrap: 'wrap',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     cursor: 'pointer',
@@ -254,7 +256,7 @@ export default function Careers() {
                   onClick={() => setExpandedJob(expandedJob === job.id ? null : job.id)}
                 >
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1, minWidth: 0 }}>
-                    <span style={{ fontWeight: 700, color: '#111', fontSize: '1rem' }}>{job.title}</span>
+                    <span style={{ fontWeight: 700, color: '#111', fontSize: '1rem', overflowWrap: 'anywhere' }}>{job.title}</span>
                     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.5rem' }}>
                       <span
                         style={{
@@ -268,8 +270,8 @@ export default function Careers() {
                       >
                         {job.department}
                       </span>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', color: '#9ca3af' }}>
-                        <FaMapMarkerAlt size={9} />
+                      <span style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', color: '#9ca3af', minWidth: 0, overflowWrap: 'anywhere' }}>
+                        <FaMapMarkerAlt size={9} style={{ flexShrink: 0 }} />
                         {job.location}
                       </span>
                       <span
@@ -494,6 +496,7 @@ export default function Careers() {
                     opacity: isSubmitting ? 0.6 : 1,
                     transition: 'background-color 0.2s',
                     display: 'flex',
+                    flexWrap: 'wrap',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '0.5rem',

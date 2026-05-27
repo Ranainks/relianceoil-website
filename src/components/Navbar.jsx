@@ -64,11 +64,11 @@ export default function Navbar() {
   return (
     <nav style={{ backgroundColor: '#0D0D0D', position: 'sticky', top: 0, zIndex: 50, height: '72px', display: 'flex', alignItems: 'center' }}>
       <div className="rc" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <Logo height={58} />
-          <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
-            <span style={{ color: '#ffffff', fontWeight: '900', fontSize: '0.875rem' }}>Reliance Oil</span>
-            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.68rem', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Limited</span>
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', minWidth: 0, overflow: 'hidden' }}>
+          <Logo height={52} style={{ flexShrink: 0 }} />
+          <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2, minWidth: 0 }}>
+            <span style={{ color: '#ffffff', fontWeight: '900', fontSize: '0.875rem', whiteSpace: 'nowrap' }}>Reliance Oil</span>
+            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.68rem', letterSpacing: '0.15em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>Limited</span>
           </div>
         </Link>
 
@@ -260,6 +260,7 @@ export default function Navbar() {
         @media (max-width: 1023px) {
           .desktop-nav { display: none !important; }
           .hamburger-btn { display: block !important; }
+          .cta-btn { display: none !important; }
         }
       `}</style>
     </nav>

@@ -168,7 +168,7 @@ export default function Home() {
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.65) 55%, rgba(5,5,5,0.3) 100%)', zIndex: 1 }} />
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle,rgba(255,255,255,0.03) 1px,transparent 1px)', backgroundSize: '40px 40px', zIndex: 2 }} />
 
-        <div className="rc" style={{ position: 'relative', zIndex: 10, paddingTop: '80px', paddingBottom: '120px', width: '100%' }}>
+        <div className="rc" style={{ position: 'relative', zIndex: 10, paddingTop: '80px', paddingBottom: 'clamp(64px,10vw,120px)', width: '100%' }}>
           <div style={{ maxWidth: '680px' }}>
             <SectionLabel text="NPA Licensed Since 2020" light={false} />
             <AnimatePresence mode="wait">
@@ -261,7 +261,7 @@ export default function Home() {
             <div data-aos="fade-right">
               <div
                 style={{
-                  height: '480px',
+                  height: 'clamp(280px, 50vw, 480px)',
                   borderRadius: '16px',
                   overflow: 'hidden',
                   position: 'relative',
@@ -442,7 +442,7 @@ export default function Home() {
             <div data-aos="fade-left">
               <div
                 style={{
-                  height: '460px',
+                  height: 'clamp(280px, 50vw, 460px)',
                   position: 'relative',
                   borderRadius: '16px',
                   overflow: 'hidden',

@@ -13,8 +13,8 @@ function getYouTubeId(url) {
 }
 
 const markdownComponents = {
-  h2: ({ children }) => <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#111', marginTop: '2.5rem', marginBottom: '0.75rem' }}>{children}</h2>,
-  h3: ({ children }) => <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#222', marginTop: '1.5rem', marginBottom: '0.5rem' }}>{children}</h3>,
+  h2: ({ children }) => <h2 style={{ fontSize: 'clamp(1.15rem, 4vw, 1.3rem)', fontWeight: 800, color: '#111', marginTop: '2.5rem', marginBottom: '0.75rem' }}>{children}</h2>,
+  h3: ({ children }) => <h3 style={{ fontSize: 'clamp(1rem, 3.5vw, 1.1rem)', fontWeight: 700, color: '#222', marginTop: '1.5rem', marginBottom: '0.5rem' }}>{children}</h3>,
   p: ({ children }) => <p style={{ marginBottom: '1.25rem', lineHeight: 1.9, color: '#444' }}>{children}</p>,
   strong: ({ children }) => <strong style={{ fontWeight: 700, color: '#111' }}>{children}</strong>,
   ul: ({ children }) => <ul style={{ paddingLeft: '1.5rem', marginBottom: '1.25rem', listStyleType: 'disc' }}>{children}</ul>,
@@ -22,7 +22,7 @@ const markdownComponents = {
   li: ({ children }) => <li style={{ marginBottom: '0.4rem', color: '#444', lineHeight: 1.7 }}>{children}</li>,
   a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" style={{ color: '#CC0000', fontWeight: 600, textDecoration: 'underline' }}>{children}</a>,
   blockquote: ({ children }) => <blockquote style={{ borderLeft: '4px solid #CC0000', paddingLeft: '1.25rem', margin: '1.5rem 0', color: '#666', fontStyle: 'italic' }}>{children}</blockquote>,
-  img: ({ src, alt }) => <img src={src} alt={alt} style={{ width: '100%', borderRadius: '10px', margin: '1.5rem 0', objectFit: 'cover' }} />,
+  img: ({ src, alt }) => <img src={src} alt={alt} style={{ width: '100%', maxWidth: '100%', borderRadius: '10px', margin: '1.5rem 0', objectFit: 'cover' }} />,
   hr: () => <hr style={{ border: 'none', borderTop: '1px solid #f3f4f6', margin: '2rem 0' }} />,
 };
 
@@ -31,17 +31,17 @@ function ServiceCard({ service }) {
   return (
     <Link
       to={`/services/${service.slug}`}
-      style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', borderRadius: '10px', overflow: 'hidden', backgroundColor: '#fff', boxShadow: hovered ? '0 12px 40px rgba(0,0,0,0.14)' : '0 2px 12px rgba(0,0,0,0.07)', transform: hovered ? 'translateY(-4px)' : 'translateY(0)', transition: 'box-shadow 0.25s, transform 0.25s' }}
+      style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', minWidth: 0, borderRadius: '10px', overflow: 'hidden', backgroundColor: '#fff', boxShadow: hovered ? '0 12px 40px rgba(0,0,0,0.14)' : '0 2px 12px rgba(0,0,0,0.07)', transform: hovered ? 'translateY(-4px)' : 'translateY(0)', transition: 'box-shadow 0.25s, transform 0.25s' }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div style={{ height: '200px', background: service.image_url ? `url(${service.image_url}) center/cover no-repeat` : 'linear-gradient(135deg,#CC0000,#7f0000)', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ height: 'clamp(180px, 35vw, 200px)', background: service.image_url ? `url(${service.image_url}) center/cover no-repeat` : 'linear-gradient(135deg,#CC0000,#7f0000)', position: 'relative', overflow: 'hidden' }}>
         {!service.image_url && <FaGasPump style={{ position: 'absolute', bottom: '16px', right: '16px', fontSize: '48px', color: 'rgba(255,255,255,0.15)' }} />}
       </div>
       <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <h3 style={{ fontWeight: 800, fontSize: '1.05rem', color: '#111', margin: 0 }}>{service.title}</h3>
+        <h3 style={{ fontWeight: 800, fontSize: 'clamp(1rem, 3.5vw, 1.05rem)', color: '#111', margin: 0 }}>{service.title}</h3>
         <p style={{ color: '#666', fontSize: '0.875rem', lineHeight: 1.65, margin: 0, flex: 1 }}>{service.description}</p>
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#CC0000', fontWeight: 700, fontSize: '0.8rem', marginTop: '12px' }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#CC0000', fontWeight: 700, fontSize: '0.8rem', marginTop: '12px', flexWrap: 'wrap' }}>
           Learn More <FaArrowRight size={10} />
         </span>
       </div>
@@ -96,9 +96,9 @@ export default function ServiceDetail() {
       <SEO title={service.title} description={service.description} path={'/services/' + slug} image={service.image_url} />
 
       {/* ── HERO ── */}
-      <div style={{ position: 'relative', minHeight: '420px', display: 'flex', alignItems: 'flex-end', overflow: 'hidden' }}>
+      <div style={{ position: 'relative', minHeight: 'clamp(320px, 55vw, 420px)', display: 'flex', alignItems: 'flex-end', overflow: 'hidden' }}>
         {service.image_url ? (
-          <img src={service.image_url} alt={service.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+          <img src={service.image_url} alt={service.title} style={{ position: 'absolute', inset: 0, width: '100%', maxWidth: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
         ) : (
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg,#CC0000,#7f0000)' }} />
         )}
@@ -106,24 +106,24 @@ export default function ServiceDetail() {
         <div className="rc" style={{ position: 'relative', zIndex: 1, paddingBottom: '56px', paddingTop: '40px', width: '100%' }}>
           <button
             onClick={() => navigate('/services')}
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'rgba(255,255,255,0.75)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.85rem', marginBottom: '24px', padding: 0, fontWeight: 500 }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'rgba(255,255,255,0.75)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.85rem', marginBottom: '24px', padding: 0, fontWeight: 500, flexWrap: 'wrap' }}
           >
             <FaArrowLeft size={11} /> All Services
           </button>
-          <div style={{ maxWidth: '680px' }}>
+          <div style={{ maxWidth: '680px', width: '100%' }}>
             <span style={{ fontSize: '0.68rem', fontWeight: 700, padding: '4px 12px', borderRadius: '9999px', backgroundColor: '#FFD700', color: '#111', textTransform: 'uppercase', letterSpacing: '0.06em', display: 'inline-block', marginBottom: '16px' }}>
               Our Services
             </span>
             <h1 style={{ fontWeight: 900, fontSize: 'clamp(1.75rem,4.5vw,2.6rem)', color: '#fff', lineHeight: 1.15, marginBottom: '16px' }}>
               {service.title}
             </h1>
-            <p style={{ color: 'rgba(255,255,255,0.82)', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '28px' }}>
+            <p style={{ color: 'rgba(255,255,255,0.82)', fontSize: 'clamp(1rem, 3.5vw, 1.05rem)', lineHeight: 1.7, marginBottom: '28px', overflowWrap: 'break-word' }}>
               {service.description}
             </p>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
               <Link
                 to="/contact"
-                style={{ backgroundColor: '#CC0000', color: '#fff', padding: '13px 28px', borderRadius: '6px', fontWeight: 700, fontSize: '0.875rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                style={{ backgroundColor: '#CC0000', color: '#fff', padding: '13px 28px', borderRadius: '6px', fontWeight: 700, fontSize: '0.875rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}
               >
                 Enquire Now <FaArrowRight size={12} />
               </Link>
@@ -149,12 +149,12 @@ export default function ServiceDetail() {
               {features.map((feat, i) => (
                 <div
                   key={i}
-                  style={{ backgroundColor: '#fff', borderRadius: '10px', border: '1px solid #F0F0F0', padding: '28px 24px', display: 'flex', alignItems: 'flex-start', gap: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
+                  style={{ backgroundColor: '#fff', borderRadius: '10px', border: '1px solid #F0F0F0', padding: '28px 24px', display: 'flex', alignItems: 'flex-start', gap: '16px', flexWrap: 'wrap', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
                 >
                   <div style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: '#FFF0F0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
                     <FaCheckCircle size={16} style={{ color: '#CC0000' }} />
                   </div>
-                  <p style={{ color: '#333', fontSize: '0.9rem', lineHeight: 1.65, margin: 0, fontWeight: 500 }}>{feat}</p>
+                  <p style={{ color: '#333', fontSize: '0.9rem', lineHeight: 1.65, margin: 0, fontWeight: 500, minWidth: 0, overflowWrap: 'break-word' }}>{feat}</p>
                 </div>
               ))}
             </div>
@@ -165,7 +165,7 @@ export default function ServiceDetail() {
       {/* ── MEDIA ── */}
       {(youtubeId || (service.video_url && !youtubeId)) && (
         <section className="rs-sm" style={{ backgroundColor: '#fff' }}>
-          <div className="rc" style={{ maxWidth: '900px' }}>
+          <div className="rc" style={{ maxWidth: '900px', width: '100%' }}>
             {youtubeId ? (
               <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, borderRadius: '10px', overflow: 'hidden' }}>
                 <iframe
@@ -178,7 +178,7 @@ export default function ServiceDetail() {
                 />
               </div>
             ) : (
-              <video controls style={{ width: '100%', borderRadius: '10px' }}>
+              <video controls style={{ width: '100%', maxWidth: '100%', borderRadius: '10px' }}>
                 <source src={service.video_url} />
               </video>
             )}
@@ -189,8 +189,8 @@ export default function ServiceDetail() {
       {/* ── CONTENT ── */}
       {service.content && (
         <section className="rs" style={{ backgroundColor: '#fff' }}>
-          <div className="rc" style={{ maxWidth: '820px' }}>
-            <div style={{ fontSize: '1rem', lineHeight: 1.9 }}>
+          <div className="rc" style={{ maxWidth: '820px', width: '100%' }}>
+            <div style={{ fontSize: '1rem', lineHeight: 1.9, overflowWrap: 'break-word' }}>
               <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
                 {service.content}
               </ReactMarkdown>
@@ -208,7 +208,7 @@ export default function ServiceDetail() {
                 <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#CC0000', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Explore More</span>
                 <h2 style={{ fontWeight: 800, fontSize: 'clamp(1.4rem,3vw,1.9rem)', color: '#111', marginTop: '6px' }}>Other Services</h2>
               </div>
-              <Link to="/services" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#CC0000', fontWeight: 700, fontSize: '0.875rem', textDecoration: 'none' }}>
+              <Link to="/services" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#CC0000', fontWeight: 700, fontSize: '0.875rem', textDecoration: 'none', flexWrap: 'wrap' }}>
                 View All <FaArrowRight size={11} />
               </Link>
             </div>
@@ -225,10 +225,10 @@ export default function ServiceDetail() {
           <h2 style={{ color: '#fff', fontWeight: 900, fontSize: 'clamp(1.5rem,3vw,2rem)', marginBottom: '12px' }}>Ready to Get Started?</h2>
           <p style={{ color: 'rgba(255,255,255,0.78)', fontSize: '1rem', marginBottom: '32px', lineHeight: 1.6 }}>Contact our team today for pricing, availability, and customised solutions.</p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link to="/contact" style={{ backgroundColor: '#FFD700', color: '#111', padding: '14px 32px', borderRadius: '6px', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+            <Link to="/contact" style={{ backgroundColor: '#FFD700', color: '#111', padding: '14px 32px', borderRadius: '6px', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
               Contact Us <FaArrowRight size={12} />
             </Link>
-            <Link to="/services" style={{ backgroundColor: 'transparent', color: '#fff', padding: '14px 32px', borderRadius: '6px', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none', border: '2px solid rgba(255,255,255,0.5)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+            <Link to="/services" style={{ backgroundColor: 'transparent', color: '#fff', padding: '14px 32px', borderRadius: '6px', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none', border: '2px solid rgba(255,255,255,0.5)', display: 'inline-flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
               <FaArrowLeft size={12} /> All Services
             </Link>
           </div>

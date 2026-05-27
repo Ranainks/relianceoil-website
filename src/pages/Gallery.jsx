@@ -117,12 +117,12 @@ export default function Gallery() {
                     style={{ marginBottom: '1rem', position: 'relative', borderRadius: '0.75rem', overflow: 'hidden', cursor: 'pointer' }}
                     onClick={() => openLightbox(i)}
                   >
-                    <div style={{ position: 'relative', height: i % 3 === 0 ? '16rem' : i % 3 === 1 ? '12rem' : '14rem' }}>
+                    <div style={{ position: 'relative', height: i % 3 === 0 ? 'clamp(180px, 35vw, 16rem)' : i % 3 === 1 ? 'clamp(180px, 35vw, 12rem)' : 'clamp(180px, 35vw, 14rem)' }}>
                       <img
                         src={item.image_url}
                         alt={item.caption}
                         loading="lazy"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.4s ease' }}
+                        style={{ width: '100%', maxWidth: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.4s ease' }}
                         onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
                         onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                       />
@@ -160,7 +160,7 @@ export default function Gallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            style={{ position: 'fixed', inset: 0, zIndex: 200, backgroundColor: 'rgba(0,0,0,0.96)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            style={{ position: 'fixed', inset: 0, zIndex: 200, backgroundColor: 'rgba(0,0,0,0.96)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', padding: '1rem' }}
             onClick={(e) => { if (e.target === e.currentTarget) closeLightbox(); }}
           >
             <button onClick={closeLightbox} style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', width: 44, height: 44, backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', color: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10 }}>
@@ -178,12 +178,12 @@ export default function Gallery() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              style={{ maxWidth: '900px', maxHeight: '85vh', width: '90%', position: 'relative' }}
+              style={{ maxWidth: '900px', width: '100%', maxHeight: '85vh', position: 'relative' }}
             >
               <img
                 src={filteredItems[lightboxIndex].image_url}
                 alt={filteredItems[lightboxIndex].caption}
-                style={{ width: '100%', maxHeight: '80vh', objectFit: 'contain', borderRadius: '12px' }}
+                style={{ width: '100%', maxWidth: '100%', maxHeight: '80vh', objectFit: 'contain', borderRadius: '12px' }}
               />
               <div style={{ textAlign: 'center', marginTop: '12px' }}>
                 <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.875rem' }}>{filteredItems[lightboxIndex].caption}</p>

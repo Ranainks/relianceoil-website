@@ -120,7 +120,7 @@ export default function Products() {
                   onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 16px 32px rgba(0,0,0,0.1)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
                   onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; }}
                 >
-                  <div style={{ height: '176px', background: tabGradients[activeTab], display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+                  <div style={{ height: 'clamp(220px, 40vw, 176px)', background: tabGradients[activeTab], display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
                     {product.video_url ? (
                       <video
                         autoPlay
@@ -132,7 +132,7 @@ export default function Products() {
                         <source src={product.video_url} type="video/mp4" />
                       </video>
                     ) : product.image_url ? (
-                      <img src={product.image_url} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
+                      <img src={product.image_url} alt={product.name} style={{ width: '100%', maxWidth: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
                     ) : (
                       <ActiveTabIcon style={{ fontSize: '3.75rem', color: 'rgba(255,255,255,0.7)' }} />
                     )}
@@ -141,12 +141,12 @@ export default function Products() {
                     <div style={{ fontWeight: 700, fontSize: '1.125rem', color: '#111', marginBottom: '8px' }}>{product.name}</div>
                     <div style={{ color: '#888', fontSize: '0.875rem', marginBottom: '20px', lineHeight: 1.6 }}>{product.description}</div>
                     <div style={{ backgroundColor: '#F8F8F8', borderRadius: '12px', padding: '16px' }}>
-                      <table style={{ width: '100%', fontSize: '0.875rem', borderCollapse: 'collapse' }}>
+                      <table style={{ width: '100%', fontSize: '0.875rem', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
                         <tbody>
                           {Object.entries(product.specs).map(([key, value]) => (
                             <tr key={key}>
-                              <td style={{ color: '#9ca3af', paddingTop: '6px', paddingBottom: '6px' }}>{key}</td>
-                              <td style={{ color: '#374151', fontWeight: 500, textAlign: 'right', paddingTop: '6px', paddingBottom: '6px' }}>{value}</td>
+                              <td style={{ color: '#9ca3af', paddingTop: '6px', paddingBottom: '6px', overflowWrap: 'anywhere' }}>{key}</td>
+                              <td style={{ color: '#374151', fontWeight: 500, textAlign: 'right', paddingTop: '6px', paddingBottom: '6px', overflowWrap: 'anywhere' }}>{value}</td>
                             </tr>
                           ))}
                         </tbody>

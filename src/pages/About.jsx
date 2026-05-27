@@ -91,7 +91,7 @@ export default function About() {
             <div data-aos="fade-left">
               <div
                 style={{
-                  height: '420px',
+                  height: 'clamp(220px, 40vw, 420px)',
                   borderRadius: '16px',
                   overflow: 'hidden',
                   background: 'linear-gradient(135deg, #0D0D0D, #1a0000 50%, #CC0000)',
@@ -102,9 +102,9 @@ export default function About() {
                   justifyContent: 'center',
                 }}
               >
-                <span style={{ fontSize: '6rem', color: 'rgba(255,215,0,0.2)', lineHeight: 1 }}>★</span>
+                <span style={{ fontSize: 'clamp(2rem,5vw,4rem)', color: 'rgba(255,215,0,0.2)', lineHeight: 1 }}>★</span>
                 <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginTop: '8px' }}>NPA Licensed Since</span>
-                <span style={{ fontWeight: 900, fontSize: '4rem', color: '#FFD700', lineHeight: 1.1 }}>2020</span>
+                <span style={{ fontWeight: 900, fontSize: 'clamp(2rem,5vw,4rem)', color: '#FFD700', lineHeight: 1.1 }}>2020</span>
                 <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', letterSpacing: '0.1em', marginTop: '4px' }}>Reliance Oil</span>
                 <div
                   style={{
@@ -116,6 +116,7 @@ export default function About() {
                     backdropFilter: 'blur(12px)',
                     padding: '20px',
                     display: 'flex',
+                    flexWrap: 'wrap',
                     justifyContent: 'space-around',
                   }}
                 >
@@ -146,7 +147,7 @@ export default function About() {
             <div
               data-aos="zoom-in"
               data-aos-delay="0"
-              style={{ backgroundColor: '#fff', borderRadius: '16px', padding: '40px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', border: '1px solid #f3f4f6' }}
+              style={{ backgroundColor: '#fff', borderRadius: '16px', padding: '40px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', border: '1px solid #f3f4f6', minWidth: 0 }}
             >
               <div style={{ width: '64px', height: '64px', backgroundColor: '#FEF2F2', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
                 <FaBullseye style={{ fontSize: '1.875rem', color: '#CC0000' }} />
@@ -164,7 +165,7 @@ export default function About() {
             <div
               data-aos="zoom-in"
               data-aos-delay="100"
-              style={{ backgroundColor: '#fff', borderRadius: '16px', padding: '40px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', border: '1px solid #f3f4f6' }}
+              style={{ backgroundColor: '#fff', borderRadius: '16px', padding: '40px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', border: '1px solid #f3f4f6', minWidth: 0 }}
             >
               <div style={{ width: '64px', height: '64px', backgroundColor: '#FEF2F2', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
                 <FaEye style={{ fontSize: '1.875rem', color: '#CC0000' }} />

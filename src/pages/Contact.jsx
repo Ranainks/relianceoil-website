@@ -18,6 +18,7 @@ const inputStyle = {
   padding: '14px 16px',
   fontSize: '0.875rem',
   width: '100%',
+  minWidth: 0,
   outline: 'none',
   transition: 'border-color 0.2s',
   marginBottom: '16px',
@@ -153,6 +154,7 @@ export default function Contact() {
                       height: 52,
                       backgroundColor: 'white',
                       display: 'flex',
+                      flexWrap: 'wrap',
                       alignItems: 'center',
                       justifyContent: 'center',
                       margin: '0 auto 1.25rem',
@@ -166,7 +168,7 @@ export default function Contact() {
                     {card.title}
                   </p>
                   <p
-                    style={{ textAlign: 'center', fontSize: '0.875rem', color: '#888', lineHeight: 1.65, whiteSpace: 'pre-line' }}
+                    style={{ textAlign: 'center', fontSize: '0.875rem', color: '#888', lineHeight: 1.65, overflowWrap: 'anywhere', whiteSpace: 'pre-line' }}
                   >
                     {card.info}
                   </p>
@@ -279,6 +281,7 @@ export default function Contact() {
                       opacity: isSubmitting ? 0.6 : 1,
                       transition: 'background-color 0.2s',
                       display: 'flex',
+                      flexWrap: 'wrap',
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: '0.5rem',
@@ -333,18 +336,18 @@ export default function Contact() {
               <div style={{ backgroundColor: '#ffffff', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', border: '1px solid #f3f4f6' }}>
                 {isLoaded ? (
                   <GoogleMap
-                    mapContainerStyle={{ width: '100%', height: '350px' }}
+                    mapContainerStyle={{ width: '100%', height: 'clamp(220px, 40vw, 350px)' }}
                     center={hqCenter}
                     zoom={14}
                   >
                     <Marker position={hqCenter} />
                   </GoogleMap>
                 ) : (
-                  <div style={{ height: 350, backgroundColor: '#f3f4f6', borderRadius: '1rem' }} className="animate-pulse" />
+                  <div style={{ height: 'clamp(220px, 40vw, 350px)', backgroundColor: '#f3f4f6', borderRadius: '1rem' }} className="animate-pulse" />
                 )}
               </div>
 
-              <div style={{ backgroundColor: '#ffffff', borderRadius: '0.75rem', padding: '1.25rem', marginTop: '1rem', border: '1px solid #f3f4f6', display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+              <div style={{ backgroundColor: '#ffffff', borderRadius: '0.75rem', padding: '1.25rem', marginTop: '1rem', border: '1px solid #f3f4f6', display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: '0.75rem' }}>
                 <FaLocationDot
                   style={{ flexShrink: 0, marginTop: '0.125rem', color: '#CC0000' }}
                   size={16}

@@ -77,13 +77,16 @@ export default function OurTeam() {
                   overflow: 'hidden',
                   transition: 'all 0.3s',
                   display: 'flex',
+                  flexWrap: 'wrap',
                 }}
                 className="group card-hover"
               >
                 <div
                   style={{
-                    width: '12rem',
-                    flexShrink: 0,
+                    maxWidth: '12rem',
+                    width: '100%',
+                    minHeight: 'clamp(220px, 40vw, 224px)',
+                    flex: '1 1 12rem',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -96,7 +99,7 @@ export default function OurTeam() {
                     <img
                       src={member.photo_url}
                       alt={member.name}
-                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
+                      style={{ position: 'absolute', inset: 0, width: '100%', maxWidth: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
                     />
                   ) : (
                     <div
@@ -109,6 +112,7 @@ export default function OurTeam() {
                         color: '#111',
                         borderRadius: '50%',
                         display: 'flex',
+                  flexWrap: 'wrap',
                         alignItems: 'center',
                         justifyContent: 'center',
                         position: 'relative',
@@ -119,7 +123,7 @@ export default function OurTeam() {
                     </div>
                   )}
                   <div
-                    style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', paddingBottom: '1rem', gap: '0.75rem' }}
+                    style={{ position: 'absolute', inset: 0, display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', justifyContent: 'center', paddingBottom: '1rem', gap: '0.75rem' }}
                   >
                     <button
                       style={{
@@ -130,6 +134,7 @@ export default function OurTeam() {
                         color: 'white',
                         borderRadius: '50%',
                         display: 'flex',
+                  flexWrap: 'wrap',
                         alignItems: 'center',
                         justifyContent: 'center',
                         transition: 'all 0.2s',
@@ -159,6 +164,7 @@ export default function OurTeam() {
                           color: 'white',
                           borderRadius: '50%',
                           display: 'flex',
+                  flexWrap: 'wrap',
                           alignItems: 'center',
                           justifyContent: 'center',
                           transition: 'all 0.2s',
@@ -179,7 +185,7 @@ export default function OurTeam() {
                     )}
                   </div>
                 </div>
-                <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', flex: '1 1 16rem', minWidth: 0 }}>
                   <p style={{ fontWeight: 800, color: '#0D0D0D', fontSize: '1.15rem', marginBottom: 4 }}>
                     {member.name}
                   </p>
@@ -188,7 +194,7 @@ export default function OurTeam() {
                   >
                     {member.role}
                   </p>
-                  <p style={{ fontSize: '0.875rem', color: '#888', lineHeight: 1.65 }}>
+                  <p style={{ fontSize: '0.875rem', color: '#888', lineHeight: 1.65, overflowWrap: 'anywhere' }}>
                     {member.bio}
                   </p>
                 </div>
@@ -230,7 +236,7 @@ export default function OurTeam() {
               >
                 <div
                   style={{
-                    height: 224,
+                    height: 'clamp(220px, 40vw, 224px)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -245,7 +251,7 @@ export default function OurTeam() {
                     <img
                       src={member.photo_url}
                       alt={member.name}
-                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
+                      style={{ position: 'absolute', inset: 0, width: '100%', maxWidth: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
                     />
                   ) : (
                     <div
@@ -257,6 +263,7 @@ export default function OurTeam() {
                         color: '#111',
                         borderRadius: '50%',
                         display: 'flex',
+                  flexWrap: 'wrap',
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontSize: '1.125rem',
@@ -266,7 +273,7 @@ export default function OurTeam() {
                     </div>
                   )}
                   <div
-                    style={{ position: 'absolute', bottom: '0.75rem', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '0.5rem' }}
+                    style={{ position: 'absolute', bottom: '0.75rem', left: 0, right: 0, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.5rem' }}
                   >
                     <button
                       style={{
@@ -277,6 +284,7 @@ export default function OurTeam() {
                         color: 'white',
                         borderRadius: '50%',
                         display: 'flex',
+                  flexWrap: 'wrap',
                         alignItems: 'center',
                         justifyContent: 'center',
                         transition: 'all 0.2s',
@@ -306,6 +314,7 @@ export default function OurTeam() {
                           color: 'white',
                           borderRadius: '50%',
                           display: 'flex',
+                  flexWrap: 'wrap',
                           alignItems: 'center',
                           justifyContent: 'center',
                           transition: 'all 0.2s',
