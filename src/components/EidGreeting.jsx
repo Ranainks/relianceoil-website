@@ -5,7 +5,7 @@ function isEidAlAdha() {
   const now = new Date();
   const m = now.getMonth() + 1;
   const d = now.getDate();
-  return m === 5 && d >= 28 && d <= 30;
+  return m === 5 && d >= 27 && d <= 30;
 }
 
 function WalkingSheep() {
@@ -74,7 +74,7 @@ export default function EidGreeting() {
 
   useEffect(() => {
     if (!isEidAlAdha()) return;
-    if (sessionStorage.getItem('eid_adha_2026_shown')) return;
+    if (sessionStorage.getItem('eid_adha_v2')) return;
     const t = setTimeout(() => {
       if (!fired.current) { fired.current = true; setVisible(true); }
     }, 3800);
@@ -82,7 +82,7 @@ export default function EidGreeting() {
   }, []);
 
   function close() {
-    sessionStorage.setItem('eid_adha_2026_shown', '1');
+    sessionStorage.setItem('eid_adha_v2', '1');
     setVisible(false);
   }
 
