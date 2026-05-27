@@ -10,6 +10,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import FuelPriceTicker from './components/FuelPriceTicker'
 import MayDayPopup from './components/MayDayPopup'
+import EidGreeting from './components/EidGreeting'
 import WhatsAppButton from './components/WhatsAppButton'
 import { PortalAuthProvider } from './contexts/PortalAuth'
 import { AdminAuthProvider } from './contexts/AdminAuth'
@@ -106,6 +107,7 @@ function AppShell({ loading }) {
       {!hideChrome && <Navbar />}
       {!hideChrome && <FuelPriceTicker />}
       {!hideChrome && <MayDayPopup />}
+      {!hideChrome && <EidGreeting />}
       <main><AnimatedRoutes /></main>
       {!hideChrome && <Footer />}
       {!hideChrome && <WhatsAppButton />}
